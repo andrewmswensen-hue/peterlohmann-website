@@ -218,11 +218,8 @@ a.card:hover .arrow{ color:var(--orange-dark); }
 .prose p{ font-size:17.5px; color:var(--navy); }
 .prose p.lead{ font-size:24px; font-weight:600; color:var(--primary); line-height:1.32; }
 
-/* ---------- CRANE BANNER (gold-on-black, fades into the pale sections) ---------- */
-.crane-band{ position:relative; background:#0e0f12; color:#fff; padding:150px 0; overflow:hidden; }
-/* clean color-to-color fades (pale wash -> solid black) so there is no hard line */
-.crane-band::before{ content:""; position:absolute; top:0; left:0; right:0; height:130px; background:linear-gradient(180deg,var(--wash-soft) 0%,#0e0f12 100%); }
-.crane-band::after{ content:""; position:absolute; bottom:0; left:0; right:0; height:130px; background:linear-gradient(0deg,var(--wash-soft) 0%,#0e0f12 100%); }
+/* ---------- CRANE BANNER (solid gold-on-black) ---------- */
+.crane-band{ position:relative; background:#0e0f12; color:#fff; padding:104px 0; overflow:hidden; }
 /* faint oversized watermark of the mark */
 .crane-watermark{ position:absolute; right:-90px; top:50%; transform:translateY(-50%); width:460px; opacity:.06; pointer-events:none; }
 .crane-inner{ position:relative; z-index:1; display:grid; grid-template-columns:auto 1fr; gap:48px; align-items:center; }

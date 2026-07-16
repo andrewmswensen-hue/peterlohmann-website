@@ -22,13 +22,13 @@
   --muted-2:#8496a2;
   --line:#dce4ec;
   --card:#ffffff;
-  /* extra accent tints for tasteful splashes of color (pmtrends-style) */
+  /* accent tints for tasteful splashes of color (all on-brand: blue / orange / navy) */
   --sky:#7FB4DD;          /* light blue */
   --sky-soft:#dbeafc;
-  --gold:#E8B04B;         /* warm accent */
-  --gold-soft:#fbeecb;
-  --mint:#5BB49B;         /* soft green */
-  --mint-soft:#d5efe6;
+  --gold:#E0703C;         /* (was yellow) now PL orange */
+  --gold-soft:#fbe4d6;    /* light peach */
+  --mint:#1F3A4D;         /* (was green) now PL navy */
+  --mint-soft:#e3e9f1;    /* light blue-gray */
   --peach-soft:#fbe1d3;
   --radius:18px;
   --radius-sm:12px;
@@ -169,23 +169,20 @@ a.card:hover .arrow{ color:var(--orange-dark); }
 
 /* two-column hero: photo above text on mobile, beside it on wider screens */
 .hero-grid{ display:flex; flex-direction:column-reverse; gap:30px; align-items:flex-start; }
-.hero-photo{ align-self:center; position:relative; }
-/* colored blob behind the headshot for visual interest */
-.hero-photo::before{
-  content:""; position:absolute; z-index:0; width:118%; height:118%; left:-4%; top:-6%;
-  border-radius:44% 56% 58% 42% / 52% 44% 56% 48%;
-  background:linear-gradient(150deg, var(--sky-soft), var(--wash) 55%, var(--peach-soft));
-  filter:blur(2px);
-}
-/* small decorative dot accent */
-.hero-photo::after{
-  content:""; position:absolute; z-index:0; width:70px; height:70px; right:-6px; top:2px;
-  border-radius:50%; background:radial-gradient(circle at 35% 30%, var(--gold), var(--orange));
-  opacity:.9; box-shadow:var(--shadow);
-}
-.hero-photo .headshot{ position:relative; z-index:2; width:236px; height:236px;
-  border:6px solid #fff; box-shadow:0 20px 50px rgba(31,58,77,.22); }
-.hero-photo .headshot .mono{ font-size:76px; }
+.hero-photo{ align-self:center; position:relative; padding-top:40px; }
+/* the circle: orange-to-blue gradient FILL + PL-blue border. Peter's head pokes out the top. */
+.hero-portrait{ position:relative; width:236px; height:236px; }
+.hero-portrait::before{ content:""; position:absolute; inset:0; border-radius:50%; z-index:0;
+  background:linear-gradient(158deg, var(--sky) 0%, var(--primary) 46%, var(--orange) 112%);
+  border:6px solid var(--primary); box-shadow:0 20px 50px rgba(31,58,77,.22); }
+/* body layer: clipped to the circle so shoulders stay inside */
+.hp-clip{ position:absolute; inset:0; border-radius:50%; overflow:hidden; z-index:1; }
+.hp-clip img{ position:absolute; left:50%; bottom:-3%; transform:translateX(-49%); width:114%; max-width:none; height:auto; }
+/* head layer: same image on top, masked to reveal only the head poking above the circle */
+.hp-pop{ position:absolute; left:50%; bottom:-3%; transform:translateX(-49%); width:114%; max-width:none; height:auto; z-index:2;
+  pointer-events:none;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0,#000 38%,transparent 52%);
+          mask-image:linear-gradient(to bottom,#000 0,#000 38%,transparent 52%); }
 /* floating stat badge overlapping the photo */
 .hero-badge{ position:absolute; z-index:3; left:-14px; bottom:14px;
   background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow-lg);
@@ -194,8 +191,7 @@ a.card:hover .arrow{ color:var(--orange-dark); }
 .hero-badge .bl{ font-size:12px; color:var(--muted); line-height:1.25; max-width:12ch; }
 @media (min-width:900px){
   .hero-grid{ display:grid; grid-template-columns:1fr auto; gap:64px; align-items:center; }
-  .hero-photo .headshot{ width:348px; height:348px; }
-  .hero-photo .headshot .mono{ font-size:112px; }
+  .hero-portrait{ width:348px; height:348px; }
   .hero-badge .bn{ font-size:26px; }
 }
 

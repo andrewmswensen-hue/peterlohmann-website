@@ -128,12 +128,22 @@
   <section id="about" class="band" aria-labelledby="about-h">
     <div class="wrap">
       <span class="kicker reveal">About Me</span>
-      <div class="prose reveal mt-sm">
-        <h2 id="about-h" class="sr-only">About Peter Lohmann</h2>
-        <p class="lead">An electrical engineer who fell into property management, I bring a systems-first mindset to an industry full of operational chaos, and I help other operators do the same.</p>
-        <p>I run three businesses in the property management world. I'm the CEO of <strong>RL Property Management</strong>, a 740+ unit residential company in Columbus, Ohio; the owner of <strong>Peter Lohmann Media</strong>; and a co-founder of <strong>Crane</strong>, an exclusive online community for PM owners and operators.</p>
-        <p>Through Peter Lohmann Media, I serve the broader residential property management industry. My twice-weekly newsletter reaches over 20,000 professionals with actionable insights on what's working (and what's not) inside real property management companies. I host a podcast, now in its sixth season, where I interview business owners about growth, hiring, systems, and the realities of leadership. And my annual research (the PM Trends Report, Property Management M&amp;A Report, and Largest PM Companies List) gives operators better benchmarks and clearer decisions.</p>
-        <p>I live in a suburb of Columbus, where I enjoy hiking, reading, relaxing in the sauna, making dope memes, and above all, spending time with my wife, our two daughters, and our dog Oxley.</p>
+      <div class="about-split mt-sm">
+        <div class="prose reveal">
+          <h2 id="about-h" class="sr-only">About Peter Lohmann</h2>
+          <p class="lead">An electrical engineer who fell into property management, I bring a systems-first mindset to an industry full of operational chaos, and I help other operators do the same.</p>
+          <p>I run three businesses in the property management world. I'm the CEO of <strong>RL Property Management</strong>, a 740+ unit residential company in Columbus, Ohio; the owner of <strong>Peter Lohmann Media</strong>; and a co-founder of <strong>Crane</strong>, an exclusive online community for PM owners and operators.</p>
+          <p>Through Peter Lohmann Media, I serve the broader residential property management industry. My twice-weekly newsletter reaches over 20,000 professionals with actionable insights on what's working (and what's not) inside real property management companies. I host a podcast, now in its sixth season, where I interview business owners about growth, hiring, systems, and the realities of leadership. And my annual research (the PM Trends Report, Property Management M&amp;A Report, and Largest PM Companies List) gives operators better benchmarks and clearer decisions.</p>
+          <p>I live in a suburb of Columbus, where I enjoy hiking, reading, relaxing in the sauna, making dope memes, and above all, spending time with my wife, our two daughters, and our dog Oxley.</p>
+        </div>
+        <!-- SWAP: floating photo bubbles. Replace each .ph-fill emoji with <img src="images/..."> -->
+        <div class="float-cluster reveal" role="group" aria-label="Photos of Peter at work">
+          <figure class="bubble b1"><span class="ph-fill" style="background:linear-gradient(150deg,var(--primary),var(--navy));">🎤</span><figcaption>On stage at NARPM</figcaption></figure>
+          <figure class="bubble b2"><span class="ph-fill" style="background:linear-gradient(150deg,var(--gold),var(--orange-dark));">🎙️</span><figcaption>In the studio</figcaption></figure>
+          <figure class="bubble b3"><span class="ph-fill" style="background:linear-gradient(150deg,var(--sky),var(--primary-dark));">✍️</span><figcaption>Writing the newsletter</figcaption></figure>
+          <figure class="bubble b4"><span class="ph-fill" style="background:linear-gradient(150deg,var(--mint),var(--primary));">🤝</span><figcaption>Crane meetup</figcaption></figure>
+          <figure class="bubble b5"><span class="ph-fill" style="background:linear-gradient(150deg,var(--orange),var(--navy));">🏡</span><figcaption>At RL Property Management</figcaption></figure>
+        </div>
       </div>
     </div>
   </section>
@@ -148,14 +158,14 @@
 
         <a class="card" href="newsletter.html">
           <div class="icon-badge">✉️</div>
-          <h3>The Newsletter</h3>
+          <h3>Peter Lohmann's Newsletter</h3>
           <p>Twice-weekly, real-world insights on running a better PM business. Read by 20,000+ professionals.</p>
           <span class="arrow">Subscribe →</span>
         </a>
 
         <a class="card" href="podcast.html">
           <div class="icon-badge">🎙️</div>
-          <h3>The Podcast</h3>
+          <h3>Peter Lohmann's Podcast</h3>
           <p>100+ episodes of honest, operator-to-operator conversations. No fluff, just smart people talking shop.</p>
           <span class="arrow">Listen →</span>
         </a>
@@ -183,7 +193,7 @@
 
         <a class="card" href="blog.html">
           <div class="icon-badge">📝</div>
-          <h3>The Blog</h3>
+          <h3>Blog</h3>
           <p>Longer takes on the industry: software, M&amp;A, NARPM, fair housing, and the occasional rant.</p>
           <span class="arrow">Read →</span>
         </a>
@@ -192,14 +202,18 @@
     </div>
   </section>
 
-  <!-- ============================== CRANE ============================== -->
-  <section class="band" aria-labelledby="crane-h">
+  <!-- ============================== CRANE (gold-on-black banner) ============================== -->
+  <section class="crane-band" aria-labelledby="crane-h">
+    <img class="crane-watermark" src="images/crane-logo.png" alt="" aria-hidden="true" />
     <div class="wrap">
-      <div class="panel reveal">
-        <span class="tag tag-blue">Private Community</span>
-        <h2 id="crane-h" class="h-lead" style="margin-top:14px;">Crane</h2>
-        <p class="sub">I co-founded a private, paid community for experienced property management company owners. You must manage at least 150 doors to qualify. Applications are currently closed, but you can join the waitlist.</p>
-        <a class="btn btn-blue mt-sm" href="https://www.joincrane.co" target="_blank" rel="noopener">Join the waitlist</a>
+      <div class="crane-inner reveal">
+        <div class="crane-logo"><img src="images/crane-logo.png" alt="Crane" /></div>
+        <div class="crane-content">
+          <span class="crane-eyebrow">Private Community</span>
+          <h2 id="crane-h" class="crane-title">Crane</h2>
+          <p>I co-founded a private, paid community for experienced property management company owners. You must manage at least 150 doors to qualify. Applications are currently closed, but you can join the waitlist.</p>
+          <a class="btn btn-gold" href="https://www.joincrane.co" target="_blank" rel="noopener">Join the waitlist</a>
+        </div>
       </div>
     </div>
   </section>
@@ -233,8 +247,8 @@
   <!-- ============================== FEATURED IN / APPEARANCES ============================== -->
   <section id="featured" class="band" aria-labelledby="feat-h">
     <div class="wrap">
-      <span class="kicker reveal">Featured &amp; Published</span>
-      <h2 id="feat-h" class="h-lead reveal">Where my work shows up.</h2>
+      <h2 id="feat-h" class="h-lead reveal" style="font-size:clamp(34px,5vw,52px);">Featured &amp; Published</h2>
+      <p class="sub reveal">A selection of where my work shows up, on stage, in print, and on other people's shows.</p>
       <div class="split mt-md">
         <div class="reveal">
           <h3 style="font-size:19px;margin-bottom:10px;">In print</h3>
@@ -262,6 +276,9 @@
             <li>Nikonomics, UpKeep Media, Multifamily Wealth, and more</li>
           </ul>
         </div>
+      </div>
+      <div class="center mt-lg reveal">
+        <a class="btn btn-ghost" href="featured.html">See all features, press &amp; accolades</a>
       </div>
     </div>
   </section>
@@ -293,6 +310,7 @@
         <a href="https://report.peterlohmann.com/" target="_blank" rel="noopener">M&amp;A Report</a>
         <a href="peterbot.html">PeterBot</a>
         <a href="products.html">Products</a>
+        <a href="featured.html">Featured</a>
         <a href="contact.html">Contact</a>
         <a href="https://www.linkedin.com/in/pslohmann/" target="_blank" rel="noopener">LinkedIn</a>
       </nav>

@@ -1,5 +1,5 @@
 /* =============================================================================
-   PETER LOHMANN — WEBSITE SHARED STYLES
+   PETER LOHMANN - WEBSITE SHARED STYLES
    One stylesheet, linked by every page. Change a value here and it updates the
    whole site. Design system carried over from the 2026 media kit.
    ========================================================================== */
@@ -176,6 +176,27 @@ a.card:hover .arrow{ color:var(--orange-dark); }
 .prose{ max-width:760px; }
 .prose p{ font-size:17.5px; color:var(--navy); }
 .prose p.lead{ font-size:24px; font-weight:600; color:var(--primary); line-height:1.32; }
+
+/* ---------- BUSINESS TILES (the three entities) ---------- */
+.biz-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.biz-card{ display:flex; flex-direction:column; background:#fff; border:1px solid var(--line);
+           border-top:4px solid var(--primary); border-radius:var(--radius); padding:30px 28px;
+           box-shadow:var(--shadow); color:inherit; min-height:250px;
+           transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease; }
+a.biz-card:hover{ text-decoration:none; transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+.biz-card.c-crane{ border-top-color:var(--orange); }
+.biz-card.c-rl{ border-top-color:var(--navy); }
+.biz-eyebrow{ font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+              color:var(--primary-dark); margin-bottom:12px; }
+.biz-card.c-crane .biz-eyebrow{ color:var(--orange-dark); }
+.biz-card.c-rl .biz-eyebrow{ color:var(--navy); }
+.biz-card h3{ font-size:23px; margin-bottom:10px; }
+.biz-card p{ color:var(--muted); font-size:15px; margin:0; flex:1; }
+.biz-card .arrow{ color:var(--primary); font-weight:700; font-size:15px; margin-top:18px; display:inline-block; }
+.biz-card.c-crane .arrow{ color:var(--orange-dark); }
+.biz-card.c-rl .arrow{ color:var(--navy); }
+a.biz-card:hover .arrow{ text-decoration:underline; }
+@media (max-width:900px){ .biz-grid{ grid-template-columns:1fr; } }
 
 /* ---------- STAT STRIP ---------- */
 .stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }

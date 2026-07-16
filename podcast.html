@@ -1,7 +1,7 @@
 <!--
   PETER LOHMANN - PODCAST
-  SWAP: the "Listen" buttons point to the live podcast platform pages. Update each
-  href (Apple / Spotify / Overcast / YouTube) if the show's links change.
+  Featured video = latest episode (YouTube embed). To change it, swap the video ID
+  in the iframe src (currently zqyXW_Sy1Kw). Full playlist + platform links below.
 -->
 <!doctype html>
 <html lang="en">
@@ -9,7 +9,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Podcast · Peter Lohmann</title>
-<meta name="description" content="Peter Lohmann's Podcast: 100+ episodes across six seasons of honest, operator-to-operator conversations about property management." />
+<meta name="description" content="Peter Lohmann's Podcast: 100+ episodes across six seasons of honest, operator-to-operator conversations about property management. Watch the latest episode." />
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
@@ -29,7 +29,7 @@
       <a href="podcast.html" class="active">Podcast</a>
       <a href="largest-pm-companies.html">Largest PM Companies</a>
       <a href="blog.html">Blog</a>
-      <a href="ma-report.html">M&amp;A Report</a>
+      <a href="https://report.peterlohmann.com/" target="_blank" rel="noopener">M&amp;A Report</a>
       <a href="peterbot.html">PeterBot</a>
       <a href="products.html">Products</a>
     </div>
@@ -41,52 +41,64 @@
 
   <header class="page-hero">
     <div class="wrap">
-      <span class="kicker">The Podcast</span>
-      <h1>Operator-to-operator conversations about property management.</h1>
-      <p class="lead">100+ episodes across six seasons. Interview-style discussions on the real intricacies and challenges of running a PM company. No fluff, just smart people talking shop.</p>
-      <div class="listen-row mt-md">
-        <!-- SWAP: platform links -->
-        <a class="listen-btn" href="https://podcasts.apple.com/" target="_blank" rel="noopener">🎧 Apple Podcasts</a>
-        <a class="listen-btn" href="https://open.spotify.com/" target="_blank" rel="noopener">🟢 Spotify</a>
-        <a class="listen-btn" href="https://overcast.fm/" target="_blank" rel="noopener">🔊 Overcast</a>
-        <a class="listen-btn" href="https://www.youtube.com/" target="_blank" rel="noopener">▶️ YouTube</a>
-      </div>
+      <div class="ticks" aria-hidden="true"><i></i><i></i><i></i></div>
+      <span class="kicker">🎙️ The Podcast</span>
+      <h1>Honest, operator-to-operator conversations.</h1>
+      <p class="lead">100+ episodes across six seasons. Interviews with fellow business owners and executives about growth, hiring, systems, and the realities of leadership. No fluff, just smart people talking shop.</p>
     </div>
   </header>
 
+  <!-- LATEST EPISODE (featured video) -->
+  <section class="band">
+    <div class="wrap">
+      <div class="split" style="align-items:center;">
+        <div>
+          <span class="tag tag-warn">Latest episode</span>
+          <h2 class="h-lead" style="margin:14px 0 10px;">Watch the newest episode.</h2>
+          <p class="sub">Fresh conversations drop regularly. Hit play, or catch the full back catalog on the platform of your choice.</p>
+          <div class="listen-row mt-sm">
+            <a class="btn btn-primary" href="https://www.youtube.com/playlist?list=PLQihvuykg8UaJqy5CnF2Fok8MDdoNuZ66" target="_blank" rel="noopener">▶ Full episode playlist</a>
+          </div>
+        </div>
+        <div>
+          <!-- SWAP: latest episode video ID (currently zqyXW_Sy1Kw) -->
+          <div class="embed-frame video">
+            <iframe src="https://www.youtube.com/embed/zqyXW_Sy1Kw" title="Peter Lohmann's Podcast: latest episode"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS (colorful) -->
   <section class="band tight wash" aria-label="At a glance">
     <div class="wrap">
-      <div class="stats">
+      <div class="stats stats-color">
         <div class="stat"><div class="v">100+</div><div class="k">Episodes published</div></div>
         <div class="stat"><div class="v">6</div><div class="k">Seasons and counting</div></div>
-        <div class="stat"><div class="v">20,000+</div><div class="k">Weekly audience across the platform</div></div>
+        <div class="stat"><div class="v">20k+</div><div class="k">Weekly audience across the platform</div></div>
       </div>
     </div>
   </section>
 
+  <!-- LISTEN ANYWHERE -->
   <section class="band">
-    <div class="wrap">
-      <div class="prose">
-        <p class="lead">Insightful conversations that explore operational excellence in property management.</p>
-        <p>Each episode is a candid, interview-style discussion with fellow business owners and executives about growth, hiring, systems, and the realities of leadership. It's a valuable resource for property owners, managers, and anyone serious about the field.</p>
-        <p>Ready to dive into the world of property management with a witty twist? Catch all the episodes on your favorite platform, from Apple Podcasts to Spotify and beyond. Tune in, turn up the property know-how, and have a blast while you're at it.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="band tight wash">
     <div class="wrap center">
-      <h2 class="h-lead">Subscribe wherever you listen.</h2>
+      <span class="kicker">Listen &amp; Subscribe</span>
+      <h2 class="h-lead">Catch it wherever you listen.</h2>
+      <p class="sub" style="margin:8px auto 0;">Tune in, turn up the property know-how, and have a blast while you're at it.</p>
       <div class="listen-row mt-md" style="justify-content:center;">
-        <a class="listen-btn" href="https://podcasts.apple.com/" target="_blank" rel="noopener">🎧 Apple Podcasts</a>
-        <a class="listen-btn" href="https://open.spotify.com/" target="_blank" rel="noopener">🟢 Spotify</a>
-        <a class="listen-btn" href="https://overcast.fm/" target="_blank" rel="noopener">🔊 Overcast</a>
-        <a class="listen-btn" href="https://www.youtube.com/" target="_blank" rel="noopener">▶️ YouTube</a>
+        <a class="listen-btn" href="https://podcasts.apple.com/us/podcast/peter-lohmanns-podcast/id1554806227" target="_blank" rel="noopener">🎧 Apple Podcasts</a>
+        <a class="listen-btn" href="https://open.spotify.com/show/5BLsN2TwI8mDtIhGoKfnZV?si=be32f2f710c84d67" target="_blank" rel="noopener">🟢 Spotify</a>
+        <a class="listen-btn" href="https://www.youtube.com/@peterlohmann/podcasts" target="_blank" rel="noopener">▶️ YouTube</a>
       </div>
     </div>
   </section>
 
-  <section class="band">
+  <!-- SPONSOR -->
+  <section class="band tight">
     <div class="wrap">
       <div class="panel orange">
         <span class="tag tag-warn">Want to sponsor?</span>
@@ -109,7 +121,7 @@
         <a href="podcast.html">Podcast</a>
         <a href="largest-pm-companies.html">Largest PM Companies</a>
         <a href="blog.html">Blog</a>
-        <a href="ma-report.html">M&amp;A Report</a>
+        <a href="https://report.peterlohmann.com/" target="_blank" rel="noopener">M&amp;A Report</a>
         <a href="peterbot.html">PeterBot</a>
         <a href="products.html">Products</a>
         <a href="contact.html">Contact</a>

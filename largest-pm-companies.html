@@ -1,7 +1,8 @@
 <!--
   PETER LOHMANN - THE LARGEST PM COMPANIES
-  SWAP: "Submit your PM company" and the year links currently point to the live site.
-  Update those hrefs when the ranking pages or the submission form move.
+  The current list is embedded live from Google Sheets (the iframe below). To update
+  the list, edit that Google Sheet; the page reflects it automatically.
+  SWAP: "Submit your PM company" points to the live submission form.
 -->
 <!doctype html>
 <html lang="en">
@@ -9,7 +10,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Largest PM Companies · Peter Lohmann</title>
-<meta name="description" content="The permanent home for Peter Lohmann's annual list of the largest residential property management companies in the U.S. (SFR and small multifamily)." />
+<meta name="description" content="The permanent home for Peter Lohmann's annual ranking of the largest residential property management companies in the U.S. (SFR and small multifamily)." />
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
@@ -29,7 +30,7 @@
       <a href="podcast.html">Podcast</a>
       <a href="largest-pm-companies.html" class="active">Largest PM Companies</a>
       <a href="blog.html">Blog</a>
-      <a href="ma-report.html">M&amp;A Report</a>
+      <a href="https://report.peterlohmann.com/" target="_blank" rel="noopener">M&amp;A Report</a>
       <a href="peterbot.html">PeterBot</a>
       <a href="products.html">Products</a>
     </div>
@@ -41,49 +42,48 @@
 
   <header class="page-hero">
     <div class="wrap">
+      <div class="ticks" aria-hidden="true"><i></i><i></i><i></i></div>
       <span class="kicker">Industry Research</span>
       <h1>The Largest Property Management Companies</h1>
-      <p class="lead">For the last few years, I've published a self-reported list of the 20 largest residential property management companies in the U.S. This page is the permanent home for that list.</p>
+      <p class="lead">The definitive, self-reported ranking of the largest residential property management companies in the U.S. This page is the permanent home for the list, updated every year.</p>
+      <!-- decorative modern rank badges (top 3) -->
+      <div class="listen-row mt-md" style="gap:16px;align-items:flex-end;">
+        <div class="rank-badge" style="height:112px;"><span class="rb-hash">RANK</span><span class="rb-num">2</span><span class="rb-star">★★</span></div>
+        <div class="rank-badge gold"><span class="rb-hash">RANK</span><span class="rb-num">1</span><span class="rb-star">★★★</span></div>
+        <div class="rank-badge" style="height:112px;"><span class="rb-hash">RANK</span><span class="rb-num">3</span><span class="rb-star">★</span></div>
+      </div>
     </div>
   </header>
 
+  <!-- THE LIVE LIST -->
   <section class="band">
     <div class="wrap">
-      <div class="prose">
-        <p>You'll always find the most current yearly rankings here, along with past years for comparison. The list covers SFR and small multifamily (under 100 units). No HOAs, no big multifamily, no mixed portfolios. It's built to show what real scale looks like, and how top operators structure their teams, tech, and systems.</p>
+      <span class="kicker">The 2025 Ranking</span>
+      <h2 class="h-lead">The current list.</h2>
+      <p class="sub" style="margin-bottom:22px;">SFR and small multifamily (under 100 units). Only third-party managed doors are counted. Figures are self-reported.</p>
+      <div class="embed-sheet">
+        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQKJJxxzX4imHVcsOOqOuOeFH4g08FKYHkkDh_QfhVPc5KRkGB_jxOX9pGXq7zZvwW1bT-w7yqUJIDG/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
+                width="100%" height="800" title="The Largest Property Management Companies, 2025"></iframe>
       </div>
-      <div class="grid g2 mt-lg">
-        <div class="card">
-          <div class="num-badge">2025</div>
-          <h3>2025 Rankings</h3>
-          <p style="margin-bottom:14px;">The most recent list of the 20 largest residential PM companies.</p>
-          <!-- SWAP: link to the 2025 ranking -->
-          <a class="arrow" href="https://www.peterlohmann.com/largest-pm-companies" target="_blank" rel="noopener">View 2025 →</a>
-        </div>
-        <div class="card">
-          <div class="num-badge">2024</div>
-          <h3>2024 Rankings</h3>
-          <p style="margin-bottom:14px;">Last year's list, kept here for year-over-year comparison.</p>
-          <!-- SWAP: link to the 2024 ranking -->
-          <a class="arrow" href="https://www.peterlohmann.com/largest-pm-companies" target="_blank" rel="noopener">View 2024 →</a>
-        </div>
-      </div>
+      <p class="embed-cap">Viewing on mobile? The table scrolls sideways. For the full experience, open it on a larger screen.</p>
     </div>
   </section>
 
+  <!-- GROW THE LIST (prominent) -->
   <section class="band tight wash">
     <div class="wrap">
-      <div class="panel orange">
-        <span class="tag tag-warn">I need your help</span>
-        <h2 class="h-lead" style="margin-top:14px;">Help me grow the list.</h2>
-        <p class="sub">My goal is to expand this to the largest 40+ PM companies in the U.S., and with enough data, build a top-10 list for each state. If you run a qualifying company, add yours.</p>
-        <p style="color:var(--orange-dark);font-weight:600;">Submission deadline: July 30th</p>
+      <div class="cta-final">
+        <span class="tag tag-warn" style="margin-bottom:14px;display:inline-block;">Help me grow it</span>
+        <h2>Let's make this the definitive top 40.</h2>
+        <p>My goal is to expand this from the top 20 to the largest 40+ PM companies in the U.S., and with enough data, build a top-10 list for every state. If you run a qualifying company, add yours. It's free, and it's the fastest way to benchmark against your peers.</p>
+        <p style="color:#f0a882;font-weight:700;">Submission deadline: July 30th</p>
         <!-- SWAP: submission form link -->
-        <a class="btn btn-primary mt-sm" href="https://www.peterlohmann.com/largest-pm-companies" target="_blank" rel="noopener">Submit your PM company</a>
+        <a class="btn btn-primary" href="https://www.peterlohmann.com/largest-pm-companies" target="_blank" rel="noopener">Submit your PM company</a>
       </div>
     </div>
   </section>
 
+  <!-- WHY + METHODOLOGY -->
   <section class="band">
     <div class="wrap">
       <div class="split">
@@ -98,6 +98,7 @@
             <li>Only third-party managed doors are counted</li>
             <li>Figures are self-reported</li>
             <li>Covers SFR and small multifamily only (under 100 units)</li>
+            <li>No HOAs, no big multifamily, no mixed portfolios</li>
             <li>Data is updated annually</li>
           </ul>
           <h3 style="font-size:19px;margin:26px 0 10px;">What counts as "large"?</h3>
@@ -119,7 +120,7 @@
         <a href="podcast.html">Podcast</a>
         <a href="largest-pm-companies.html">Largest PM Companies</a>
         <a href="blog.html">Blog</a>
-        <a href="ma-report.html">M&amp;A Report</a>
+        <a href="https://report.peterlohmann.com/" target="_blank" rel="noopener">M&amp;A Report</a>
         <a href="peterbot.html">PeterBot</a>
         <a href="products.html">Products</a>
         <a href="contact.html">Contact</a>

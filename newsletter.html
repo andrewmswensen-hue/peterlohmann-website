@@ -1,8 +1,9 @@
 <!--
   PETER LOHMANN - NEWSLETTER
-  SWAP: the "Subscribe" buttons currently point to the live newsletter page. When you
-  have the real signup URL (Beehiiv, etc.), search this file for SUBSCRIBE_URL and
-  replace it once at the top-of-page comment reference, then in each button href.
+  Subscribe uses the real Beehiiv embed (iframe) + the Beehiiv subscribe URL.
+  SWAP: sponsorship links point to sponsor.peterlohmann.com + aswensen@rlpmg.com.
+  NOTE: the digital media kit will likely live on this site later; for now the
+  "media kit" button points to the current sponsor.peterlohmann.com page.
 -->
 <!doctype html>
 <html lang="en">
@@ -30,7 +31,7 @@
       <a href="podcast.html">Podcast</a>
       <a href="largest-pm-companies.html">Largest PM Companies</a>
       <a href="blog.html">Blog</a>
-      <a href="ma-report.html">M&amp;A Report</a>
+      <a href="https://report.peterlohmann.com/" target="_blank" rel="noopener">M&amp;A Report</a>
       <a href="peterbot.html">PeterBot</a>
       <a href="products.html">Products</a>
     </div>
@@ -42,59 +43,76 @@
 
   <header class="page-hero">
     <div class="wrap">
+      <div class="ticks" aria-hidden="true"><i></i><i></i><i></i></div>
       <span class="kicker">The Newsletter</span>
-      <h1>Real insights from inside the trenches of property management.</h1>
-      <p class="lead">Twice a week, I send out what's working (and what's not), tools we're testing, M&amp;A deals hitting the market, and the industry shifts you should actually care about.</p>
-      <!-- SWAP: SUBSCRIBE_URL -->
-      <a class="btn btn-primary mt-md" href="https://www.peterlohmann.com/newsletter" target="_blank" rel="noopener">Subscribe free</a>
+      <h1>Real-world insights from inside the trenches of property management.</h1>
+      <p class="lead">Twice a week, I send out what's working (and what's not), the tools we're testing, the M&amp;A deals hitting the market, and the industry shifts you should actually care about.</p>
     </div>
   </header>
 
-  <section class="band tight wash" aria-label="Reach">
-    <div class="wrap center">
-      <div class="stat" style="max-width:520px;margin:0 auto;border:none;background:transparent;box-shadow:none;">
-        <div class="v" style="font-size:clamp(46px,9vw,84px);">20,000+</div>
-        <div class="k" style="font-size:18px;">property management professionals read it every week</div>
-      </div>
-    </div>
-  </section>
-
+  <!-- WHAT / WHY -->
   <section class="band">
     <div class="wrap">
-      <div class="prose">
-        <p class="lead">Bite-sized, actionable, and obsessively focused on helping you run a better PM business.</p>
-        <p>Whether you manage 50 doors or 1,000+, the newsletter is built to be the most useful email in your inbox each week. No fluff, no filler, just the real story from operators actually doing the work.</p>
+      <div class="split">
+        <div class="prose" style="max-width:none;">
+          <p class="lead">Bite-sized, actionable, and obsessively focused on helping you run a better PM business.</p>
+          <p>Whether you're managing 50 doors or scaling past 1,000, you'll find something in every issue that saves you time, headaches, or both. No fluff, no filler, just the real story from operators actually doing the work.</p>
+          <p style="color:var(--muted);">Join 20,000 property management professionals who read it every week.</p>
+        </div>
+        <!-- Beehiiv subscribe embed -->
+        <div>
+          <div class="card" style="padding:22px;">
+            <h3 style="margin-bottom:6px;">Subscribe free</h3>
+            <p style="color:var(--muted);font-size:14.5px;margin-bottom:14px;">Two emails a week. Unsubscribe anytime.</p>
+            <iframe src="https://embeds.beehiiv.com/56635b3c-8cc3-4222-8b29-eaeae8b9a590" data-test-id="beehiiv-embed" width="100%" height="320" frameborder="0" scrolling="no" style="border-radius:4px;border:2px solid #e5e7eb;margin:0;background-color:transparent;" title="Subscribe to Peter Lohmann's newsletter"></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- TWO EDITIONS -->
   <section class="band tight wash">
     <div class="wrap">
-      <span class="kicker">Two Editions</span>
-      <h2 class="h-lead">Sent every Tuesday and Friday.</h2>
+      <span class="kicker">Two Editions Every Week</span>
+      <h2 class="h-lead">One flagship read, one tactical add-on.</h2>
       <div class="grid g2 mt-md">
-        <div class="card">
-          <span class="tag tag-blue">Friday</span>
+        <div class="card" style="border-top:4px solid var(--primary);">
+          <span class="tag tag-blue">Friday Edition</span>
           <h3 style="margin-top:12px;">The flagship</h3>
-          <p style="margin-bottom:12px;">The original newsletter, 170+ issues deep and counting. Weekly insights, industry trends, new podcast episodes, PM company sale listings, tool recommendations, and community events.</p>
+          <p style="margin-bottom:0;">My original newsletter, 170+ issues deep and counting. This is where I share what's top-of-mind each week: lessons from running my own company, sharp takes on industry trends, and new podcast episodes. You'll also get a curated rundown of PM companies for sale, tool recommendations, and community events worth your time.</p>
         </div>
-        <div class="card">
-          <span class="tag tag-warn">Tuesday</span>
-          <h3 style="margin-top:12px;">The quick hit</h3>
-          <p style="margin-bottom:12px;">Launched in 2026. A fast source for vendor updates, resources, bonus videos, and extra behind-the-scenes commentary on PM technology and emerging ideas.</p>
+        <div class="card" style="border-top:4px solid var(--gold);">
+          <span class="tag tag-warn">Tuesday Edition</span>
+          <h3 style="margin-top:12px;">The tactical add-on</h3>
+          <p style="margin-bottom:0;">New in 2026, the Tuesday edition is your quick-hit source for vendor updates, resources, bonus videos, and extra behind-the-scenes commentary. It still leads with a short insight, but think of it as a tactical add-on, especially if you want to stay current on PM tech, tools, and new ideas before they hit your LinkedIn feed.</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- SPONSOR -->
   <section class="band">
     <div class="wrap">
-      <div class="cta-final">
-        <h2>Join 20,000+ PM professionals.</h2>
-        <p>It's free, it's twice a week, and you can unsubscribe anytime.</p>
-        <!-- SWAP: SUBSCRIBE_URL -->
-        <a class="btn btn-primary" href="https://www.peterlohmann.com/newsletter" target="_blank" rel="noopener">Subscribe to the newsletter</a>
+      <div class="panel orange">
+        <span class="tag tag-warn">Sponsor</span>
+        <h2 class="h-lead" style="margin-top:14px;">Sponsor the newsletter or podcast.</h2>
+        <p class="sub">Get targeted exposure to over 20,000 property management professionals every week.</p>
+        <div class="listen-row mt-sm">
+          <!-- SWAP: media kit (may become a page on this site later) -->
+          <a class="btn btn-primary" href="https://sponsor.peterlohmann.com/" target="_blank" rel="noopener">Browse the media kit</a>
+          <a class="listen-btn" href="mailto:aswensen@rlpmg.com?subject=Newsletter%20%2F%20Podcast%20Sponsorship">Email for pricing &amp; availability</a>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <!-- FINAL SUBSCRIBE -->
+  <section class="band tight wash">
+    <div class="wrap center">
+      <h2 class="h-lead">Ready to join?</h2>
+      <p class="sub" style="margin:8px auto 20px;">It's free, it's twice a week, and 20,000+ PM pros already read it.</p>
+      <a class="btn btn-primary" href="https://peter.beehiiv.com/subscribe" target="_blank" rel="noopener">Subscribe to the newsletter</a>
     </div>
   </section>
 
@@ -110,7 +128,7 @@
         <a href="podcast.html">Podcast</a>
         <a href="largest-pm-companies.html">Largest PM Companies</a>
         <a href="blog.html">Blog</a>
-        <a href="ma-report.html">M&amp;A Report</a>
+        <a href="https://report.peterlohmann.com/" target="_blank" rel="noopener">M&amp;A Report</a>
         <a href="peterbot.html">PeterBot</a>
         <a href="products.html">Products</a>
         <a href="contact.html">Contact</a>

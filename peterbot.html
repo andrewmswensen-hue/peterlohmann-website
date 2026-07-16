@@ -1,7 +1,7 @@
 <!--
   PETER LOHMANN - PETERBOT
-  SWAP: the "Chat" / "Talk" buttons point to the live PeterBot on peterlohmann.com.
-  Update PETERBOT_URL below if the bot moves.
+  The interactive AI clone is embedded directly via the Delphi widget (scripts near
+  the bottom of the <main>). To change the bot, update the Delphi config id.
 -->
 <!doctype html>
 <html lang="en">
@@ -29,7 +29,7 @@
       <a href="podcast.html">Podcast</a>
       <a href="largest-pm-companies.html">Largest PM Companies</a>
       <a href="blog.html">Blog</a>
-      <a href="ma-report.html">M&amp;A Report</a>
+      <a href="https://report.peterlohmann.com/" target="_blank" rel="noopener">M&amp;A Report</a>
       <a href="peterbot.html" class="active">PeterBot</a>
       <a href="products.html">Products</a>
     </div>
@@ -41,15 +41,36 @@
 
   <header class="page-hero">
     <div class="wrap">
-      <span class="kicker">My AI Clone</span>
+      <div class="ticks" aria-hidden="true"><i></i><i></i><i></i></div>
+      <span class="kicker">🤖 My AI Clone</span>
       <h1>Meet PeterBot.</h1>
       <p class="lead">Chat (or talk!) with my AI clone, built on everything I've ever written: 800,000+ words of newsletters, blog posts, Notion docs, and more. It's even trained on my actual voice, so you can have a real conversation.</p>
-      <!-- SWAP: PETERBOT_URL -->
-      <a class="btn btn-primary mt-md" href="https://www.peterlohmann.com/peterbot" target="_blank" rel="noopener">Chat with PeterBot</a>
     </div>
   </header>
 
-  <section class="band">
+  <!-- LIVE EMBED (Delphi injects the widget right where its scripts sit) -->
+  <section class="band tight">
+    <div class="wrap">
+      <!-- PeterBot (Delphi) interactive embed -->
+      <script id="delphi-page-script">
+        window.delphi = {...(window.delphi ?? {}) };
+        window.delphi.page = {
+          config: "f625123d-305d-4603-89be-11386cc61025",
+          overrides: {
+            landingPage: "OVERVIEW",
+          },
+          container: {
+            width: "100%",
+            height: "800px",
+          },
+        };
+      </script>
+      <script id="delphi-page-bootstrap" src="https://embed.delphi.ai/loader.js"></script>
+    </div>
+  </section>
+
+  <!-- WHAT TO ASK -->
+  <section class="band tight wash">
     <div class="wrap">
       <span class="kicker">What to Ask</span>
       <h2 class="h-lead">Property management insights, anytime.</h2>
@@ -65,15 +86,6 @@
     </div>
   </section>
 
-  <section class="band tight wash">
-    <div class="wrap center">
-      <h2 class="h-lead">Start a conversation.</h2>
-      <p class="sub" style="margin:8px auto 0;">Type or talk. PeterBot is available around the clock.</p>
-      <!-- SWAP: PETERBOT_URL -->
-      <a class="btn btn-primary mt-md" href="https://www.peterlohmann.com/peterbot" target="_blank" rel="noopener">Chat with PeterBot</a>
-    </div>
-  </section>
-
 </main>
 
 <footer class="site">
@@ -86,7 +98,7 @@
         <a href="podcast.html">Podcast</a>
         <a href="largest-pm-companies.html">Largest PM Companies</a>
         <a href="blog.html">Blog</a>
-        <a href="ma-report.html">M&amp;A Report</a>
+        <a href="https://report.peterlohmann.com/" target="_blank" rel="noopener">M&amp;A Report</a>
         <a href="peterbot.html">PeterBot</a>
         <a href="products.html">Products</a>
         <a href="contact.html">Contact</a>

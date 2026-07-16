@@ -180,12 +180,13 @@ a.card:hover .arrow{ color:var(--orange-dark); }
 /* ---------- BUSINESS TILES (the three entities) ---------- */
 .biz-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
 .biz-card{ display:flex; flex-direction:column; background:#fff; border:1px solid var(--line);
-           border-top:4px solid var(--primary); border-radius:var(--radius); padding:30px 28px;
-           box-shadow:var(--shadow); color:inherit; min-height:250px;
+           border-top:4px solid var(--primary); border-radius:var(--radius); padding:0; overflow:hidden;
+           box-shadow:var(--shadow); color:inherit;
            transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease; }
 a.biz-card:hover{ text-decoration:none; transform:translateY(-4px); box-shadow:var(--shadow-lg); }
 .biz-card.c-crane{ border-top-color:var(--orange); }
 .biz-card.c-rl{ border-top-color:var(--navy); }
+.biz-body{ display:flex; flex-direction:column; flex:1; padding:28px 28px 24px; }
 .biz-eyebrow{ font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
               color:var(--primary-dark); margin-bottom:12px; }
 .biz-card.c-crane .biz-eyebrow{ color:var(--orange-dark); }
@@ -196,6 +197,14 @@ a.biz-card:hover{ text-decoration:none; transform:translateY(-4px); box-shadow:v
 .biz-card.c-crane .arrow{ color:var(--orange-dark); }
 .biz-card.c-rl .arrow{ color:var(--navy); }
 a.biz-card:hover .arrow{ text-decoration:underline; }
+/* darkened stat footer that extends off the bottom of each business tile */
+.biz-stat{ background:linear-gradient(150deg,var(--navy),#16303f); color:#fff;
+           padding:18px 28px; display:flex; flex-direction:column; align-items:flex-start; gap:3px; }
+.biz-stat .n{ font-size:27px; font-weight:700; letter-spacing:-.02em; font-variant-numeric:tabular-nums; line-height:1; }
+.biz-stat .l{ font-size:13px; color:#cdd9e2; line-height:1.35; }
+.biz-card .biz-stat .n{ color:#8fc4e6; }              /* PLM: light blue */
+.biz-card.c-crane .biz-stat .n{ color:#f0a882; }      /* Crane: light orange */
+.biz-card.c-rl .biz-stat .n{ color:#ffffff; }         /* RL: white */
 @media (max-width:900px){ .biz-grid{ grid-template-columns:1fr; } }
 
 /* ---------- STAT STRIP ---------- */

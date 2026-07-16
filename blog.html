@@ -1,0 +1,223 @@
+<!--
+  ============================================================================
+  PETER LOHMANN - BLOG (index of posts)
+  ============================================================================
+  HOW THE BLOG WORKS:
+   - This page lists every post as a card.
+   - Individual posts live in the "blog/" folder, one .html file each, named by slug
+     (e.g. blog/vendor-rebates-are-kickbacks.html). They all share styles.css + site.js.
+   - To ADD a post: copy blog/vendor-rebates-are-kickbacks.html to a new file in blog/,
+     replace the title + body, then add a new <a class="post"> card at the TOP of the list
+     below (newest first) pointing to blog/your-slug.html.
+   - Cards marked "LIVE:" still point to the current peterlohmann.com post. As each post is
+     transferred into the blog/ folder, change its href to the local blog/<slug>.html path.
+  ============================================================================
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Blog · Peter Lohmann</title>
+<meta name="description" content="Peter Lohmann's property management blog: software, M&A, NARPM, fair housing, and honest takes on the industry." />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="apple-touch-icon" href="favicon.png" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="top" aria-label="Primary">
+  <div class="bar">
+    <a class="brand" href="index.html">Peter <span>Lohmann</span></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="navlinks">Menu</button>
+    <div class="links" id="navlinks">
+      <a href="index.html">About</a>
+      <a href="newsletter.html">Newsletter</a>
+      <a href="podcast.html">Podcast</a>
+      <a href="largest-pm-companies.html">Largest PM Companies</a>
+      <a href="blog.html" class="active">Blog</a>
+      <a href="ma-report.html">M&amp;A Report</a>
+      <a href="peterbot.html">PeterBot</a>
+      <a href="products.html">Products</a>
+    </div>
+    <a class="btn btn-navy btn-sm cta" href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<main id="main">
+
+  <header class="page-hero">
+    <div class="wrap">
+      <span class="kicker">The Blog</span>
+      <h1>Property management, in plain English.</h1>
+      <p class="lead">Longer takes on the industry: software, M&amp;A, NARPM, fair housing, and the occasional honest rant. New posts most weeks.</p>
+    </div>
+  </header>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="post-list" style="max-width:820px;margin:0 auto;">
+
+        <!-- TRANSFERRED: this post lives locally in the blog/ folder -->
+        <a class="post" href="blog/vendor-rebates-are-kickbacks.html">
+          <div class="date">Jul 16, 2026</div>
+          <h3>Vendor Rebates Are Kickbacks, Actually (sorry, Todd)</h3>
+          <p>A point-by-point response to Todd Ortscheid on whether disclosed vendor rebates are ethical, by way of RESPA, the Anti-Kickback Statute, and a simple owner test.</p>
+        </a>
+
+        <!-- LIVE: still points to peterlohmann.com until transferred -->
+        <a class="post" href="https://www.peterlohmann.com/blog/im-breaking-up-with-my-iphone-and-you-should-too" target="_blank" rel="noopener">
+          <div class="date">Jun 29, 2026</div>
+          <h3>I'm Breaking Up With My iPhone (and you should too)</h3>
+          <p>How I cut my phone dependency through ruthless notification management and deleting apps.</p>
+        </a>
+
+        <a class="post" href="https://www.peterlohmann.com/blog/ai-news-rule-property-management-vendors" target="_blank" rel="noopener">
+          <div class="date">Jun 22, 2026</div>
+          <h3>A New Rule for AI "News": Two Details or It Doesn't Count</h3>
+          <p>Why PM software vendors shouldn't get credit for announcing AI features with no pricing or availability.</p>
+        </a>
+
+        <a class="post" href="https://www.peterlohmann.com/blog/pm-trends-report-2026" target="_blank" rel="noopener">
+          <div class="date">May 29, 2026</div>
+          <h3>PM Trends Report 2026: My Top 10 Favorite Findings from 500 Small Landlords</h3>
+          <p>What 500 small landlords really think about property managers, and what it means for your pitch.</p>
+        </a>
+
+        <a class="post" href="https://www.peterlohmann.com/blog/narpm-broker-owner-2026-keynotes-trust-authority" target="_blank" rel="noopener">
+          <div class="date">May 15, 2026</div>
+          <h3>From Trust to Authority: What the 2026 NARPM Keynotes Were Really Telling Us</h3>
+          <p>Reading between the lines of the Ruelens, Sheridan, and DiJulius keynotes at NARPM Broker/Owner 2026.</p>
+        </a>
+
+        <a class="post" href="https://www.peterlohmann.com/blog/leadsimple-lsu-2026-recap" target="_blank" rel="noopener">
+          <div class="date">May 14, 2026</div>
+          <h3>Big Things Coming From LeadSimple: A Recap From LSU 2026</h3>
+          <p>A first-hand recap of LeadSimple's product roadmap and where their AI strategy is heading.</p>
+        </a>
+
+        <a class="post" href="https://www.peterlohmann.com/blog/narpm-2-0" target="_blank" rel="noopener">
+          <div class="date">May 12, 2026</div>
+          <h3>NARPM 2.0: Our Industry's National Association Is Reinventing Itself</h3>
+          <p>Paid staff, licensing standards, a legal hotline: inside NARPM's ambitious overhaul.</p>
+        </a>
+
+        <a class="post" href="https://www.peterlohmann.com/blog/zillow-removes-phone-numbers-rental-listings" target="_blank" rel="noopener">
+          <div class="date">May 11, 2026</div>
+          <h3>The Zillow Squeeze: How Standard Features Keep Becoming Paid Upgrades</h3>
+          <p>Zillow turned showing your phone number into a paid feature. Here's the pattern, and where it leads.</p>
+        </a>
+
+        <a class="post" href="https://www.peterlohmann.com/blog/narpm-broker-owner-expo-2026" target="_blank" rel="noopener">
+          <div class="date">May 11, 2026</div>
+          <h3>What I Saw Walking the NARPM Broker/Owner Expo Floor</h3>
+          <p>AI, hype, and the tools actually worth paying attention to, from 80+ exhibitors.</p>
+        </a>
+
+        <a class="post" href="https://www.peterlohmann.com/blog/narpm-broker-owner-2026-sold-out" target="_blank" rel="noopener">
+          <div class="date">May 8, 2026</div>
+          <h3>NARPM Sold Out Broker/Owner For the First Time, And You Could Feel It</h3>
+          <p>The first sold-out event in NARPM history: 1,300+ attendees, 81 vendors, and a different energy.</p>
+        </a>
+
+        <a class="post" href="https://www.peterlohmann.com/blog/narpm-2026-after-parties" target="_blank" rel="noopener">
+          <div class="date">May 6, 2026</div>
+          <h3>The Three Best After-Parties at NARPM Broker/Owner 2026</h3>
+          <p>The three evening events worth knowing about, including one we co-hosted.</p>
+        </a>
+
+        <a class="post" href="https://www.peterlohmann.com/blog/google-review-policy-update-property-management" target="_blank" rel="noopener">
+          <div class="date">May 5, 2026</div>
+          <h3>Google Just Quietly Banned a Bunch of Common Review Tactics</h3>
+          <p>Review contests and filtered feedback are now against policy. What PMs need to change.</p>
+        </a>
+
+        <a class="post" href="https://www.peterlohmann.com/blog/mad-about-pm-accounting-software" target="_blank" rel="noopener">
+          <div class="date">Apr 17, 2026</div>
+          <h3>I'm Mad About the Accounting Software We Use in Property Management</h3>
+          <p>The accounting tools our industry relies on leave property managers unsupported. Here's the gap.</p>
+        </a>
+
+        <a class="post" href="https://www.peterlohmann.com/blog/federal-esa-lawsuit-property-managers" target="_blank" rel="noopener">
+          <div class="date">Apr 8, 2026</div>
+          <h3>Federal ESA Lawsuit Headed to Trial. What Property Managers Need to Know.</h3>
+          <p>An emotional support animal dispute with real fair housing implications is going to trial.</p>
+        </a>
+
+        <a class="post" href="https://www.peterlohmann.com/blog/revenue-per-unit-property-management" target="_blank" rel="noopener">
+          <div class="date">Mar 31, 2026</div>
+          <h3>RPU: The Do-Or-Die Metric Every Property Manager Should Know</h3>
+          <p>Revenue Per Unit, why it's the number that decides your profitability, and how to benchmark it.</p>
+        </a>
+
+        <a class="post" href="https://www.peterlohmann.com/blog/ftc-warning-letter-13-pm-software-companies" target="_blank" rel="noopener">
+          <div class="date">Mar 23, 2026</div>
+          <h3>These 13 PM Software Companies Got an FTC Warning Letter</h3>
+          <p>The FTC's December 2025 warning about inaccurate rental listing pricing, and who got a letter.</p>
+        </a>
+
+        <a class="post" href="https://www.peterlohmann.com/blog/property-management-company-structure" target="_blank" rel="noopener">
+          <div class="date">Mar 5, 2026</div>
+          <h3>Call Center vs. Personal Relationships: How PMs Should Communicate with Owners</h3>
+          <p>Departmental, Portfolio, Pod, and Hybrid: the four company structures and their trade-offs.</p>
+        </a>
+
+        <a class="post" href="https://www.peterlohmann.com/blog/openclaw-ai-agent-property-management" target="_blank" rel="noopener">
+          <div class="date">Feb 16, 2026</div>
+          <h3>OpenClaw is Going to Change Property Management</h3>
+          <p>Why this new class of AI agent is about to reshape how PM work gets done.</p>
+        </a>
+
+        <a class="post" href="https://www.peterlohmann.com/blog/tapeworm-vendors-property-management" target="_blank" rel="noopener">
+          <div class="date">Feb 11, 2026</div>
+          <h3>The Vendors Quietly Eating Your Margins</h3>
+          <p>The embedded "tapeworm vendors" with escalating pricing that slowly erode your profitability.</p>
+        </a>
+
+        <a class="post" href="https://www.peterlohmann.com/blog/ziutc1bb2ccl3716vwhs2dyc8joqar" target="_blank" rel="noopener">
+          <div class="date">Feb 6, 2026</div>
+          <h3>The Hidden Story Behind the PURE + HomeRiver Merger</h3>
+          <p>What the consolidation of two big operators really tells us about where the industry is heading.</p>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="band tight wash">
+    <div class="wrap center">
+      <h2 class="h-lead">Never miss a post.</h2>
+      <p class="sub" style="margin:8px auto 0;">The best of the blog lands in the newsletter twice a week, read by 20,000+ PM professionals.</p>
+      <a class="btn btn-primary mt-md" href="newsletter.html">Subscribe to the newsletter</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="brand" style="font-weight:700;color:var(--navy);">Peter <span style="color:var(--primary);">Lohmann</span></div>
+      <nav class="foot-links" aria-label="Footer">
+        <a href="index.html">About</a>
+        <a href="newsletter.html">Newsletter</a>
+        <a href="podcast.html">Podcast</a>
+        <a href="largest-pm-companies.html">Largest PM Companies</a>
+        <a href="blog.html">Blog</a>
+        <a href="ma-report.html">M&amp;A Report</a>
+        <a href="peterbot.html">PeterBot</a>
+        <a href="products.html">Products</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://www.linkedin.com/in/pslohmann/" target="_blank" rel="noopener">LinkedIn</a>
+      </nav>
+    </div>
+    <p class="disc">The content of this website is for informational purposes only and does not constitute professional advice. I may have consulting agreements with, or financial interests in, companies mentioned on this website. Additionally, some of the links across this site may be affiliate links, meaning I may earn a commission if you make a purchase through those links. Always perform your own due diligence before making any financial or business decisions.</p>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

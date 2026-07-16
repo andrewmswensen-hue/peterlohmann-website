@@ -1,5 +1,5 @@
 /* =============================================================================
-   PETER LOHMANN — WEBSITE SHARED SCRIPT
+   PETER LOHMANN - WEBSITE SHARED SCRIPT
    Handles: (1) scroll reveal animations, (2) the mobile menu button.
    No dependencies, no build step. Loaded by every page.
    ========================================================================== */

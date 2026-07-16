@@ -52,5 +52,11 @@ From this folder: `python3 -m http.server 8747`, then open http://localhost:8747
 (the `file://` path is blocked by the browser preview, so use the local server).
 
 ## Status
-- 2026-07-16: Home/About page built and approved-pending. Shared styles.css + site.js in place.
-  Remaining 8 pages to be built in the same style once the Home/About look is approved.
+- 2026-07-16: ALL 9 pages built (About, Newsletter, Podcast, Largest PM Companies, Blog,
+  M&A Report, PeterBot, Products, Contact). Shared styles.css + site.js in place.
+- Blog is structured for individual posts: index at blog.html, posts live in blog/ (one .html
+  each, named by slug). One example post transferred: blog/vendor-rebates-are-kickbacks.html.
+  Remaining blog cards still link to the live peterlohmann.com posts until transferred.
+- SWAP points still open (search "SWAP:" in each file): newsletter subscribe URL, podcast
+  platform links, store/checkout links, M&A report purchase link, PeterBot chat link,
+  contact media-kit + Jotform links. Most currently point to the live peterlohmann.com pages.

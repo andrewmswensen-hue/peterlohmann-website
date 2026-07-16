@@ -250,6 +250,47 @@ ul.feat li::before{ content:"\2713"; position:absolute; left:0; top:0; color:var
 .post h3{ font-size:20px; margin:6px 0 6px; color:var(--navy); }
 .post p{ color:var(--muted); font-size:15px; margin:0; }
 
+/* ---------- ARTICLE (individual blog post) ---------- */
+.article{ max-width:730px; margin:0 auto; }
+.article-back{ display:inline-block; margin-bottom:22px; color:var(--muted); font-weight:600; font-size:14.5px; }
+.article-back:hover{ color:var(--primary); text-decoration:none; }
+.article-meta{ color:var(--muted); font-size:14px; margin-bottom:12px; font-weight:600; }
+.article-meta .cat{ color:var(--primary-dark); text-transform:uppercase; letter-spacing:.06em; }
+.article h1{ font-size:clamp(30px,4.6vw,44px); line-height:1.14; margin-bottom:14px; }
+.article .dek{ font-size:20px; color:var(--muted); margin-bottom:10px; line-height:1.5; }
+.article-body{ font-size:18px; line-height:1.72; color:var(--ink); margin-top:26px;
+               border-top:1px solid var(--line); padding-top:26px; }
+.article-body > p:first-child{ font-size:19.5px; }
+.article-body p{ margin:0 0 1.25em; }
+.article-body h2{ font-size:26px; margin:1.7em 0 .5em; letter-spacing:-.02em; }
+.article-body h3{ font-size:21px; margin:1.5em 0 .4em; }
+.article-body h4{ font-size:18px; margin:1.4em 0 .3em; color:var(--primary-dark); }
+.article-body ul,.article-body ol{ margin:0 0 1.3em; padding-left:1.3em; }
+.article-body li{ margin-bottom:.5em; }
+.article-body a{ color:var(--primary); text-decoration:underline; }
+.article-body strong{ color:var(--navy); font-weight:700; }
+.article-body blockquote{ margin:1.6em 0; padding:16px 22px; border-left:4px solid var(--primary);
+   background:var(--wash-soft); border-radius:0 12px 12px 0; }
+.article-body blockquote p:last-child{ margin-bottom:0; }
+.article-body figure{ margin:1.8em 0; }
+.article-body figure img{ border-radius:14px; border:1px solid var(--line); box-shadow:var(--shadow); }
+.article-body figcaption{ color:var(--muted-2); font-size:14px; margin-top:10px; text-align:center; }
+.article-body hr{ border:0; border-top:1px solid var(--line); margin:2.4em 0; }
+.article-body .disclaimer{ font-style:italic; color:var(--muted); font-size:15px; }
+/* a quoted back-and-forth exchange, styled as a small card */
+.exchange{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:20px 22px;
+           box-shadow:var(--shadow); margin:1.6em 0; }
+.exchange p{ margin:0 0 .6em; }
+.exchange p:last-child{ margin:0; }
+.exchange .who{ color:var(--primary-dark); font-weight:700; }
+
+/* ---------- PODCAST: listen buttons ---------- */
+.listen-row{ display:flex; flex-wrap:wrap; gap:12px; }
+.listen-btn{ display:inline-flex; align-items:center; gap:9px; background:#fff; border:1px solid var(--line);
+   border-radius:12px; padding:12px 20px; font-weight:600; color:var(--navy); box-shadow:var(--shadow);
+   transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
+.listen-btn:hover{ text-decoration:none; border-color:#c7d6e2; transform:translateY(-2px); box-shadow:var(--shadow-lg); }
+
 /* ---------- FINAL CTA ---------- */
 .cta-final{ background:linear-gradient(150deg,var(--navy),#16303f); color:#fff; border-radius:26px; padding:56px 44px; text-align:center; }
 .cta-final h2{ color:#fff; font-size:clamp(28px,4vw,42px); margin-bottom:14px; }

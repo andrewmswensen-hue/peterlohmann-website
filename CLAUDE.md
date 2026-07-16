@@ -34,9 +34,21 @@ anywhere (Squarespace embed, GitHub Pages, Netlify, etc.).
 - **Edit page words** → open that page's `.html` file; text sits between the tags, plainly.
 - **Swap a link** → search the page for `SWAP:` comments marking the spots to update.
 
-## Design system (carried from the media kit)
-- Primary steel blue `#2C7CB0`, navy text `#1F3A4D`, orange accent `#E0703C` (used sparingly),
-  light blue-gray washes, rounded white cards, Apple-style system font.
+## Design system (media-kit colors + 2026 pmtrends-inspired refresh)
+- Primary steel blue `#2C7CB0`, navy text `#1F3A4D`, orange accent `#E0703C`, light blue-gray
+  washes, rounded white cards. Extra tints for tasteful color pops: `--sky`, `--gold`, `--mint`.
+- Type: **Inter** (Google Fonts @import in styles.css) with heavy 800/900 headings, tight tracking.
+- Signature touches (all in styles.css): slim tricolor accent line under the nav (`nav.top::after`),
+  hero tick marks (`.ticks`), standout hero headshot (blob + accent dot + white ring + floating
+  `.hero-badge`), colorful stat tiles (`.stats-color`), modern rank badges (`.rank-badge`),
+  blog featured banner (`.feature-post`) + 3-up image cards (`.post-card` / `.ph-img`).
+
+## Live embeds (third-party, fine on GitHub Pages)
+- Newsletter: Beehiiv subscribe iframe + subscribe URL https://peter.beehiiv.com/subscribe
+- Podcast: latest-episode YouTube embed (video id hardcoded in podcast.html, currently zqyXW_Sy1Kw,
+  update by hand when a new episode airs), plus Apple/Spotify/YouTube links + full playlist
+- Largest PM Companies: live Google Sheets pubhtml iframe (edit the sheet to update the list)
+- PeterBot: Delphi widget (scripts inside the embed section; Delphi injects #delphi-container there)
 
 ## Interactive features
 Per Andrew's decision, buttons for PeterBot chat, Products checkout, the M&A Report purchase,

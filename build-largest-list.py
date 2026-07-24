@@ -236,18 +236,6 @@ page = f"""<!--
     </div>
   </header>
 
-  <!-- TOP-LINE STATS -->
-  <section class="band tight wash" aria-label="At a glance">
-    <div class="wrap">
-      <div class="stats stats-color g4 reveal">
-        <div class="stat"><div class="v">{n}</div><div class="k">Companies ranked so far</div></div>
-        <div class="stat"><div class="v">{comma(round(total_doors, -2))}+</div><div class="k">Doors under management</div></div>
-        <div class="stat"><div class="v">{len(us_states)}</div><div class="k">U.S. states on the list{ca_note}</div></div>
-        <div class="stat"><div class="v">{comma(median)}</div><div class="k">Median doors per company</div></div>
-      </div>
-    </div>
-  </section>
-
   <!-- TOP 3 PODIUM -->
   <section class="band">
     <div class="wrap">
@@ -282,7 +270,13 @@ page = f"""<!--
     <div class="wrap">
       <span class="kicker reveal">By the Numbers</span>
       <h2 class="h-lead reveal">What the data says.</h2>
-      <div class="split mt-md" style="align-items:start;">
+      <div class="stats stats-color g4 reveal mt-md" aria-label="At a glance">
+        <div class="stat"><div class="v">{n}</div><div class="k">Companies ranked so far</div></div>
+        <div class="stat"><div class="v">{comma(round(total_doors, -2))}+</div><div class="k">Doors under management</div></div>
+        <div class="stat"><div class="v">{len(us_states)}</div><div class="k">U.S. states on the list{ca_note}</div></div>
+        <div class="stat"><div class="v">{comma(median)}</div><div class="k">Median doors per company</div></div>
+      </div>
+      <div class="split mt-lg" style="align-items:start;">
         <div class="card reveal">
           <h3 style="margin-bottom:6px;">Accounting software</h3>
           <p style="color:var(--muted);font-size:14.5px;margin-bottom:18px;">What the largest operators run their books on.</p>

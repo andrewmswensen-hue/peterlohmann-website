@@ -58,6 +58,13 @@ Per Andrew's decision, buttons for PeterBot chat, Products checkout, the M&A Rep
 and individual blog posts **link out to the existing live peterlohmann.com pages** so nothing
 functional breaks. These are marked in each page.
 
+## Cache-busting (IMPORTANT)
+- Every page links `styles.css?v=N` and `site.js?v=N`. When you change styles.css or
+  site.js, BUMP the number `N` everywhere so browsers fetch the new file immediately
+  (otherwise visitors see a stale cached stylesheet for up to 10 min). One-liner:
+  `cd <project> && old=2 new=3; for f in *.html blog/*.html build-largest-list.py; do sed -i '' "s/?v=$old/?v=$new/g" "$f"; done && python3 build-largest-list.py`
+  then commit + push. (Current version: v=2.)
+
 ## Writing rules
 - **No em dashes or en dashes** anywhere (Andrew's standing rule). Use commas, parentheses,
   hyphens, colons, or a sentence split instead.

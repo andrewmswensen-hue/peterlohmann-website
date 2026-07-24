@@ -140,11 +140,12 @@ podium = "\n".join([
     pod(valid[2], 'third', '', 'RANK', '3', '★'),
 ])
 
-# ranking table rows
+# ranking table rows (cap the displayed list at the top 40)
+LIST_CAP = 40
 trows = []
-for i, r in enumerate(valid, 1):
+for i, r in enumerate(valid[:LIST_CAP], 1):
     top = ' class="top1"' if i == 1 else ''
-    chip = '<span class="chip-narpm">NARPM</span>' if r['narpm'] else ''
+    chip = '<span class="chip-yes">Yes</span>' if r['narpm'] else '<span class="chip-no">No</span>'
     trows.append(
         f'          <tr{top}>'
         f'<td class="r-rank">{i}</td>'
@@ -155,6 +156,7 @@ for i, r in enumerate(valid, 1):
         f'<td>{chip}</td>'
         f'</tr>')
 table_rows = "\n".join(trows)
+shown = min(LIST_CAP, n)
 
 # data bars
 def bars(counts, klass_cycle):
@@ -206,7 +208,7 @@ page = f"""<!--
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
-<link rel="stylesheet" href="styles.css?v=2" />
+<link rel="stylesheet" href="styles.css?v=3" />
 </head>
 <body>
 
@@ -265,13 +267,13 @@ page = f"""<!--
       <p class="sub reveal" style="margin-bottom:22px;">By third-party doors under management. Self-reported. SFR and small multifamily (under 100 units).</p>
       <div class="table-scroll reveal">
         <table class="rank-table">
-          <thead><tr><th class="num">#</th><th>Company</th><th class="num">Doors</th><th class="hide-sm">Software</th><th class="hide-sm">Structure</th><th>NARPM</th></tr></thead>
+          <thead><tr><th class="num">#</th><th>Company</th><th class="num doors-col">Doors</th><th class="hide-sm">Software</th><th class="hide-sm">Structure</th><th>NARPM member?</th></tr></thead>
           <tbody>
 {table_rows}
           </tbody>
         </table>
       </div>
-      <p class="rank-note">Something look off, or want to be added? Submissions are open through the end of the month.</p>
+      <p class="rank-note">Showing the top {shown} of {n} companies submitted so far. Something look off, or want to be added? Submissions are open through the end of the month.</p>
     </div>
   </section>
 
@@ -369,7 +371,7 @@ page = f"""<!--
   </div>
 </footer>
 
-<script src="site.js?v=2"></script>
+<script src="site.js?v=3"></script>
 </body>
 </html>
 """

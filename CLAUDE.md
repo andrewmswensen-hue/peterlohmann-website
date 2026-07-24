@@ -47,7 +47,10 @@ anywhere (Squarespace embed, GitHub Pages, Netlify, etc.).
 - Newsletter: Beehiiv subscribe iframe + subscribe URL https://peter.beehiiv.com/subscribe
 - Podcast: latest-episode YouTube embed (video id hardcoded in podcast.html, currently zqyXW_Sy1Kw,
   update by hand when a new episode airs), plus Apple/Spotify/YouTube links + full playlist
-- Largest PM Companies: live Google Sheets pubhtml iframe (edit the sheet to update the list)
+- Largest PM Companies: GENERATED from data/largest-pm-2026.csv by build-largest-list.py
+  (podium, full ranking table, software/org bar charts, NARPM %, fun facts, top-10-by-state).
+  To update: replace data/largest-pm-2026.csv, run `python3 build-largest-list.py`, commit + push.
+  Do not hand-edit largest-pm-companies.html data sections; they get overwritten by the script.
 - PeterBot: Delphi widget (scripts inside the embed section; Delphi injects #delphi-container there)
 
 ## Interactive features

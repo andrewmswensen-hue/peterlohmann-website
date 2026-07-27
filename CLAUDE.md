@@ -59,8 +59,11 @@ anywhere (Squarespace embed, GitHub Pages, Netlify, etc.).
   and in GitHub as the repo secret JOTFORM_API_KEY (Settings > Secrets > Actions). To rotate the
   key: regenerate it in JotForm, then `printf '%s' NEWKEY > .jotform_key` and
   `gh secret set JOTFORM_API_KEY -R andrewmswensen-hue/peterlohmann-website < .jotform_key`.
-  Older 2024 submissions predate the software/org questions, so the script excludes 'Unknown'
-  from the charts and shows n/a in the table; chart percentages are based on companies that reported.
+  YEAR FILTER: the script only includes CURRENT-YEAR submissions (SUBMISSION_YEAR = "2026" near the
+  top of build-largest-list.py). Older 2024/2025 entries are dropped by created_at date so the page
+  shows only the 2026 list. To roll to a new year, change that one constant.
+  Any 'Unknown' software/org values are excluded from the charts and shown as n/a in the table;
+  chart percentages are based on companies that reported.
 - PeterBot: Delphi widget (scripts inside the embed section; Delphi injects #delphi-container there)
 
 ## Interactive features

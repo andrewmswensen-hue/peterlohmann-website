@@ -16,6 +16,8 @@ CSV  = os.path.join(HERE, "data", "largest-pm-2026.csv")
 OUT  = os.path.join(HERE, "largest-pm-companies.html")
 JOTFORM_FORM_ID = "240037996931060"
 SUBMISSION_YEAR = "2026"   # only include submissions from this year (newest data, top of the JotForm sheet)
+NAME_Q  = "Company Name"
+CRANE_Q = "Are you (or is someone on your team) a Crane member?"
 
 def _jotform_key():
     """API key from env (GitHub Action) or a local gitignored .jotform_key file. Never printed/committed."""
@@ -26,31 +28,47 @@ def _jotform_key():
             k = open(p).read().strip()
     return k or None
 
+def _row_from_submission(s):
+    """Flatten one JotForm submission into a dict keyed by the question labels (same
+    shape as the CSV export), plus a 'Submission Date'."""
+    row = {"Submission Date": s.get("created_at", "")}
+    for a in (s.get("answers") or {}).values():
+        label = (a.get("text") or "").strip()
+        ans = a.get("answer")
+        if isinstance(ans, dict):    # e.g. full-name {first,last}
+            ans = " ".join(str(v) for v in ans.values() if v)
+        elif isinstance(ans, list):
+            ans = ", ".join(str(v) for v in ans)
+        row[label] = "" if ans is None else str(ans)
+    return row
+
 def fetch_jotform(key):
-    """Pull all submissions from the JotForm API and return them as dicts keyed by the
-    same column names as the CSV export (so the rest of the script is unchanged)."""
+    """Pull submissions from the JotForm API. The ranking uses CURRENT-YEAR submissions only,
+    but Crane membership is treated as a company attribute drawn from ALL years: recent
+    submissions rarely fill in the Crane question, so a company counts as a Crane member if
+    ANY of its submissions (any year) said Yes."""
     url = f"https://api.jotform.com/form/{JOTFORM_FORM_ID}/submissions?apiKey={key}&limit=1000"
     data = json.load(urllib.request.urlopen(url, timeout=45)).get("content", [])
-    rows = []
-    skipped = 0
-    for s in data:
-        created = s.get("created_at", "")
-        # Only keep current-year submissions (the newest entries at the top of the JotForm sheet).
-        if not created.startswith(SUBMISSION_YEAR + "-"):
+    all_rows = [_row_from_submission(s) for s in data]
+
+    crane_by_name = {}
+    for r in all_rows:
+        nm = (r.get(NAME_Q) or "").strip().lower()
+        if nm and (r.get(CRANE_Q) or "").strip().lower().startswith("y"):
+            crane_by_name[nm] = True
+
+    kept, skipped = [], 0
+    for r in all_rows:
+        if not (r.get("Submission Date") or "").startswith(SUBMISSION_YEAR + "-"):
             skipped += 1
             continue
-        row = {"Submission Date": created}
-        for a in (s.get("answers") or {}).values():
-            label = (a.get("text") or "").strip()
-            ans = a.get("answer")
-            if isinstance(ans, dict):    # e.g. full-name {first,last}
-                ans = " ".join(str(v) for v in ans.values() if v)
-            elif isinstance(ans, list):
-                ans = ", ".join(str(v) for v in ans)
-            row[label] = "" if ans is None else str(ans)
-        rows.append(row)
-    print(f"JotForm: kept {len(rows)} submissions from {SUBMISSION_YEAR}, skipped {skipped} from other years.")
-    return rows
+        nm = (r.get(NAME_Q) or "").strip().lower()
+        r[CRANE_Q] = "Yes" if crane_by_name.get(nm) else "No"   # all-year Crane lookup
+        kept.append(r)
+    crane_yes = sum(1 for r in kept if r[CRANE_Q] == "Yes")
+    print(f"JotForm: kept {len(kept)} submissions from {SUBMISSION_YEAR}, skipped {skipped} from other years; "
+          f"{crane_yes} matched as Crane members across all years.")
+    return kept
 
 def load_records():
     """Prefer live JotForm data; fall back to the committed CSV snapshot."""
@@ -116,6 +134,7 @@ for d in raw:
         'doors': doors,
         'soft': norm_soft(d.get('Primary Software Used For Property Accounting?', '')),
         'narpm': (d.get('Is your company a member of NARPM?') or '').strip().lower().startswith('y'),
+        'crane': (d.get('Are you (or is someone on your team) a Crane member?') or '').strip().lower().startswith('y'),
         'org': norm_org(d.get('How is your PM Company Organized?', '')),
         'markets': num(d.get('How many markets (metro areas) does your company operate in?', '')),
     })
@@ -206,6 +225,7 @@ trows = []
 for i, r in enumerate(valid[:LIST_CAP], 1):
     top = ' class="top1"' if i == 1 else ''
     chip = '<span class="chip-yes">Yes</span>' if r['narpm'] else '<span class="chip-no">No</span>'
+    crane_chip = '<span class="chip-yes">Yes</span>' if r['crane'] else '<span class="chip-no">No</span>'
     soft_txt = esc(r["soft"]) if r["soft"] != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
     org_txt  = esc(r["org"])  if r["org"]  != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
     trows.append(
@@ -216,6 +236,7 @@ for i, r in enumerate(valid[:LIST_CAP], 1):
         f'<td class="hide-sm">{soft_txt}</td>'
         f'<td class="hide-sm">{org_txt}</td>'
         f'<td>{chip}</td>'
+        f'<td>{crane_chip}</td>'
         f'</tr>')
 table_rows = "\n".join(trows)
 shown = min(LIST_CAP, n)
@@ -318,7 +339,7 @@ page = f"""<!--
       <p class="sub reveal" style="margin-bottom:22px;">By third-party doors under management. Self-reported. SFR and small multifamily (under 100 units).</p>
       <div class="table-scroll reveal">
         <table class="rank-table">
-          <thead><tr><th class="num">#</th><th>Company</th><th class="num doors-col">Doors</th><th class="hide-sm">Software</th><th class="hide-sm">Structure</th><th>NARPM member?</th></tr></thead>
+          <thead><tr><th class="num">#</th><th>Company</th><th class="num doors-col">Doors</th><th class="hide-sm">Software</th><th class="hide-sm">Structure</th><th>NARPM member?</th><th>Crane member?</th></tr></thead>
           <tbody>
 {table_rows}
           </tbody>

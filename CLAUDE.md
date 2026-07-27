@@ -64,6 +64,10 @@ anywhere (Squarespace embed, GitHub Pages, Netlify, etc.).
   shows only the 2026 list. To roll to a new year, change that one constant.
   Any 'Unknown' software/org values are excluded from the charts and shown as n/a in the table;
   chart percentages are based on companies that reported.
+  CRANE COLUMN: the table shows NARPM and Crane Yes/No badges. Recent submissions rarely fill in
+  the Crane question, so Crane is treated as a company attribute pulled from ALL years: a company
+  shows Crane = Yes if ANY of its submissions (matched by company name) ever answered Yes. NARPM and
+  everything else stay 2026-only.
 - PeterBot: Delphi widget (scripts inside the embed section; Delphi injects #delphi-container there)
 
 ## Interactive features

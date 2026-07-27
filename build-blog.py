@@ -60,42 +60,68 @@ def fmt_date(ms):
     return f"{d.strftime('%b')} {d.day}, {d.year}"
 
 _dl_cache = {}
-def download_image(url, basename, width=1100):
-    """Download an image to images/blog/<basename>.<ext>. Returns repo-relative path or None."""
+def download_image(url, basename, width=1000):
+    """Fetch an image and save it as an optimized WebP at images/blog/<basename>.webp.
+    Reuses an already-downloaded original (converts it in place, no re-download) so re-runs
+    are fast. Returns the repo-relative path or None. Falls back to the original if WebP fails."""
     if not url or url.startswith("data:"):
         return None
     if url.startswith("//"):
         url = "https:" + url
     url = htmlmod.unescape(url)
-    # request a downscaled version from the Squarespace CDN to keep files reasonable
     dl = url
     if "squarespace-cdn.com" in url and "format=" not in url:
         dl = url + ("&" if "?" in url else "?") + f"format={width}w"
+
+    webp_rel = f"images/blog/{basename}.webp"
+    webp_dest = os.path.join(IMGDIR, basename + ".webp")
+    if os.path.exists(webp_dest) and os.path.getsize(webp_dest) > 0:
+        return webp_rel
     if dl in _dl_cache:
         return _dl_cache[dl]
-    # derive extension from the path (before query)
-    path = urllib.parse.urlparse(url).path
-    ext = os.path.splitext(path)[1].lower()
-    if ext not in (".jpg", ".jpeg", ".png", ".gif", ".webp"):
-        ext = ".jpg"
-    fname = basename + ext
-    dest = os.path.join(IMGDIR, fname)
-    rel = f"images/blog/{fname}"
-    if os.path.exists(dest) and os.path.getsize(dest) > 0:
-        _dl_cache[dl] = rel
-        return rel
-    try:
-        req = urllib.request.Request(dl, headers=UA)
-        data = urllib.request.urlopen(req, timeout=60).read()
+
+    # reuse a previously-downloaded original if present (convert in place); else download
+    data, orig_path = None, None
+    for ext in (".png", ".jpg", ".jpeg", ".gif"):
+        p = os.path.join(IMGDIR, basename + ext)
+        if os.path.exists(p) and os.path.getsize(p) > 0:
+            data, orig_path = open(p, "rb").read(), p
+            break
+    if data is None:
+        try:
+            data = urllib.request.urlopen(urllib.request.Request(dl, headers=UA), timeout=60).read()
+        except Exception as e:
+            print(f"    ! image download failed ({e}) for {url[:80]}")
+            return None
         if len(data) < 100:
             return None
-        with open(dest, "wb") as f:
-            f.write(data)
-        _dl_cache[dl] = rel
-        return rel
+
+    # convert to optimized WebP
+    try:
+        from PIL import Image
+        import io
+        im = Image.open(io.BytesIO(data))
+        if im.width > width:
+            im = im.resize((width, round(im.height * width / im.width)), Image.LANCZOS)
+        has_alpha = im.mode in ("RGBA", "LA") or (im.mode == "P" and "transparency" in im.info)
+        im = im.convert("RGBA" if has_alpha else "RGB")
+        im.save(webp_dest, "WEBP", quality=80, method=6)
+        if orig_path and orig_path != webp_dest:
+            os.remove(orig_path)  # tidy up the now-redundant original
+        _dl_cache[dl] = webp_rel
+        return webp_rel
     except Exception as e:
-        print(f"    ! image download failed ({e}) for {url[:80]}")
-        return None
+        print(f"    ! webp convert failed ({e}); keeping original for {basename}")
+        if orig_path:
+            _dl_cache[dl] = f"images/blog/{os.path.basename(orig_path)}"
+            return _dl_cache[dl]
+        ext = os.path.splitext(urllib.parse.urlparse(url).path)[1].lower()
+        if ext not in (".jpg", ".jpeg", ".png", ".gif"):
+            ext = ".jpg"
+        with open(os.path.join(IMGDIR, basename + ext), "wb") as f:
+            f.write(data)
+        _dl_cache[dl] = f"images/blog/{basename}{ext}"
+        return _dl_cache[dl]
 
 def yt_id(url):
     m = re.search(r"(?:youtu\.be/|youtube\.com/(?:embed/|watch\?v=|v/))([A-Za-z0-9_-]{6,})", url or "")

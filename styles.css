@@ -480,6 +480,8 @@ a.post-card:hover{ text-decoration:none; transform:translateY(-4px); box-shadow:
 .article-meta{ color:var(--muted); font-size:14px; margin-bottom:12px; font-weight:600; }
 .article-meta .cat{ color:var(--primary-dark); text-transform:uppercase; letter-spacing:.06em; }
 .article h1{ font-size:clamp(30px,4.6vw,44px); line-height:1.14; margin-bottom:14px; }
+.article-cover{ margin:6px 0 26px; }
+.article-cover img{ width:100%; height:auto; border-radius:16px; border:1px solid var(--line); box-shadow:var(--shadow); display:block; }
 .article .dek{ font-size:20px; color:var(--muted); margin-bottom:10px; line-height:1.5; }
 .article-body{ font-size:18px; line-height:1.72; color:var(--ink); margin-top:26px;
                border-top:1px solid var(--line); padding-top:26px; }
@@ -496,8 +498,14 @@ a.post-card:hover{ text-decoration:none; transform:translateY(-4px); box-shadow:
    background:var(--wash-soft); border-radius:0 12px 12px 0; }
 .article-body blockquote p:last-child{ margin-bottom:0; }
 .article-body figure{ margin:1.8em 0; }
-.article-body figure img{ border-radius:14px; border:1px solid var(--line); box-shadow:var(--shadow); }
+.article-body figure img{ width:100%; height:auto; border-radius:14px; border:1px solid var(--line); box-shadow:var(--shadow); display:block; }
+.article-body img{ max-width:100%; height:auto; border-radius:14px; }
 .article-body figcaption{ color:var(--muted-2); font-size:14px; margin-top:10px; text-align:center; }
+/* imported embed fallbacks (X posts, other embeds) */
+.article-body .embed-note{ margin:1.4em 0; }
+.article-body .embed-note a{ display:inline-block; background:var(--wash-soft); border:1px solid var(--line);
+  border-radius:999px; padding:8px 16px; font-weight:600; text-decoration:none; }
+.article-body .embed-note a:hover{ background:var(--wash); }
 .article-body hr{ border:0; border-top:1px solid var(--line); margin:2.4em 0; }
 .article-body .disclaimer{ font-style:italic; color:var(--muted); font-size:15px; }
 /* a quoted back-and-forth exchange, styled as a small card */

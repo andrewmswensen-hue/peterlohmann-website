@@ -180,9 +180,10 @@ a.card:hover .arrow{ color:var(--orange-dark); }
 .hp-clip img{ position:absolute; left:50%; bottom:-3%; transform:translateX(-49%); width:114%; max-width:none; height:auto; }
 /* head layer: same image on top, masked to reveal only the head poking above the circle */
 .hp-pop{ position:absolute; left:50%; bottom:-3%; transform:translateX(-49%); width:114%; max-width:none; height:auto; z-index:2;
-  pointer-events:none;
+  pointer-events:none; display:block;
   -webkit-mask-image:linear-gradient(to bottom,#000 0,#000 38%,transparent 52%);
           mask-image:linear-gradient(to bottom,#000 0,#000 38%,transparent 52%); }
+.hp-pop img{ display:block; width:100%; height:auto; }
 /* floating stat badge overlapping the photo */
 .hero-badge{ position:absolute; z-index:3; left:-14px; bottom:14px;
   background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow-lg);

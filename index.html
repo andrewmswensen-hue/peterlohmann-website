@@ -21,7 +21,8 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
-<link rel="stylesheet" href="styles.css?v=7" />
+<link rel="preload" as="image" href="images/peter-headshot-trans.webp" type="image/webp" fetchpriority="high" />
+<link rel="stylesheet" href="styles.css?v=8" />
 </head>
 <body>
 
@@ -67,11 +68,20 @@
           <a href="contact.html">Get in touch</a>
         </p>
       </div>
-      <!-- SWAP: replace images/peter-headshot-trans.png (transparent PNG) to change the photo. -->
+      <!-- SWAP: replace images/peter-headshot-trans.webp (+ .png fallback) to change the photo.
+           Small optimized WebP loads fast; PNG is the fallback for older browsers. -->
       <div class="hero-photo reveal">
         <div class="hero-portrait" role="img" aria-label="Peter Lohmann">
-          <div class="hp-clip"><img src="images/peter-headshot-trans.png" alt="Peter Lohmann" /></div>
-          <img class="hp-pop" src="images/peter-headshot-trans.png" alt="" aria-hidden="true" />
+          <div class="hp-clip">
+            <picture>
+              <source srcset="images/peter-headshot-trans.webp" type="image/webp" />
+              <img src="images/peter-headshot-trans.png" alt="Peter Lohmann" fetchpriority="high" />
+            </picture>
+          </div>
+          <picture class="hp-pop" aria-hidden="true">
+            <source srcset="images/peter-headshot-trans.webp" type="image/webp" />
+            <img src="images/peter-headshot-trans.png" alt="" fetchpriority="high" />
+          </picture>
         </div>
         <div class="hero-badge" aria-hidden="true">
           <span class="bn">20k+</span>
@@ -310,6 +320,6 @@
   </div>
 </footer>
 
-<script src="site.js?v=7"></script>
+<script src="site.js?v=8"></script>
 </body>
 </html>

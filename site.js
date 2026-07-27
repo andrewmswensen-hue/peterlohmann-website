@@ -16,7 +16,28 @@
     });
   }
 
-  /* ---- 2. Scroll reveal ---- */
+  /* ---- 2. Podcast episode cards: click thumbnail -> load the YouTube player inline ---- */
+  document.querySelectorAll(".ep-player").forEach(function (p) {
+    function play() {
+      var id = p.getAttribute("data-id");
+      if (!id || p.dataset.loaded) return;
+      p.dataset.loaded = "1";
+      var f = document.createElement("iframe");
+      f.src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
+      f.title = "YouTube video player";
+      f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      f.referrerPolicy = "strict-origin-when-cross-origin";
+      f.setAttribute("allowfullscreen", "");
+      p.innerHTML = "";
+      p.appendChild(f);
+    }
+    p.addEventListener("click", play);
+    p.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); play(); }
+    });
+  });
+
+  /* ---- 3. Scroll reveal ---- */
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var targets = document.querySelectorAll(".reveal, .stagger");
   if (reduce || !("IntersectionObserver" in window)) {

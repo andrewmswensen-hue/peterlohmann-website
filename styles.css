@@ -522,6 +522,32 @@ a.post-card:hover{ text-decoration:none; transform:translateY(-4px); box-shadow:
    transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
 .listen-btn:hover{ text-decoration:none; border-color:#c7d6e2; transform:translateY(-2px); box-shadow:var(--shadow-lg); }
 
+/* ---------- PODCAST: recent episode cards (click-to-play facade) ---------- */
+.ep-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.ep-card{ display:flex; flex-direction:column; background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+  overflow:hidden; box-shadow:var(--shadow); transition:transform .16s ease, box-shadow .16s ease; }
+.ep-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+.ep-player{ position:relative; aspect-ratio:16/9; background:#000; cursor:pointer; overflow:hidden; }
+.ep-player img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s ease, opacity .2s ease; }
+.ep-player:hover img{ transform:scale(1.04); opacity:.9; }
+.ep-play{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:54px; height:54px; border-radius:50%;
+  background:var(--orange); box-shadow:0 4px 16px rgba(0,0,0,.35); display:flex; align-items:center; justify-content:center; }
+.ep-play::after{ content:""; border-style:solid; border-width:9px 0 9px 15px; border-color:transparent transparent transparent #fff; margin-left:3px; }
+.ep-player:focus-visible{ outline:3px solid var(--primary); outline-offset:-3px; }
+.ep-player iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.ep-body{ padding:16px 18px 18px; display:flex; flex-direction:column; flex:1; }
+.ep-date{ font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--primary-dark); margin-bottom:6px; }
+.ep-body h3{ font-size:16.5px; line-height:1.25; margin:0 0 14px; color:var(--navy); }
+.ep-links{ margin-top:auto; display:flex; gap:8px; }
+.ep-btn{ flex:1; text-align:center; font-size:13.5px; font-weight:700; padding:8px 10px; border-radius:10px; border:1px solid var(--line); color:var(--navy); background:#fff; }
+.ep-btn:hover{ text-decoration:none; }
+.ep-btn.apple{ background:#111; color:#fff; border-color:#111; }
+.ep-btn.apple:hover{ background:#000; }
+.ep-btn.spotify{ background:#1DB954; color:#fff; border-color:#1DB954; }
+.ep-btn.spotify:hover{ background:#1aa74c; }
+@media (max-width:900px){ .ep-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:600px){ .ep-grid{ grid-template-columns:1fr; } }
+
 /* ---------- FINAL CTA ---------- */
 .cta-final{ background:linear-gradient(150deg,var(--navy),#16303f); color:#fff; border-radius:26px; padding:56px 44px; text-align:center; }
 .cta-final h2{ color:#fff; font-size:clamp(28px,4vw,42px); margin-bottom:14px; }

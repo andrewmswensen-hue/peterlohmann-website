@@ -24,7 +24,7 @@ BLOGDIR = os.path.join(HERE, "blog")
 os.makedirs(IMGDIR, exist_ok=True)
 os.makedirs(BLOGDIR, exist_ok=True)
 LIMIT = int(os.environ.get("LIMIT", "0"))
-ASSET_V = "6"  # cache-bust version for styles.css / site.js (keep in sync with the rest of the site)
+ASSET_V = "7"  # cache-bust version for styles.css / site.js (keep in sync with the rest of the site)
 
 UA = {"User-Agent": "Mozilla/5.0"}
 

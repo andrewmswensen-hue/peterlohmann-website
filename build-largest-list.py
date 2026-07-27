@@ -9,11 +9,55 @@ WHEN MORE SUBMISSIONS COME IN:
 
 No external libraries needed (standard library only).
 """
-import csv, re, collections, html, os
+import csv, re, collections, html, os, json, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CSV  = os.path.join(HERE, "data", "largest-pm-2026.csv")
 OUT  = os.path.join(HERE, "largest-pm-companies.html")
+JOTFORM_FORM_ID = "240037996931060"
+
+def _jotform_key():
+    """API key from env (GitHub Action) or a local gitignored .jotform_key file. Never printed/committed."""
+    k = os.environ.get("JOTFORM_API_KEY")
+    if not k:
+        p = os.path.join(HERE, ".jotform_key")
+        if os.path.exists(p):
+            k = open(p).read().strip()
+    return k or None
+
+def fetch_jotform(key):
+    """Pull all submissions from the JotForm API and return them as dicts keyed by the
+    same column names as the CSV export (so the rest of the script is unchanged)."""
+    url = f"https://api.jotform.com/form/{JOTFORM_FORM_ID}/submissions?apiKey={key}&limit=1000"
+    data = json.load(urllib.request.urlopen(url, timeout=45)).get("content", [])
+    rows = []
+    for s in data:
+        row = {"Submission Date": s.get("created_at", "")}
+        for a in (s.get("answers") or {}).values():
+            label = (a.get("text") or "").strip()
+            ans = a.get("answer")
+            if isinstance(ans, dict):    # e.g. full-name {first,last}
+                ans = " ".join(str(v) for v in ans.values() if v)
+            elif isinstance(ans, list):
+                ans = ", ".join(str(v) for v in ans)
+            row[label] = "" if ans is None else str(ans)
+        rows.append(row)
+    return rows
+
+def load_records():
+    """Prefer live JotForm data; fall back to the committed CSV snapshot."""
+    key = _jotform_key()
+    if key:
+        try:
+            rows = fetch_jotform(key)
+            print(f"Loaded {len(rows)} submissions from the JotForm API.")
+            return rows
+        except Exception as e:
+            print(f"JotForm fetch failed ({e}); falling back to CSV.")
+    with open(CSV, newline="") as f:
+        rows = list(csv.DictReader(f))
+    print(f"Loaded {len(rows)} rows from {os.path.basename(CSV)} (CSV fallback).")
+    return rows
 
 STATE_ABBR = {'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY','DC'}
 STATE_NAME = {'AL':'Alabama','AZ':'Arizona','CA':'California','CO':'Colorado','DC':'Washington, D.C.','FL':'Florida','GA':'Georgia','ID':'Idaho','IL':'Illinois','IN':'Indiana','KY':'Kentucky','MA':'Massachusetts','MD':'Maryland','MI':'Michigan','MN':'Minnesota','MO':'Missouri','MT':'Montana','NC':'North Carolina','NJ':'New Jersey','NV':'Nevada','NY':'New York','OH':'Ohio','OK':'Oklahoma','OR':'Oregon','SC':'South Carolina','TN':'Tennessee','TX':'Texas','VA':'Virginia','WA':'Washington','WI':'Wisconsin'}
@@ -52,23 +96,20 @@ def norm_org(s):
     return s.title() if s else 'Unknown'
 
 # ---- load + clean ----
-raw = []
-with open(CSV, newline='') as f:
-    for d in csv.DictReader(f):
-        raw.append(d)
+raw = load_records()
 
 records = []
 for d in raw:
-    doors = num(d['Total 3rd party rental doors under management:'])
+    doors = num(d.get('Total 3rd party rental doors under management:', ''))
     records.append({
-        'name': d['Company Name'].strip(),
-        'loc': d['Company HQ Location (City, State)'].strip(),
-        'state': state_of(d['Company HQ Location (City, State)']),
+        'name': (d.get('Company Name') or '').strip(),
+        'loc': (d.get('Company HQ Location (City, State)') or '').strip(),
+        'state': state_of(d.get('Company HQ Location (City, State)', '')),
         'doors': doors,
-        'soft': norm_soft(d['Primary Software Used For Property Accounting?']),
-        'narpm': (d['Is your company a member of NARPM?'] or '').strip().lower().startswith('y'),
-        'org': norm_org(d['How is your PM Company Organized?']),
-        'markets': num(d['How many markets (metro areas) does your company operate in?']),
+        'soft': norm_soft(d.get('Primary Software Used For Property Accounting?', '')),
+        'narpm': (d.get('Is your company a member of NARPM?') or '').strip().lower().startswith('y'),
+        'org': norm_org(d.get('How is your PM Company Organized?', '')),
+        'markets': num(d.get('How many markets (metro areas) does your company operate in?', '')),
     })
 
 # keep >=50 doors; dedupe by lowercased name (keep highest doors)
@@ -86,8 +127,19 @@ median = sorted(r['doors'] for r in valid)[n//2]
 us_states = sorted({r['state'] for r in valid if r['state'] in STATE_NAME})
 has_canada = any(r['state'] == 'ON' for r in valid)
 
-soft_counts = collections.Counter(r['soft'] for r in valid).most_common()
-org_counts  = collections.Counter(r['org'] for r in valid).most_common()
+def _chart_counts(field, keep=6):
+    # Exclude 'Unknown' (older submissions predate these questions); lump a long tail into 'Other'.
+    c = [(k, v) for k, v in collections.Counter(r[field] for r in valid).most_common() if k != 'Unknown']
+    reported = sum(v for _, v in c)
+    if len(c) > keep:
+        head = c[:keep]
+        tail = sum(v for _, v in c[keep:])
+        if tail:
+            head.append(('Other', tail))
+        c = head
+    return c, reported
+soft_counts, soft_reported = _chart_counts('soft')
+org_counts,  org_reported  = _chart_counts('org')
 narpm_n = sum(1 for r in valid if r['narpm'])
 biggest = valid[0]
 footprint = max((r for r in valid if r['markets'] < 500), key=lambda x: x['markets'])
@@ -146,24 +198,26 @@ trows = []
 for i, r in enumerate(valid[:LIST_CAP], 1):
     top = ' class="top1"' if i == 1 else ''
     chip = '<span class="chip-yes">Yes</span>' if r['narpm'] else '<span class="chip-no">No</span>'
+    soft_txt = esc(r["soft"]) if r["soft"] != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
+    org_txt  = esc(r["org"])  if r["org"]  != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
     trows.append(
         f'          <tr{top}>'
         f'<td class="r-rank">{i}</td>'
         f'<td><div class="r-co">{esc(r["name"])}</div><div class="r-loc">{esc(r["loc"])}</div></td>'
         f'<td class="num r-doors">{comma(r["doors"])}</td>'
-        f'<td class="hide-sm">{esc(r["soft"])}</td>'
-        f'<td class="hide-sm">{esc(r["org"])}</td>'
+        f'<td class="hide-sm">{soft_txt}</td>'
+        f'<td class="hide-sm">{org_txt}</td>'
         f'<td>{chip}</td>'
         f'</tr>')
 table_rows = "\n".join(trows)
 shown = min(LIST_CAP, n)
 
 # data bars
-def bars(counts, klass_cycle):
+def bars(counts, klass_cycle, denom):
     out = []
     top = counts[0][1]
     for idx, (label, c) in enumerate(counts):
-        pct = round(100 * c / n)
+        pct = round(100 * c / denom)
         cls = klass_cycle[idx % len(klass_cycle)]
         out.append(
             f'        <div class="databar {cls}">'
@@ -171,8 +225,8 @@ def bars(counts, klass_cycle):
             f'<span class="db-val">{c} &middot; {pct}%</span></div>'
             f'<div class="db-track"><span class="db-fill" style="--w:{round(100*c/top)}%"></span></div></div>')
     return "\n".join(out)
-soft_bars = bars(soft_counts, ['', 'c3', 'c4', 'c2'])
-org_bars  = bars(org_counts, ['', 'c2', 'c4', 'c3'])
+soft_bars = bars(soft_counts, ['', 'c3', 'c4', 'c2'], soft_reported)
+org_bars  = bars(org_counts, ['', 'c2', 'c4', 'c3'], org_reported)
 
 # state cards
 scards = []
@@ -195,7 +249,8 @@ page = f"""<!--
   PETER LOHMANN - THE LARGEST PM COMPANIES (2026)
   ============================================================================
   THIS FILE IS GENERATED. Do not hand-edit the data sections.
-  To update: replace data/largest-pm-2026.csv, then run  python3 build-largest-list.py
+  Data source: live JotForm submissions (form 240037996931060), pulled by build-largest-list.py.
+  Auto-refreshes daily via GitHub Actions; also runnable by hand: python3 build-largest-list.py
   ============================================================================
 -->
 <!doctype html>
@@ -279,14 +334,14 @@ page = f"""<!--
       <div class="split mt-lg" style="align-items:start;">
         <div class="card reveal">
           <h3 style="margin-bottom:6px;">Accounting software</h3>
-          <p style="color:var(--muted);font-size:14.5px;margin-bottom:18px;">What the largest operators run their books on.</p>
+          <p style="color:var(--muted);font-size:14.5px;margin-bottom:18px;">What the largest operators run their books on. Based on the {soft_reported} companies that reported.</p>
           <div class="databars in">
 {soft_bars}
           </div>
         </div>
         <div class="card reveal">
           <h3 style="margin-bottom:6px;">How they're organized</h3>
-          <p style="color:var(--muted);font-size:14.5px;margin-bottom:18px;">Team structure across the list.</p>
+          <p style="color:var(--muted);font-size:14.5px;margin-bottom:18px;">Structure across the {org_reported} companies that reported.</p>
           <div class="databars in">
 {org_bars}
           </div>

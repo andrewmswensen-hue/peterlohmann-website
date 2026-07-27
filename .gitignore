@@ -1,2 +1,5 @@
 .DS_Store
 *.log
+
+# local secrets (never commit)
+.jotform_key

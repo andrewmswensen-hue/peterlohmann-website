@@ -328,10 +328,22 @@ ul.feat li::before{ content:"\2713"; position:absolute; left:0; top:0; color:var
 .pod .pod-doors small{ font-size:14px; font-weight:600; color:var(--muted); letter-spacing:0; }
 .pod .pod-co{ font-weight:700; color:var(--navy); font-size:17px; margin-top:8px; }
 .pod .pod-loc{ color:var(--muted); font-size:13.5px; margin-top:2px; }
-.pod.first{ border-top:4px solid #bea060; box-shadow:var(--shadow-lg); }
-.pod.second{ border-top:4px solid var(--primary); }
-.pod.third{ border-top:4px solid var(--navy); }
-@media (max-width:680px){ .podium{ grid-template-columns:1fr; } }
+/* podium stepping: #1 (center) tallest, #2 (left) medium, #3 (right) shortest */
+.pod.first{ border-top:4px solid #bea060; box-shadow:var(--shadow-lg); padding-top:54px; }
+.pod.second{ border-top:4px solid var(--primary); padding-top:34px; }
+.pod.third{ border-top:4px solid var(--navy); padding-top:20px; }
+.pod.first .pod-badge{ transform:scale(1.1); margin-bottom:20px; }
+.pod.second .pod-badge{ transform:scale(.96); }
+.pod.third .pod-badge{ transform:scale(.86); margin-bottom:12px; }
+.pod.first .pod-doors{ font-size:clamp(34px,4.8vw,48px); }
+.pod.third .pod-doors{ font-size:clamp(26px,3.4vw,36px); }
+@media (max-width:680px){
+  .podium{ grid-template-columns:1fr; }
+  /* stacked on mobile: uniform + natural 1-2-3 order, no scaling */
+  .pod.first,.pod.second,.pod.third{ padding-top:26px; }
+  .pod.first{ order:1; } .pod.second{ order:2; } .pod.third{ order:3; }
+  .pod .pod-badge{ transform:none !important; }
+}
 
 /* ranking table (sticky header, zebra rows, emphasized Doors column) */
 .table-scroll{ overflow:visible; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); background:#fff; }

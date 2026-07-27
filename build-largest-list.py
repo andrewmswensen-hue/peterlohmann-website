@@ -15,6 +15,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 CSV  = os.path.join(HERE, "data", "largest-pm-2026.csv")
 OUT  = os.path.join(HERE, "largest-pm-companies.html")
 JOTFORM_FORM_ID = "240037996931060"
+SUBMISSION_YEAR = "2026"   # only include submissions from this year (newest data, top of the JotForm sheet)
 
 def _jotform_key():
     """API key from env (GitHub Action) or a local gitignored .jotform_key file. Never printed/committed."""
@@ -31,8 +32,14 @@ def fetch_jotform(key):
     url = f"https://api.jotform.com/form/{JOTFORM_FORM_ID}/submissions?apiKey={key}&limit=1000"
     data = json.load(urllib.request.urlopen(url, timeout=45)).get("content", [])
     rows = []
+    skipped = 0
     for s in data:
-        row = {"Submission Date": s.get("created_at", "")}
+        created = s.get("created_at", "")
+        # Only keep current-year submissions (the newest entries at the top of the JotForm sheet).
+        if not created.startswith(SUBMISSION_YEAR + "-"):
+            skipped += 1
+            continue
+        row = {"Submission Date": created}
         for a in (s.get("answers") or {}).values():
             label = (a.get("text") or "").strip()
             ans = a.get("answer")
@@ -42,6 +49,7 @@ def fetch_jotform(key):
                 ans = ", ".join(str(v) for v in ans)
             row[label] = "" if ans is None else str(ans)
         rows.append(row)
+    print(f"JotForm: kept {len(rows)} submissions from {SUBMISSION_YEAR}, skipped {skipped} from other years.")
     return rows
 
 def load_records():

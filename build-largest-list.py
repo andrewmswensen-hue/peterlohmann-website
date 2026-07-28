@@ -31,6 +31,9 @@ CRANE_MEMBERS_FORCE = {                          # confirmed Crane members whose
     "stratton vantage property management",
     "colorado realty and property management",
 }
+BOOM_CUSTOMERS = {                               # Boom customers (lowercased display name). Empty for now -> all "No".
+    # "example property management",
+}
 
 def _jotform_key():
     """API key from env (GitHub Action) or a local gitignored .jotform_key file. Never printed/committed."""
@@ -152,6 +155,7 @@ for d in raw:
         'soft': norm_soft(d.get('Primary Software Used For Property Accounting?', '')),
         'narpm': (d.get('Is your company a member of NARPM?') or '').strip().lower().startswith('y'),
         'crane': crane,
+        'boom': name.lower() in BOOM_CUSTOMERS,
         'org': norm_org(d.get('How is your PM Company Organized?', '')),
         'markets': num(d.get('How many markets (metro areas) does your company operate in?', '')),
     })
@@ -243,6 +247,7 @@ for i, r in enumerate(valid[:LIST_CAP], 1):
     top = ' class="top1"' if i == 1 else ''
     chip = '<span class="chip-yes">Yes</span>' if r['narpm'] else '<span class="chip-no">No</span>'
     crane_chip = '<span class="chip-yes">Yes</span>' if r['crane'] else '<span class="chip-no">No</span>'
+    boom_chip = '<span class="chip-yes">Yes</span>' if r['boom'] else '<span class="chip-no">No</span>'
     soft_txt = esc(r["soft"]) if r["soft"] != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
     org_txt  = esc(r["org"])  if r["org"]  != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
     trows.append(
@@ -254,6 +259,7 @@ for i, r in enumerate(valid[:LIST_CAP], 1):
         f'<td class="hide-sm">{org_txt}</td>'
         f'<td>{chip}</td>'
         f'<td>{crane_chip}</td>'
+        f'<td>{boom_chip}</td>'
         f'</tr>')
 table_rows = "\n".join(trows)
 shown = min(LIST_CAP, n)
@@ -310,6 +316,26 @@ page = f"""<!--
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
 <link rel="stylesheet" href="styles.css?v=8" />
+<style>
+  /* Boom sponsor presentation (scoped to this page) */
+  .presented-by{{ display:inline-flex; align-items:center; gap:8px; margin:-6px 0 20px;
+    font-size:15px; font-weight:400; color:var(--muted); text-decoration:none; }}
+  .presented-by img{{ height:22px; width:auto; display:block; transform:translateY(1px); }}
+  .presented-by:hover{{ text-decoration:none; opacity:.82; }}
+  th.boom-col{{ white-space:nowrap; }}
+  .th-boom{{ height:13px; width:auto; vertical-align:middle; transform:translateY(-1px); }}
+  .boom-sticky{{ position:fixed; right:18px; bottom:18px; z-index:60;
+    display:inline-flex; align-items:center; gap:7px; padding:8px 13px;
+    background:#fff; border:1px solid var(--line); border-radius:999px;
+    box-shadow:0 6px 20px rgba(31,58,77,.16);
+    font-size:12px; font-weight:600; letter-spacing:.01em; color:var(--muted); text-decoration:none;
+    opacity:0; transform:translateY(12px); pointer-events:none;
+    transition:opacity .35s ease, transform .35s ease; }}
+  .boom-sticky.show{{ opacity:1; transform:translateY(0); pointer-events:auto; }}
+  .boom-sticky img{{ height:18px; width:auto; display:block; }}
+  .boom-sticky:hover{{ box-shadow:0 8px 26px rgba(31,58,77,.22); }}
+  @media (max-width:600px){{ .boom-sticky{{ right:10px; bottom:10px; padding:7px 11px; }} .boom-sticky span{{ display:none; }} }}
+</style>
 </head>
 <body>
 
@@ -333,6 +359,7 @@ page = f"""<!--
       <div class="ticks" aria-hidden="true"><i></i><i></i><i></i></div>
       <span class="kicker">Industry Research &middot; 2026</span>
       <h1>The Largest Property Management Companies</h1>
+      <a class="presented-by" href="https://www.boompay.app/" target="_blank" rel="noopener">Presented by <img src="images/boom-logo.webp" alt="Boom" /></a>
       <p class="lead">A self-reported ranking of the largest residential property management companies, plus what the data says about software, structure, and how the best operators are built. Submissions are still open, so this list keeps growing.</p>
     </div>
   </header>
@@ -356,7 +383,7 @@ page = f"""<!--
       <p class="sub reveal" style="margin-bottom:22px;">By third-party doors under management. Self-reported. SFR and small multifamily (under 100 units).</p>
       <div class="table-scroll reveal">
         <table class="rank-table">
-          <thead><tr><th class="num">#</th><th>Company</th><th class="num doors-col">Doors</th><th class="hide-sm">Software</th><th class="hide-sm">Structure</th><th>NARPM member?</th><th>Crane member?</th></tr></thead>
+          <thead><tr><th class="num">#</th><th>Company</th><th class="num doors-col">Doors</th><th class="hide-sm">Software</th><th class="hide-sm">Structure</th><th>NARPM member?</th><th>Crane member?</th><th class="boom-col"><img src="images/boom-logo.webp" alt="Boom" class="th-boom" /> Customer</th></tr></thead>
           <tbody>
 {table_rows}
           </tbody>
@@ -466,7 +493,22 @@ page = f"""<!--
   </div>
 </footer>
 
+<a class="boom-sticky" id="boomSticky" href="https://www.boompay.app/" target="_blank" rel="noopener" aria-label="Presented by Boom">
+  <span>Presented by</span><img src="images/boom-logo.webp" alt="Boom" />
+</a>
+
 <script src="site.js?v=8"></script>
+<script>
+(function(){{
+  var hero = document.querySelector('.page-hero'),
+      badge = document.getElementById('boomSticky');
+  if (!hero || !badge) return;
+  if (!('IntersectionObserver' in window)) {{ badge.classList.add('show'); return; }}
+  new IntersectionObserver(function(entries){{
+    entries.forEach(function(e){{ badge.classList.toggle('show', !e.isIntersecting); }});
+  }}, {{ threshold: 0 }}).observe(hero);
+}})();
+</script>
 </body>
 </html>
 """

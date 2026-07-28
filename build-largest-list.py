@@ -247,7 +247,7 @@ for i, r in enumerate(valid[:LIST_CAP], 1):
     top = ' class="top1"' if i == 1 else ''
     NO = '<span class="chip-no">No</span>'
     chip = '<img src="images/narpm-logo.webp" alt="NARPM member" class="yn-logo" />' if r['narpm'] else NO
-    crane_chip = '<img src="images/crane-logo.webp" alt="Crane member" class="yn-logo" />' if r['crane'] else NO
+    crane_chip = '<img src="images/crane-logo.webp" alt="Crane member" class="yn-crane" />' if r['crane'] else NO
     boom_chip = '<img src="images/boom-logo.webp" alt="Boom customer" class="yn-logo" />' if r['boom'] else NO
     soft_txt = esc(r["soft"]) if r["soft"] != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
     org_txt  = esc(r["org"])  if r["org"]  != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
@@ -332,9 +332,8 @@ page = f"""<!--
      Boom/NARPM wordmarks read at a consistent size. */
   .yn-col .hdr-logo{{ display:block; margin:0 auto 5px; height:24px; width:72px; object-fit:contain; }}
   .yn-col .cust{{ display:block; }}
-  .crane-hd{{ display:flex; align-items:center; justify-content:center; gap:6px; height:24px; margin:0 auto 5px; }}
-  .crane-hd img{{ height:22px; width:auto; }}
   td.yn .yn-logo{{ display:block; margin:0 auto; height:30px; width:74px; object-fit:contain; }}
+  td.yn .yn-crane{{ display:block; margin:0 auto; height:39px; width:auto; }}  /* Crane icon ~30% larger */
   .boom-sticky{{ position:fixed; right:18px; bottom:18px; z-index:60;
     display:inline-flex; align-items:center; gap:7px; padding:8px 13px;
     background:#fff; border:1px solid var(--line); border-radius:999px;
@@ -395,7 +394,7 @@ page = f"""<!--
       <p class="sub reveal" style="margin-bottom:22px;">By third-party doors under management. Self-reported. SFR and small multifamily (under 100 units).</p>
       <div class="table-scroll reveal">
         <table class="rank-table">
-          <thead><tr><th class="num">#</th><th>Company</th><th class="num doors-col">Doors</th><th class="hide-sm">Software</th><th class="hide-sm">Structure</th><th class="yn-col"><img src="images/narpm-logo.webp" alt="NARPM" class="hdr-logo" /><span class="cust">member</span></th><th class="yn-col"><span class="crane-hd"><img src="images/crane-logo.webp" alt="Crane" />Crane</span><span class="cust">member</span></th><th class="yn-col boom-col"><img src="images/boom-logo.webp" alt="Boom" class="hdr-logo" /><span class="cust">Customer</span></th></tr></thead>
+          <thead><tr><th class="num">#</th><th>Company</th><th class="num doors-col">Doors</th><th class="hide-sm">Software</th><th class="hide-sm">Structure</th><th class="yn-col"><img src="images/narpm-logo.webp" alt="NARPM" class="hdr-logo" /><span class="cust">member</span></th><th class="yn-col"><img src="images/crane-full-logo.webp" alt="Crane" class="hdr-logo" /><span class="cust">member</span></th><th class="yn-col boom-col"><img src="images/boom-logo.webp" alt="Boom" class="hdr-logo" /><span class="cust">Customer</span></th></tr></thead>
           <tbody>
 {table_rows}
           </tbody>

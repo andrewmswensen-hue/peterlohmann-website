@@ -19,6 +19,19 @@ SUBMISSION_YEAR = "2026"   # only include submissions from this year (newest dat
 NAME_Q  = "Company Name"
 CRANE_Q = "Are you (or is someone on your team) a Crane member?"
 
+# ---- manual data corrections ----
+# Applied on top of the live submissions so they survive the daily auto-refresh.
+# Keys are the raw company name, lowercased.
+NAME_FIXES = {
+    "pmi midwest": "PMI Midwest",               # capital-I typo in the submission
+    "turbotenant": 'TurboTenant "Autopilot"',   # use their product name
+}
+CRANE_MEMBERS_FORCE = {                          # confirmed Crane members whose form didn't flag it
+    "on q property management",
+    "stratton vantage property management",
+    "colorado realty and property management",
+}
+
 def _jotform_key():
     """API key from env (GitHub Action) or a local gitignored .jotform_key file. Never printed/committed."""
     k = os.environ.get("JOTFORM_API_KEY")
@@ -127,14 +140,18 @@ raw = load_records()
 records = []
 for d in raw:
     doors = num(d.get('Total 3rd party rental doors under management:', ''))
+    raw_name = (d.get('Company Name') or '').strip()
+    name = NAME_FIXES.get(raw_name.lower(), raw_name)
+    crane = ((d.get('Are you (or is someone on your team) a Crane member?') or '').strip().lower().startswith('y')
+             or raw_name.lower() in CRANE_MEMBERS_FORCE)
     records.append({
-        'name': (d.get('Company Name') or '').strip(),
+        'name': name,
         'loc': (d.get('Company HQ Location (City, State)') or '').strip(),
         'state': state_of(d.get('Company HQ Location (City, State)', '')),
         'doors': doors,
         'soft': norm_soft(d.get('Primary Software Used For Property Accounting?', '')),
         'narpm': (d.get('Is your company a member of NARPM?') or '').strip().lower().startswith('y'),
-        'crane': (d.get('Are you (or is someone on your team) a Crane member?') or '').strip().lower().startswith('y'),
+        'crane': crane,
         'org': norm_org(d.get('How is your PM Company Organized?', '')),
         'markets': num(d.get('How many markets (metro areas) does your company operate in?', '')),
     })

@@ -245,9 +245,10 @@ LIST_CAP = 40
 trows = []
 for i, r in enumerate(valid[:LIST_CAP], 1):
     top = ' class="top1"' if i == 1 else ''
-    chip = '<span class="chip-yes">Yes</span>' if r['narpm'] else '<span class="chip-no">No</span>'
-    crane_chip = '<span class="chip-yes">Yes</span>' if r['crane'] else '<span class="chip-no">No</span>'
-    boom_chip = '<span class="chip-yes">Yes</span>' if r['boom'] else '<span class="chip-no">No</span>'
+    NO = '<span class="chip-no">No</span>'
+    chip = '<img src="images/narpm-logo.webp" alt="NARPM member" class="yn-logo" />' if r['narpm'] else NO
+    crane_chip = '<img src="images/crane-logo.webp" alt="Crane member" class="yn-logo" />' if r['crane'] else NO
+    boom_chip = '<img src="images/boom-logo.webp" alt="Boom customer" class="yn-logo" />' if r['boom'] else NO
     soft_txt = esc(r["soft"]) if r["soft"] != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
     org_txt  = esc(r["org"])  if r["org"]  != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
     trows.append(
@@ -327,8 +328,11 @@ page = f"""<!--
   .rank-table th.yn-col{{ width:96px; text-align:center; line-height:1.18; vertical-align:bottom;
     padding-left:10px; padding-right:10px; border-left:1px solid var(--line); }}
   .rank-table td.yn{{ text-align:center; padding-left:10px; padding-right:10px; border-left:1px solid var(--line); }}
-  .th-boom{{ display:block; width:68px; height:auto; margin:0 auto 4px; }}
-  .boom-col .cust{{ display:block; }}
+  /* Org logos: fit each into the same box so the square Crane mark and the wide
+     Boom/NARPM wordmarks read at a consistent size. */
+  .yn-col .hdr-logo{{ display:block; margin:0 auto 5px; height:24px; width:72px; object-fit:contain; }}
+  .yn-col .cust{{ display:block; }}
+  td.yn .yn-logo{{ display:block; margin:0 auto; height:20px; width:60px; object-fit:contain; }}
   .boom-sticky{{ position:fixed; right:18px; bottom:18px; z-index:60;
     display:inline-flex; align-items:center; gap:7px; padding:8px 13px;
     background:#fff; border:1px solid var(--line); border-radius:999px;
@@ -389,7 +393,7 @@ page = f"""<!--
       <p class="sub reveal" style="margin-bottom:22px;">By third-party doors under management. Self-reported. SFR and small multifamily (under 100 units).</p>
       <div class="table-scroll reveal">
         <table class="rank-table">
-          <thead><tr><th class="num">#</th><th>Company</th><th class="num doors-col">Doors</th><th class="hide-sm">Software</th><th class="hide-sm">Structure</th><th class="yn-col">NARPM<br>member</th><th class="yn-col">Crane<br>member</th><th class="yn-col boom-col"><img src="images/boom-logo.webp" alt="Boom" class="th-boom" /><span class="cust">Customer</span></th></tr></thead>
+          <thead><tr><th class="num">#</th><th>Company</th><th class="num doors-col">Doors</th><th class="hide-sm">Software</th><th class="hide-sm">Structure</th><th class="yn-col"><img src="images/narpm-logo.webp" alt="NARPM" class="hdr-logo" /><span class="cust">member</span></th><th class="yn-col"><img src="images/crane-logo.webp" alt="Crane" class="hdr-logo" /><span class="cust">member</span></th><th class="yn-col boom-col"><img src="images/boom-logo.webp" alt="Boom" class="hdr-logo" /><span class="cust">Customer</span></th></tr></thead>
           <tbody>
 {table_rows}
           </tbody>

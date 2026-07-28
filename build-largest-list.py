@@ -257,9 +257,9 @@ for i, r in enumerate(valid[:LIST_CAP], 1):
         f'<td class="num r-doors">{comma(r["doors"])}</td>'
         f'<td class="hide-sm">{soft_txt}</td>'
         f'<td class="hide-sm">{org_txt}</td>'
-        f'<td>{chip}</td>'
-        f'<td>{crane_chip}</td>'
-        f'<td>{boom_chip}</td>'
+        f'<td class="yn">{chip}</td>'
+        f'<td class="yn">{crane_chip}</td>'
+        f'<td class="yn">{boom_chip}</td>'
         f'</tr>')
 table_rows = "\n".join(trows)
 shown = min(LIST_CAP, n)
@@ -323,8 +323,12 @@ page = f"""<!--
   .presented-by img{{ height:clamp(27px,3.3vw,35px); width:auto; display:block; transform:translateY(1px); }}
   .hero-rule{{ width:56px; height:3px; background:var(--primary); border-radius:2px; margin:0 0 18px; }}
   .presented-by:hover{{ text-decoration:none; opacity:.82; }}
-  th.boom-col{{ white-space:nowrap; }}
-  .th-boom{{ height:13px; width:auto; vertical-align:middle; transform:translateY(-1px); }}
+  /* Uniform two-line, centered yes/no headers (NARPM / Crane / Boom Customer) */
+  .rank-table th.yn-col{{ text-align:center; line-height:1.18; vertical-align:bottom;
+    padding-left:10px; padding-right:10px; }}
+  .rank-table td.yn{{ text-align:center; padding-left:10px; padding-right:10px; }}
+  .th-boom{{ display:block; width:68px; height:auto; margin:0 auto 4px; }}
+  .boom-col .cust{{ display:block; }}
   .boom-sticky{{ position:fixed; right:18px; bottom:18px; z-index:60;
     display:inline-flex; align-items:center; gap:7px; padding:8px 13px;
     background:#fff; border:1px solid var(--line); border-radius:999px;
@@ -385,7 +389,7 @@ page = f"""<!--
       <p class="sub reveal" style="margin-bottom:22px;">By third-party doors under management. Self-reported. SFR and small multifamily (under 100 units).</p>
       <div class="table-scroll reveal">
         <table class="rank-table">
-          <thead><tr><th class="num">#</th><th>Company</th><th class="num doors-col">Doors</th><th class="hide-sm">Software</th><th class="hide-sm">Structure</th><th>NARPM member?</th><th>Crane member?</th><th class="boom-col"><img src="images/boom-logo.webp" alt="Boom" class="th-boom" /> Customer</th></tr></thead>
+          <thead><tr><th class="num">#</th><th>Company</th><th class="num doors-col">Doors</th><th class="hide-sm">Software</th><th class="hide-sm">Structure</th><th class="yn-col">NARPM<br>member</th><th class="yn-col">Crane<br>member</th><th class="yn-col boom-col"><img src="images/boom-logo.webp" alt="Boom" class="th-boom" /><span class="cust">Customer</span></th></tr></thead>
           <tbody>
 {table_rows}
           </tbody>

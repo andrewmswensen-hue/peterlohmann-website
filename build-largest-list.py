@@ -168,6 +168,7 @@ for d in raw:
              or raw_name.lower() in CRANE_MEMBERS_FORCE)
     records.append({
         'name': name,
+        'raw_name': raw_name,
         'loc': (d.get('Company HQ Location (City, State)') or '').strip(),
         'state': state_of(d.get('Company HQ Location (City, State)', '')),
         'doors': doors,
@@ -225,6 +226,29 @@ for st, c in by_state.most_common():
 def esc(s): return html.escape(s, quote=True)
 def comma(x): return f"{x:,}"
 
+def load_websites():
+    """Verified company websites: data/company-websites.csv (company_name, website_url).
+    Keeps URLs on file so they persist and hyperlink automatically as the list refreshes."""
+    p = os.path.join(HERE, "data", "company-websites.csv")
+    m = {}
+    if os.path.exists(p):
+        with open(p, newline="") as f:
+            for row in csv.DictReader(f):
+                nm = (row.get("company_name") or "").strip().lower()
+                url = (row.get("website_url") or "").strip()
+                if nm and url:
+                    m[nm] = url
+    return m
+WEBSITES = load_websites()
+
+def linked_name(r):
+    """Company name, hyperlinked to its verified website when we have one on file."""
+    url = WEBSITES.get((r.get("raw_name") or r["name"]).lower()) or WEBSITES.get(r["name"].lower())
+    nm = esc(r["name"])
+    if url:
+        return f'<a class="co-link" href="{esc(url)}" target="_blank" rel="noopener">{nm}</a>'
+    return nm
+
 # ---- build fragments ----
 NAV_LINKS = """      <a href="index.html">About</a>
       <a href="newsletter.html">Newsletter</a>
@@ -252,7 +276,7 @@ def pod(r, cls, badge_cls, hashh, num_txt, stars):
     return f"""        <div class="pod {cls}">
           <div class="rank-badge {badge_cls} pod-badge"><span class="rb-hash">{hashh}</span><span class="rb-num">{num_txt}</span><span class="rb-star">{stars}</span></div>
           <div class="pod-doors">{comma(r['doors'])}<small> doors</small></div>
-          <div class="pod-co">{esc(r['name'])}</div>
+          <div class="pod-co">{linked_name(r)}</div>
           <div class="pod-loc">{esc(r['loc'])}</div>
         </div>"""
 podium = "\n".join([
@@ -286,7 +310,7 @@ for i, r in enumerate(valid[:LIST_CAP], 1):
     trows.append(
         f'          <tr{top}>'
         f'<td class="r-rank">{i}</td>'
-        f'<td><div class="r-co">{esc(r["name"])}</div><div class="r-loc">{esc(r["loc"])}</div></td>'
+        f'<td><div class="r-co">{linked_name(r)}</div><div class="r-loc">{esc(r["loc"])}</div></td>'
         f'<td class="num r-doors">{comma(r["doors"])}</td>'
         f'<td class="chg">{change_txt}</td>'
         f'<td class="hide-sm">{soft_txt}</td>'
@@ -322,7 +346,7 @@ def top40_note(r):
 scards = []
 for st, rows in state_lists:
     items = "\n".join(
-        f'            <li><span class="sl-rank">{i}</span><span class="sl-co">{esc(r["name"])}{top40_note(r)}</span>'
+        f'            <li><span class="sl-rank">{i}</span><span class="sl-co">{linked_name(r)}{top40_note(r)}</span>'
         f'<span class="sl-doors">{comma(r["doors"])}</span></li>'
         for i, r in enumerate(rows, 1))
     scards.append(
@@ -372,6 +396,9 @@ page = f"""<!--
   td.yn .yn-logo{{ display:block; margin:0 auto; height:30px; width:74px; object-fit:contain; }}
   td.yn .yn-crane{{ display:block; margin:0 auto; height:39px; width:auto; }}  /* Crane icon ~30% larger */
   .state-list .sl-top40{{ font-weight:400; font-size:12px; color:#9aa5ad; white-space:nowrap; }}
+  /* Company website links (keep the name's color; underline on hover) */
+  .co-link{{ color:inherit; text-decoration:none; }}
+  .co-link:hover{{ text-decoration:underline; text-decoration-color:var(--primary); text-underline-offset:2px; }}
   /* Change from 2025 column */
   .rank-wrap{{ max-width:1200px; }}
   .rank-table th.chg-col{{ text-align:center; line-height:1.18; white-space:nowrap; }}

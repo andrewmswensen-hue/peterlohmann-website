@@ -68,6 +68,10 @@ anywhere (Squarespace embed, GitHub Pages, Netlify, etc.).
   the Crane question, so Crane is treated as a company attribute pulled from ALL years: a company
   shows Crane = Yes if ANY of its submissions (matched by company name) ever answered Yes. NARPM and
   everything else stay 2026-only.
+  COMPANY WEBSITES: data/company-websites.csv (company_name, website_url) holds verified URLs; the
+  generator hyperlinks each company name (podium, table, state lists) to its site when present.
+  Match is by the raw submission name (case-insensitive). Peter plans to add a website field to the
+  JotForm; until then, add new companies' URLs to this CSV. Only add verified URLs (never guess-link).
 - PeterBot: Delphi widget (scripts inside the embed section; Delphi injects #delphi-container there)
 
 ## Interactive features

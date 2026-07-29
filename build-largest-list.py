@@ -26,15 +26,28 @@ CRANE_Q = "Are you (or is someone on your team) a Crane member?"
 # Keys are the raw company name, lowercased.
 NAME_FIXES = {
     "pmi midwest": "PMI Midwest",               # capital-I typo in the submission
+    "pmi midwest.": "PMI Midwest",
+    "pacific shpre property management": "Pacific Shore Property Management",  # 'Shpre' typo
     "turbotenant": 'TurboTenant "Autopilot"',   # use their product name
 }
-CRANE_MEMBERS_FORCE = {                          # confirmed Crane members whose form didn't flag it
+CRANE_MEMBERS_FORCE = {                          # confirmed Crane members (matched by raw or display name)
     "on q property management",
     "stratton vantage property management",
     "colorado realty and property management",
+    "auben realty",
+    "pacific shore property management",
+    "grove",
+    "tiner properties, inc.",
+    "capvest, llc",
+    "darwin homes",
 }
-BOOM_CUSTOMERS = {                               # Boom customers (lowercased display name). Empty for now -> all "No".
-    # "example property management",
+BOOM_CUSTOMERS = {                               # Boom customers (matched by raw or display name)
+    "on q property management",
+    "jwb",
+    "good life property management",
+    "stratton vantage property management",
+    "pmi midwest",
+    "tiner properties, inc.",
 }
 EXCLUDE_COMPANIES = {                            # scratched from the list (e.g. not residential PM)
     "the storage mall management group",
@@ -222,10 +235,11 @@ for d in raw:
     doors = num(d.get('Total 3rd party rental doors under management:', ''))
     raw_name = (d.get('Company Name') or '').strip()
     name = NAME_FIXES.get(raw_name.lower(), raw_name)
-    if raw_name.lower() in EXCLUDE_COMPANIES or name.lower() in EXCLUDE_COMPANIES:
+    lraw, lname = raw_name.lower(), name.lower()
+    if lraw in EXCLUDE_COMPANIES or lname in EXCLUDE_COMPANIES:
         continue
     crane = ((d.get('Are you (or is someone on your team) a Crane member?') or '').strip().lower().startswith('y')
-             or raw_name.lower() in CRANE_MEMBERS_FORCE)
+             or lraw in CRANE_MEMBERS_FORCE or lname in CRANE_MEMBERS_FORCE)
     records.append({
         'name': name,
         'raw_name': raw_name,
@@ -235,7 +249,7 @@ for d in raw:
         'soft': norm_soft(d.get('Primary Software Used For Property Accounting?', '')),
         'narpm': (d.get('Is your company a member of NARPM?') or '').strip().lower().startswith('y'),
         'crane': crane,
-        'boom': name.lower() in BOOM_CUSTOMERS,
+        'boom': lname in BOOM_CUSTOMERS or lraw in BOOM_CUSTOMERS,
         'doors_2025': d.get('__doors_2025'),
         'org': norm_org(d.get('How is your PM Company Organized?', '')),
         'markets': num(d.get('How many markets (metro areas) does your company operate in?', '')),

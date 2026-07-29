@@ -218,7 +218,7 @@ multi = sum(1 for r in valid if 1 < r['markets'] < 500)
 by_state = collections.Counter(r['state'] for r in valid)
 state_lists = []
 for st, c in by_state.most_common():
-    if st in STATE_NAME and 3 <= c <= 10:
+    if st in STATE_NAME and c >= 3:   # any state with 3+ companies; show its top 10 (no upper cap)
         rows = sorted([r for r in valid if r['state'] == st], key=lambda x: -x['doors'])[:10]
         state_lists.append((st, rows))
 

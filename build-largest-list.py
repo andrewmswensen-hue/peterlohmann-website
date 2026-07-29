@@ -122,6 +122,23 @@ STATE_ABBR = {'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','
 STATE_NAME = {'AL':'Alabama','AZ':'Arizona','CA':'California','CO':'Colorado','DC':'Washington, D.C.','FL':'Florida','GA':'Georgia','ID':'Idaho','IL':'Illinois','IN':'Indiana','KY':'Kentucky','MA':'Massachusetts','MD':'Maryland','MI':'Michigan','MN':'Minnesota','MO':'Missouri','MT':'Montana','NC':'North Carolina','NJ':'New Jersey','NV':'Nevada','NY':'New York','OH':'Ohio','OK':'Oklahoma','OR':'Oregon','SC':'South Carolina','TN':'Tennessee','TX':'Texas','VA':'Virginia','WA':'Washington','WI':'Wisconsin'}
 FULLMAP = {'washington':'WA','oregon':'OR','california':'CA','texas':'TX','arizona':'AZ','montana':'MT','wisconsin':'WI','missouri':'MO','indiana':'IN','idaho':'ID','minnesota':'MN','maryland':'MD','georgia':'GA','massachusetts':'MA','tennessee':'TN'}
 
+# ---- location copy-editing (normalize to "City, ST"; fill known missing states) ----
+US_FULL = {'alabama':'AL','alaska':'AK','arizona':'AZ','arkansas':'AR','california':'CA','colorado':'CO','connecticut':'CT','delaware':'DE','florida':'FL','georgia':'GA','hawaii':'HI','idaho':'ID','illinois':'IL','indiana':'IN','iowa':'IA','kansas':'KS','kentucky':'KY','louisiana':'LA','maine':'ME','maryland':'MD','massachusetts':'MA','michigan':'MI','minnesota':'MN','mississippi':'MS','missouri':'MO','montana':'MT','nebraska':'NE','nevada':'NV','new hampshire':'NH','new jersey':'NJ','new mexico':'NM','new york':'NY','north carolina':'NC','north dakota':'ND','ohio':'OH','oklahoma':'OK','oregon':'OR','pennsylvania':'PA','rhode island':'RI','south carolina':'SC','south dakota':'SD','tennessee':'TN','texas':'TX','utah':'UT','vermont':'VT','virginia':'VA','washington':'WA','west virginia':'WV','wisconsin':'WI','wyoming':'WY'}
+US_FULL_SORTED = sorted(US_FULL.items(), key=lambda x: -len(x[0]))
+CA_PROV = {'alberta':'AB','british columbia':'BC','ontario':'ON','quebec':'QC','manitoba':'MB','saskatchewan':'SK','nova scotia':'NS','new brunswick':'NB'}
+# Unambiguous large cities -> state, used ONLY when a location has no state at all.
+CITY_STATE = {'denver':'CO','indianapolis':'IN','houston':'TX','sacramento':'CA','minneapolis':'MN','anaheim':'CA','newport beach':'CA','las vegas':'NV','lake oswego':'OR','kokomo':'IN','grand rapids':'MI','salt lake city':'UT','chicago':'IL','san antonio':'TX','austin':'TX','phoenix':'AZ','san diego':'CA','cincinnati':'OH','tampa':'FL','oklahoma city':'OK','milwaukee':'WI','madison':'WI','omaha':'NE','tucson':'AZ','mesa':'AZ','gilbert':'AZ','chandler':'AZ','albuquerque':'NM','boise':'ID','spokane':'WA','reno':'NV','missoula':'MT'}
+# Per-company location overrides (lowercased display name) for missing states / data-entry errors we've verified.
+LOCATION_FIXES = {
+    "marblestone property group":"Chicago, IL",   # was "Southside Chicago"
+    "sja property management":"Redmond, WA",       # location field held the company name
+    "marchant property management":"Greenville, SC",
+    "jwb":"Jacksonville, FL",
+    "henderson properites":"Charlotte, NC",
+    "sureway property management llc":"Marlton, NJ",
+    "home365":"Las Vegas, NV",
+}
+
 def num(s):
     m = re.search(r"\d+", (s or "").replace(",",""))
     return int(m.group()) if m else 0
@@ -137,6 +154,49 @@ def state_of(loc):
     for k,v in FULLMAP.items():
         if k in low: return v
     return '??'
+
+def _clean_city(c):
+    c = c.strip(' ,.')
+    return c.title() if c else c
+
+def clean_location(name, raw):
+    """Copy-edit a HQ location to 'City, ST': uppercase abbreviations, convert full state
+    names, fill known-missing states, tidy case. Never guesses an ambiguous state."""
+    key = (name or "").strip().lower()
+    if key in LOCATION_FIXES:
+        return LOCATION_FIXES[key]
+    raw = re.sub(r"\s+", " ", (raw or "").strip()).strip(" ,.")
+    if not raw:
+        return ""
+    low = raw.lower(); lownd = low.replace(".", "")
+    if 'district of columbia' in low or re.search(r"washington\s*,?\s*d\s*c\b", lownd) or re.search(r"\bd\s*c\b$", lownd):
+        return "Washington, DC"
+    for prov, ab in CA_PROV.items():
+        m = re.search(r"(?<![a-z])" + re.escape(prov) + r"(?![a-z])", low)
+        if m:
+            city = _clean_city(raw[:m.start()])
+            return f"{city}, {ab}, Canada" if city else f"{ab}, Canada"
+    state = None; city = raw
+    toks = re.split(r"[,\s]+", raw)
+    for i in range(len(toks) - 1, -1, -1):
+        t = re.sub(r"[^A-Za-z]", "", toks[i]).upper()
+        if t in STATE_ABBR:
+            state = t; city = " ".join(toks[:i]); break
+    if not state:
+        for full, ab in US_FULL_SORTED:
+            m = re.search(r"(?<![a-z])" + re.escape(full) + r"(?![a-z])", low)
+            if m:
+                state = ab; city = raw[:m.start()]; break
+    if not state:
+        ck = re.sub(r"[^a-z ]", "", low).strip()
+        if ck in CITY_STATE:
+            state = CITY_STATE[ck]; city = raw
+    city = _clean_city(city)
+    if state and city:
+        return f"{city}, {state}"
+    if state:
+        return state
+    return _clean_city(raw)
 
 def norm_soft(s):
     s = (s or "").strip().lower()
@@ -169,8 +229,8 @@ for d in raw:
     records.append({
         'name': name,
         'raw_name': raw_name,
-        'loc': (d.get('Company HQ Location (City, State)') or '').strip(),
-        'state': state_of(d.get('Company HQ Location (City, State)', '')),
+        'loc': clean_location(name, d.get('Company HQ Location (City, State)', '')),
+        'state': state_of(clean_location(name, d.get('Company HQ Location (City, State)', ''))),
         'doors': doors,
         'soft': norm_soft(d.get('Primary Software Used For Property Accounting?', '')),
         'narpm': (d.get('Is your company a member of NARPM?') or '').strip().lower().startswith('y'),

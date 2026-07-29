@@ -72,6 +72,12 @@ anywhere (Squarespace embed, GitHub Pages, Netlify, etc.).
   generator hyperlinks each company name (podium, table, state lists) to its site when present.
   Match is by the raw submission name (case-insensitive). Peter plans to add a website field to the
   JotForm; until then, add new companies' URLs to this CSV. Only add verified URLs (never guess-link).
+  LOCATION COPY-EDIT (rule): clean_location() in build-largest-list.py normalizes every HQ location to
+  "City, ST" automatically — uppercases state abbreviations (Cary, nc -> Cary, NC), converts full state
+  names (Houston, Texas -> Houston, TX), tidies case, handles Canada (City, PR, Canada) and DC, and
+  fills MISSING states for unambiguous cities (CITY_STATE) plus per-company overrides (LOCATION_FIXES).
+  It never guesses an ambiguous state. GOING FORWARD: when a new submission's location is incomplete or
+  misformatted, copy-edit it — add the city to CITY_STATE if unambiguous, else add a LOCATION_FIXES entry.
 - PeterBot: Delphi widget (scripts inside the embed section; Delphi injects #delphi-container there)
 
 ## Interactive features

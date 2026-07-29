@@ -173,6 +173,7 @@ for r in valid:
     if k not in best or r['doors'] > best[k]['doors']:
         best[k] = r
 valid = sorted(best.values(), key=lambda x: -x['doors'])
+overall_rank = {r['name']: i for i, r in enumerate(valid, 1)}  # name -> position on the full ranking
 
 n = len(valid)
 total_doors = sum(r['doors'] for r in valid)
@@ -287,10 +288,14 @@ soft_bars = bars(soft_counts, ['', 'c3', 'c4', 'c2'], soft_reported)
 org_bars  = bars(org_counts, ['', 'c2', 'c4', 'c3'], org_reported)
 
 # state cards
+def top40_note(r):
+    rk = overall_rank.get(r['name'])
+    return f' <span class="sl-top40">(#{rk} on the top 40)</span>' if rk and rk <= LIST_CAP else ''
+
 scards = []
 for st, rows in state_lists:
     items = "\n".join(
-        f'            <li><span class="sl-rank">{i}</span><span class="sl-co">{esc(r["name"])}</span>'
+        f'            <li><span class="sl-rank">{i}</span><span class="sl-co">{esc(r["name"])}{top40_note(r)}</span>'
         f'<span class="sl-doors">{comma(r["doors"])}</span></li>'
         for i, r in enumerate(rows, 1))
     scards.append(
@@ -339,6 +344,7 @@ page = f"""<!--
   .yn-col .cust{{ display:block; }}
   td.yn .yn-logo{{ display:block; margin:0 auto; height:30px; width:74px; object-fit:contain; }}
   td.yn .yn-crane{{ display:block; margin:0 auto; height:39px; width:auto; }}  /* Crane icon ~30% larger */
+  .state-list .sl-top40{{ font-weight:400; font-size:12px; color:#9aa5ad; white-space:nowrap; }}
   .boom-sticky{{ position:fixed; right:18px; bottom:18px; z-index:60;
     display:inline-flex; align-items:center; gap:7px; padding:8px 13px;
     background:#fff; border:1px solid var(--line); border-radius:999px;

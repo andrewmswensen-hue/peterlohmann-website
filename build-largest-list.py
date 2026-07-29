@@ -452,7 +452,7 @@ page = f"""<!--
     <div class="wrap">
       <span class="kicker reveal">Top 10 by State</span>
       <h2 class="h-lead reveal">Where there's enough data, a state ranking.</h2>
-      <p class="sub reveal" style="margin-bottom:22px;">A sample of state-level top 10s. As more companies submit, these fill out and new states get added, the goal is a top 10 for every state.</p>
+      <p class="sub reveal" style="margin-bottom:22px;">A sample of state-level top 10s. As more companies submit, these fill out and new states get added, the goal is a top 10 for every state (but we'll start with at least 3).</p>
       <div class="state-grid reveal">
 {state_cards}
       </div>

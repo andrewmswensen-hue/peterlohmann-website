@@ -16,7 +16,9 @@ CSV  = os.path.join(HERE, "data", "largest-pm-2026.csv")
 OUT  = os.path.join(HERE, "largest-pm-companies.html")
 JOTFORM_FORM_ID = "240037996931060"
 SUBMISSION_YEAR = "2026"   # only include submissions from this year (newest data, top of the JotForm sheet)
+PRIOR_YEAR = "2025"        # used for the "Change from 2025" column
 NAME_Q  = "Company Name"
+DOORS_Q = "Total 3rd party rental doors under management:"
 CRANE_Q = "Are you (or is someone on your team) a Crane member?"
 
 # ---- manual data corrections ----
@@ -76,6 +78,16 @@ def fetch_jotform(key):
         if nm and (r.get(CRANE_Q) or "").strip().lower().startswith("y"):
             crane_by_name[nm] = True
 
+    # Prior-year (2025) door counts, by company name -> highest doors that year.
+    # Used to show "Change from 2025" for companies that submitted both years.
+    doors_2025 = {}
+    for r in all_rows:
+        if (r.get("Submission Date") or "").startswith(PRIOR_YEAR + "-"):
+            nm = (r.get(NAME_Q) or "").strip().lower()
+            dd = num(r.get(DOORS_Q, ""))
+            if nm and dd > 0 and dd > doors_2025.get(nm, 0):
+                doors_2025[nm] = dd
+
     kept, skipped = [], 0
     for r in all_rows:
         if not (r.get("Submission Date") or "").startswith(SUBMISSION_YEAR + "-"):
@@ -83,10 +95,12 @@ def fetch_jotform(key):
             continue
         nm = (r.get(NAME_Q) or "").strip().lower()
         r[CRANE_Q] = "Yes" if crane_by_name.get(nm) else "No"   # all-year Crane lookup
+        r["__doors_2025"] = doors_2025.get(nm)                  # None if no 2025 submission
         kept.append(r)
     crane_yes = sum(1 for r in kept if r[CRANE_Q] == "Yes")
+    both = sum(1 for r in kept if r.get("__doors_2025"))
     print(f"JotForm: kept {len(kept)} submissions from {SUBMISSION_YEAR}, skipped {skipped} from other years; "
-          f"{crane_yes} matched as Crane members across all years.")
+          f"{crane_yes} Crane members; {both} also submitted in {PRIOR_YEAR}.")
     return kept
 
 def load_records():
@@ -161,6 +175,7 @@ for d in raw:
         'narpm': (d.get('Is your company a member of NARPM?') or '').strip().lower().startswith('y'),
         'crane': crane,
         'boom': name.lower() in BOOM_CUSTOMERS,
+        'doors_2025': d.get('__doors_2025'),
         'org': norm_org(d.get('How is your PM Company Organized?', '')),
         'markets': num(d.get('How many markets (metro areas) does your company operate in?', '')),
     })
@@ -257,11 +272,23 @@ for i, r in enumerate(valid[:LIST_CAP], 1):
     boom_chip = '<img src="images/boom-logo.webp" alt="Boom customer" class="yn-logo" />' if r['boom'] else NO
     soft_txt = esc(r["soft"]) if r["soft"] != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
     org_txt  = esc(r["org"])  if r["org"]  != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
+    d25 = r.get('doors_2025')
+    if not d25:
+        change_txt = '<span class="chg-na">N/A</span>'
+    else:
+        delta = r['doors'] - d25
+        if delta > 0:
+            change_txt = f'<span class="chg-up">+{comma(delta)}</span>'
+        elif delta < 0:
+            change_txt = f'<span class="chg-down">-{comma(abs(delta))}</span>'
+        else:
+            change_txt = '<span class="chg-flat">0</span>'
     trows.append(
         f'          <tr{top}>'
         f'<td class="r-rank">{i}</td>'
         f'<td><div class="r-co">{esc(r["name"])}</div><div class="r-loc">{esc(r["loc"])}</div></td>'
         f'<td class="num r-doors">{comma(r["doors"])}</td>'
+        f'<td class="chg">{change_txt}</td>'
         f'<td class="hide-sm">{soft_txt}</td>'
         f'<td class="hide-sm">{org_txt}</td>'
         f'<td class="yn">{chip}</td>'
@@ -345,6 +372,16 @@ page = f"""<!--
   td.yn .yn-logo{{ display:block; margin:0 auto; height:30px; width:74px; object-fit:contain; }}
   td.yn .yn-crane{{ display:block; margin:0 auto; height:39px; width:auto; }}  /* Crane icon ~30% larger */
   .state-list .sl-top40{{ font-weight:400; font-size:12px; color:#9aa5ad; white-space:nowrap; }}
+  /* Change from 2025 column */
+  .rank-wrap{{ max-width:1200px; }}
+  .rank-table th.chg-col{{ text-align:center; line-height:1.18; white-space:nowrap; }}
+  .rank-table td.chg{{ text-align:center; white-space:nowrap; font-weight:700; font-variant-numeric:tabular-nums; }}
+  .chg-up{{ color:#2f9e6b; }}
+  .chg-down{{ color:#c0492f; }}
+  .chg-flat{{ color:#9aa5ad; }}
+  .chg-na{{ color:#9aa5ad; font-weight:400; }}
+  /* reclaim a little room: tighten the roomy Software/Structure columns */
+  .rank-table th.hide-sm, .rank-table td.hide-sm{{ padding-left:10px; padding-right:10px; }}
   .boom-sticky{{ position:fixed; right:18px; bottom:18px; z-index:60;
     display:inline-flex; align-items:center; gap:7px; padding:8px 13px;
     background:#fff; border:1px solid var(--line); border-radius:999px;
@@ -399,13 +436,13 @@ page = f"""<!--
 
   <!-- FULL RANKING -->
   <section class="band tight">
-    <div class="wrap">
+    <div class="wrap rank-wrap">
       <span class="kicker reveal">The Ranking</span>
       <h2 class="h-lead reveal">The full list.</h2>
       <p class="sub reveal" style="margin-bottom:22px;">By third-party doors under management. Self-reported. SFR and small multifamily (under 100 units).</p>
       <div class="table-scroll reveal">
         <table class="rank-table">
-          <thead><tr><th class="num">#</th><th>Company</th><th class="num doors-col">Doors</th><th class="hide-sm">Software</th><th class="hide-sm">Structure</th><th class="yn-col"><img src="images/narpm-logo.webp" alt="NARPM" class="hdr-logo" /><span class="cust">member</span></th><th class="yn-col"><img src="images/crane-full-logo.webp" alt="Crane" class="hdr-logo" /><span class="cust">member</span></th><th class="yn-col boom-col"><img src="images/boom-logo.webp" alt="Boom" class="hdr-logo" /><span class="cust">Customer</span></th></tr></thead>
+          <thead><tr><th class="num">#</th><th>Company</th><th class="num doors-col">Doors</th><th class="chg-col">Change<br>from 2025</th><th class="hide-sm">Software</th><th class="hide-sm">Structure</th><th class="yn-col"><img src="images/narpm-logo.webp" alt="NARPM" class="hdr-logo" /><span class="cust">member</span></th><th class="yn-col"><img src="images/crane-full-logo.webp" alt="Crane" class="hdr-logo" /><span class="cust">member</span></th><th class="yn-col boom-col"><img src="images/boom-logo.webp" alt="Boom" class="hdr-logo" /><span class="cust">Customer</span></th></tr></thead>
           <tbody>
 {table_rows}
           </tbody>

@@ -34,6 +34,9 @@ CRANE_MEMBERS_FORCE = {                          # confirmed Crane members whose
 BOOM_CUSTOMERS = {                               # Boom customers (lowercased display name). Empty for now -> all "No".
     # "example property management",
 }
+EXCLUDE_COMPANIES = {                            # scratched from the list (e.g. not residential PM)
+    "the storage mall management group",
+}
 
 def _jotform_key():
     """API key from env (GitHub Action) or a local gitignored .jotform_key file. Never printed/committed."""
@@ -145,6 +148,8 @@ for d in raw:
     doors = num(d.get('Total 3rd party rental doors under management:', ''))
     raw_name = (d.get('Company Name') or '').strip()
     name = NAME_FIXES.get(raw_name.lower(), raw_name)
+    if raw_name.lower() in EXCLUDE_COMPANIES or name.lower() in EXCLUDE_COMPANIES:
+        continue
     crane = ((d.get('Are you (or is someone on your team) a Crane member?') or '').strip().lower().startswith('y')
              or raw_name.lower() in CRANE_MEMBERS_FORCE)
     records.append({

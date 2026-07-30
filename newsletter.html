@@ -16,6 +16,31 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
 <link rel="stylesheet" href="styles.css?v=8" />
+<style>
+  /* Orange CTA button */
+  .btn-orange{ background:var(--orange); color:#fff; }
+  .btn-orange:hover{ background:var(--orange-dark); color:#fff; }
+  /* Contact modal (mirrors the digital media kit) */
+  .cmodal{ position:fixed; inset:0; z-index:1000; display:none; align-items:center; justify-content:center; padding:24px;
+           background:rgba(12,20,27,.86); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); }
+  .cmodal.open{ display:flex; }
+  .cmodal-card{ position:relative; background:#fff; border-radius:22px; padding:44px 40px 38px; max-width:480px; width:100%;
+                text-align:center; box-shadow:0 30px 80px rgba(0,0,0,.4); }
+  .cmodal-close{ position:absolute; top:14px; right:16px; width:38px; height:38px; border:0; border-radius:50%; cursor:pointer;
+                 background:#f0f3f6; color:var(--navy); font-size:24px; line-height:1; display:flex; align-items:center; justify-content:center; }
+  .cmodal-close:hover{ background:#e2e8ee; }
+  .cmodal-eyebrow{ color:var(--primary-dark); font-weight:700; letter-spacing:.1em; text-transform:uppercase; font-size:12.5px; margin-bottom:8px; }
+  .cmodal-card h3{ font-size:26px; margin-bottom:8px; }
+  .cmodal-card p{ color:var(--muted); font-size:15.5px; margin:0 auto 22px; max-width:36ch; }
+  .cmodal-email{ font-size:clamp(22px,4vw,30px); font-weight:700; color:var(--navy); letter-spacing:-.01em;
+                 background:var(--wash-soft); border:1px solid var(--wash); border-radius:14px; padding:16px 18px; margin-bottom:18px;
+                 word-break:break-all; user-select:all; }
+  .cmodal-copy{ width:100%; justify-content:center; background:var(--orange); color:#fff; box-shadow:0 8px 24px rgba(224,112,60,.35); }
+  .cmodal-copy:hover{ background:var(--orange-dark); color:#fff; }
+  .cmodal-copy.copied{ background:#2e7d32; color:#fff; box-shadow:none; }
+  .cmodal-mail{ display:inline-block; margin-top:14px; color:var(--muted); font-size:14px; }
+  .cmodal-mail:hover{ color:var(--primary); }
+</style>
 </head>
 <body>
 
@@ -101,7 +126,7 @@
         <div class="listen-row mt-sm">
           <!-- SWAP: media kit (may become a page on this site later) -->
           <a class="btn btn-primary" href="https://sponsor.peterlohmann.com/" target="_blank" rel="noopener">Browse the media kit</a>
-          <a class="listen-btn" href="mailto:aswensen@rlpmg.com?subject=Newsletter%20%2F%20Podcast%20Sponsorship">Email for pricing &amp; availability</a>
+          <a class="listen-btn js-contact" href="mailto:aswensen@rlpmg.com?subject=Newsletter%20%2F%20Podcast%20Sponsorship">Email for pricing &amp; availability</a>
         </div>
       </div>
     </div>
@@ -111,8 +136,11 @@
   <section class="band tight wash">
     <div class="wrap center">
       <h2 class="h-lead">Ready to join?</h2>
-      <p class="sub" style="margin:8px auto 20px;">It's free, it's twice a week, and 20,000+ PM pros already read it.</p>
-      <a class="btn btn-primary" href="https://peter.beehiiv.com/subscribe" target="_blank" rel="noopener">Subscribe to the newsletter</a>
+      <p class="sub" style="margin:8px auto 22px;">It's free, it's twice a week, and 20,000+ PM pros already read it.</p>
+      <div style="max-width:800px;margin:0 auto 22px;">
+        <iframe src="https://embeds.beehiiv.com/56635b3c-8cc3-4222-8b29-eaeae8b9a590" data-test-id="beehiiv-embed" width="100%" height="320" frameborder="0" scrolling="no" style="border-radius:4px;border:2px solid #e5e7eb;margin:0;background-color:transparent;" title="Subscribe to Peter Lohmann's newsletter"></iframe>
+      </div>
+      <a class="btn btn-orange" href="https://peter.beehiiv.com/subscribe" target="_blank" rel="noopener">Subscribe to the newsletter</a>
     </div>
   </section>
 
@@ -140,6 +168,57 @@
   </div>
 </footer>
 
+<!-- Contact modal — opened by the "Email for pricing & availability" CTA (copy-friendly, no forced mail app) -->
+<div id="contactModal" class="cmodal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="cmodalTitle">
+  <div class="cmodal-card">
+    <button class="cmodal-close" type="button" aria-label="Close">&times;</button>
+    <div class="cmodal-eyebrow">Let's talk</div>
+    <h3 id="cmodalTitle">Book a partnership</h3>
+    <p>Email Andrew Swensen with questions, availability, or to reserve your spot.</p>
+    <div class="cmodal-email" id="cmodalEmail">aswensen@rlpmg.com</div>
+    <button class="btn cmodal-copy" id="cmodalCopy" type="button">Copy email address</button>
+    <a class="cmodal-mail" id="cmodalMailto" href="mailto:aswensen@rlpmg.com?subject=Newsletter%20%2F%20Podcast%20Sponsorship">or open in your mail app</a>
+  </div>
+</div>
+
 <script src="site.js?v=8"></script>
+<script>
+(function(){
+  var modal = document.getElementById("contactModal");
+  if (!modal) return;
+  var closeBtn = modal.querySelector(".cmodal-close");
+  var emailEl  = document.getElementById("cmodalEmail");
+  var copyBtn  = document.getElementById("cmodalCopy");
+  var email    = (emailEl.textContent || "").trim();
+  var lastFocus = null;
+  function open(){
+    lastFocus = document.activeElement;
+    copyBtn.classList.remove("copied"); copyBtn.textContent = "Copy email address";
+    modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+    document.body.style.overflow = "hidden"; closeBtn.focus();
+  }
+  function close(){
+    modal.classList.remove("open"); modal.setAttribute("aria-hidden","true");
+    document.body.style.overflow = ""; if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  closeBtn.addEventListener("click", close);
+  modal.addEventListener("click", function(e){ if (e.target === modal) close(); });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape" && modal.classList.contains("open")) close(); });
+  document.addEventListener("click", function(e){
+    var t = e.target.closest && e.target.closest(".js-contact");
+    if (t){ e.preventDefault(); open(); }
+  });
+  copyBtn.addEventListener("click", function(){
+    function done(){ copyBtn.classList.add("copied"); copyBtn.textContent = "Copied!"; }
+    function selectText(){
+      var r = document.createRange(); r.selectNodeContents(emailEl);
+      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(email).then(done).catch(function(){ selectText(); try{ document.execCommand("copy"); done(); }catch(err){} });
+    } else { selectText(); try{ document.execCommand("copy"); done(); }catch(err){} }
+  });
+})();
+</script>
 </body>
 </html>

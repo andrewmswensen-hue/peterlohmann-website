@@ -128,6 +128,14 @@ def yt_id(url):
     return m.group(1) if m else None
 
 INTERNAL_POST = re.compile(r'^(?:https?://(?:www\.)?peterlohmann\.com)?/blog/([A-Za-z0-9\-]+)/?$')
+# Other internal (non-post) pages / root-relative paths -> local site files.
+INTERNAL_PAGE = re.compile(r'^(?:https?://(?:www\.)?peterlohmann\.com)?/([A-Za-z0-9\-]*)/?$')
+PAGE_MAP = {
+    '': '../index.html', 'about': '../index.html', 'contact': '../contact.html',
+    'podcast': '../podcast.html', 'newsletter': '../newsletter.html', 'blog': '../blog.html',
+    'products': '../products.html', 'peterbot': '../peterbot.html', 'featured': '../featured.html',
+    'largest-pm-companies': '../largest-pm-companies.html',
+}
 
 def process_body(body, slug):
     """Clean Squarespace body HTML -> our article HTML. Returns an HTML string."""
@@ -233,8 +241,11 @@ def process_body(body, slug):
     for a in root.xpath('.//a[@href]'):
         href = (a.get("href") or "").strip()
         m = INTERNAL_POST.match(href)
+        pg = INTERNAL_PAGE.match(href) if not m else None
         if m:
             a.set("href", m.group(1) + ".html")
+        elif pg and pg.group(1) in PAGE_MAP and "report.peterlohmann.com" not in href:
+            a.set("href", PAGE_MAP[pg.group(1)])           # e.g. /contact -> ../contact.html
         elif href.startswith("http") and "peterlohmann.com" not in href:
             a.set("target", "_blank"); a.set("rel", "noopener")
 

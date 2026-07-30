@@ -27,7 +27,8 @@
 <style>
   /* ================= DIRECTION A — THE OPERATOR'S NOTEBOOK (sample, not site-wide) ================= */
   :root{
-    --ink:#1c2b36; --navy:#1c2b36; --paper:#fcfcf9; --gridln:#e8ecef;
+    --ink:#1c2b36; --navy:#1c2b36; --paper:#fdfdfb; --gridln:#eef1f3;
+    --frame:#566773; --rule:#7a8891;
     --acc:#2C7CB0; --accd:#245f88;
     --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
     --radius:2px; --radius-sm:2px; --shadow:none; --shadow-lg:none;
@@ -61,35 +62,34 @@
   .hero .cta-row .btn{ text-transform:lowercase; }
 
   /* Cards / panels: flat framed boxes */
-  .card,.biz-card,.panel,.stat{ border:1.5px solid var(--ink) !important; border-radius:2px !important; box-shadow:none !important; background:#fff; }
-  a.card:hover,a.biz-card:hover{ transform:none; box-shadow:3px 3px 0 rgba(28,43,54,.15) !important; }
-  .biz-card{ border-top:1.5px solid var(--ink) !important; }
+  .card,.biz-card,.panel,.stat{ border:1px solid var(--frame) !important; border-radius:3px !important; box-shadow:none !important; background:#fff; }
+  a.card:hover,a.biz-card:hover{ transform:none; box-shadow:0 4px 14px rgba(28,43,54,.08) !important; }
+  .biz-card{ border-top:1px solid var(--frame) !important; }
 
   /* Spec-sheet stat blocks (was glossy navy gradient) */
-  .biz-stat{ background:transparent !important; color:var(--ink) !important; border-top:1.5px solid var(--ink); }
+  .biz-stat{ background:transparent !important; color:var(--ink) !important; border-top:1px solid var(--rule); }
   .biz-stat .n,.biz-card .biz-stat .n,.biz-card.c-crane .biz-stat .n,.biz-card.c-rl .biz-stat .n{ font-family:var(--mono); font-size:20px; color:var(--ink) !important; }
   .biz-stat .l{ font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#5f7078; }
 
   /* Media grid: emoji -> mono index numbers 01..06 */
   .grid.g3{ counter-reset:card; }
   .grid.g3 .card{ counter-increment:card; }
-  .icon-badge{ background:transparent; border:1.5px solid var(--ink); border-radius:2px; color:var(--acc); font-size:0; }
+  .icon-badge{ background:transparent; border:1px solid var(--rule); border-radius:3px; color:var(--acc); font-size:0; }
   .icon-badge::before{ content:"0" counter(card); font-family:var(--mono); font-weight:700; font-size:15px; }
 
-  /* Hero photo -> square spec frame, lightly desaturated, captioned */
-  .hero-photo{ padding-top:8px; }
-  .hero-portrait::before{ border-radius:0; background:#fff; border:1.5px solid var(--ink); box-shadow:none; }
+  /* Hero photo -> square frame, but head breaks out of the top */
+  .hero-photo{ padding-top:44px; }
+  .hero-portrait::before{ border-radius:0; background:#fff; border:1px solid var(--frame); box-shadow:none; }
   .hp-clip{ border-radius:0; }
-  .hp-clip img{ position:absolute; left:50%; bottom:0; transform:translateX(-50%); width:122%; max-width:none; height:auto; filter:grayscale(.2) contrast(1.02); }
-  .hp-pop{ display:none; }
-  .hero-portrait::after{ content:"fig.1 \00B7 the operator"; position:absolute; left:0; bottom:-22px; font-family:var(--mono); font-size:11px; color:#5f7078; }
+  .hp-clip img{ position:absolute; left:50%; bottom:0; transform:translateX(-50%); width:118%; max-width:none; height:auto; filter:grayscale(.08); }
+  .hp-pop{ display:block; position:absolute; left:50%; bottom:0; transform:translateX(-50%); width:118%; max-width:none; height:auto; z-index:2; pointer-events:none;
+    -webkit-mask-image:linear-gradient(to bottom,#000 0,#000 40%,transparent 55%); mask-image:linear-gradient(to bottom,#000 0,#000 40%,transparent 55%); filter:grayscale(.08); }
+  .hp-pop img{ display:block; width:100%; height:auto; }
   .hero-badge{ display:none; }
 
   /* Running header + hero spec row (added in markup) */
-  .op-hdr{ display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; font-family:var(--mono); font-size:12px;
-    color:#4f6270; border-bottom:1.5px solid var(--ink); padding-bottom:8px; margin-bottom:26px; letter-spacing:.02em; }
-  .op-specs{ display:flex; border-top:1.5px solid var(--ink); border-bottom:1.5px solid var(--ink); margin:22px 0 26px; max-width:520px; }
-  .op-specs div{ flex:1; padding:10px 6px; border-right:1px solid #cbd4da; }
+  .op-specs{ display:flex; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); margin:22px 0 26px; max-width:520px; }
+  .op-specs div{ flex:1; padding:10px 6px; border-right:1px solid #d7dee2; }
   .op-specs div:last-child{ border-right:0; }
   .op-specs b{ display:block; font-family:var(--mono); font-size:19px; letter-spacing:-.02em; }
   .op-specs span{ font-family:var(--mono); font-size:10px; letter-spacing:.07em; text-transform:uppercase; color:#5f7078; }
@@ -124,7 +124,6 @@
   <header class="hero" aria-labelledby="hero-title">
     <div class="wrap hero-grid">
       <div class="hero-text">
-        <div class="op-hdr reveal"><span>Peter Lohmann &middot; Field Notes</span><span>Columbus, OH &middot; Property Management</span></div>
         <div class="ticks reveal" aria-hidden="true"><i></i><i></i><i></i></div>
         <p class="eyebrow reveal">Property Management, Operator to Operator</p>
         <h1 id="hero-title" class="reveal">Peter Lohmann</h1>

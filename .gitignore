@@ -3,3 +3,7 @@
 
 # local secrets (never commit)
 .jotform_key
+
+# M&A report (lovable) build artifacts
+2025-pm-ma-report/node_modules/
+2025-pm-ma-report/dist/

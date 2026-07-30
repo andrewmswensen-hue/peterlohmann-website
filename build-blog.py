@@ -265,7 +265,7 @@ NAV = """  <div class="bar">
       <a href="../podcast.html">Podcast</a>
       <a href="../largest-pm-companies.html">Largest PM Companies</a>
       <a href="../blog.html" class="active">Blog</a>
-      <a href="https://report.peterlohmann.com/" target="_blank" rel="noopener">M&amp;A Report</a>
+      <a href="../report/index.html" target="_blank" rel="noopener">M&amp;A Report</a>
       <a href="../peterbot.html">PeterBot</a>
       <a href="../products.html">Products</a>
     </div>
@@ -278,7 +278,7 @@ FOOT = """      <nav class="foot-links" aria-label="Footer">
         <a href="../podcast.html">Podcast</a>
         <a href="../largest-pm-companies.html">Largest PM Companies</a>
         <a href="../blog.html">Blog</a>
-        <a href="https://report.peterlohmann.com/" target="_blank" rel="noopener">M&amp;A Report</a>
+        <a href="../report/index.html" target="_blank" rel="noopener">M&amp;A Report</a>
         <a href="../peterbot.html">PeterBot</a>
         <a href="../products.html">Products</a>
         <a href="../featured.html">Featured</a>
@@ -407,7 +407,7 @@ def write_index(posts):
       <a href="podcast.html">Podcast</a>
       <a href="largest-pm-companies.html">Largest PM Companies</a>
       <a href="blog.html" class="active">Blog</a>
-      <a href="https://report.peterlohmann.com/" target="_blank" rel="noopener">M&amp;A Report</a>
+      <a href="../report/index.html" target="_blank" rel="noopener">M&amp;A Report</a>
       <a href="peterbot.html">PeterBot</a>
       <a href="products.html">Products</a>
     </div>
@@ -449,7 +449,7 @@ def write_index(posts):
         <a href="podcast.html">Podcast</a>
         <a href="largest-pm-companies.html">Largest PM Companies</a>
         <a href="blog.html">Blog</a>
-        <a href="https://report.peterlohmann.com/" target="_blank" rel="noopener">M&amp;A Report</a>
+        <a href="../report/index.html" target="_blank" rel="noopener">M&amp;A Report</a>
         <a href="peterbot.html">PeterBot</a>
         <a href="products.html">Products</a>
         <a href="featured.html">Featured</a>

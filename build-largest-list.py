@@ -25,6 +25,7 @@ CRANE_Q = "Are you (or is someone on your team) a Crane member?"
 # Applied on top of the live submissions so they survive the daily auto-refresh.
 # Keys are the raw company name, lowercased.
 NAME_FIXES = {
+    "pmi": "PMI Indianapolis",                  # disambiguate the bare "PMI" (Indianapolis office)
     "pmi midwest": "PMI Midwest",               # capital-I typo in the submission
     "pmi midwest.": "PMI Midwest",
     "pacific shpre property management": "Pacific Shore Property Management",  # 'Shpre' typo
@@ -40,6 +41,8 @@ CRANE_MEMBERS_FORCE = {                          # confirmed Crane members (matc
     "tiner properties, inc.",
     "capvest, llc",
     "darwin homes",
+    "grace property management & real estate",
+    "gc realty & development",
 }
 BOOM_CUSTOMERS = {                               # Boom customers (matched by raw or display name)
     "on q property management",
@@ -346,17 +349,17 @@ FOOT_LINKS = """        <a href="index.html">About</a>
         <a href="https://www.linkedin.com/in/pslohmann/" target="_blank" rel="noopener">LinkedIn</a>"""
 
 # podium (top 3)
-def pod(r, cls, badge_cls, hashh, num_txt, stars):
+def pod(r, cls, badge_cls, num_txt):
     return f"""        <div class="pod {cls}">
-          <div class="rank-badge {badge_cls} pod-badge"><span class="rb-hash">{hashh}</span><span class="rb-num">{num_txt}</span><span class="rb-star">{stars}</span></div>
+          <div class="rank-badge {badge_cls} pod-badge"><span class="rb-num"><span class="rb-hash">#</span>{num_txt}</span></div>
           <div class="pod-doors">{comma(r['doors'])}<small> doors</small></div>
           <div class="pod-co">{linked_name(r)}</div>
           <div class="pod-loc">{esc(r['loc'])}</div>
         </div>"""
 podium = "\n".join([
-    pod(valid[1], 'second', '', 'RANK', '2', '★★'),
-    pod(valid[0], 'first', 'gold', 'RANK', '1', '★★★'),
-    pod(valid[2], 'third', '', 'RANK', '3', '★'),
+    pod(valid[1], 'second', '', '2'),
+    pod(valid[0], 'first', 'gold', '1'),
+    pod(valid[2], 'third', '', '3'),
 ])
 
 # ranking table rows (cap the displayed list at the top 40)
@@ -366,7 +369,7 @@ for i, r in enumerate(valid[:LIST_CAP], 1):
     top = ' class="top1"' if i == 1 else ''
     NO = '<span class="chip-no">No</span>'
     chip = '<img src="images/narpm-logo.webp" alt="NARPM member" class="yn-logo" />' if r['narpm'] else NO
-    crane_chip = '<img src="images/crane-logo.webp" alt="Crane member" class="yn-crane" />' if r['crane'] else NO
+    crane_chip = '<img src="images/crane-icon.webp" alt="Crane member" class="yn-crane" />' if r['crane'] else NO
     boom_chip = '<img src="images/boom-logo.webp" alt="Boom customer" class="yn-logo" />' if r['boom'] else NO
     soft_txt = esc(r["soft"]) if r["soft"] != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
     org_txt  = esc(r["org"])  if r["org"]  != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
@@ -468,7 +471,11 @@ page = f"""<!--
   .yn-col .hdr-logo{{ display:block; margin:0 auto 5px; height:24px; width:72px; object-fit:contain; }}
   .yn-col .cust{{ display:block; }}
   td.yn .yn-logo{{ display:block; margin:0 auto; height:30px; width:74px; object-fit:contain; }}
-  td.yn .yn-crane{{ display:block; margin:0 auto; height:39px; width:auto; }}  /* Crane icon ~30% larger */
+  td.yn .yn-crane{{ display:block; margin:0 auto; height:31px; width:auto; }}  /* cropped icon; ~as tall as NARPM */
+  /* Podium rank badges: no stars, '#' prefix in regular weight, tighter box */
+  .rank-badge{{ height:104px; }}
+  .rank-badge .rb-num{{ display:inline-flex; align-items:baseline; }}
+  .rank-badge .rb-hash{{ font-family:var(--display); font-size:24px; font-weight:400; opacity:.7; margin:0 1px 0 0; line-height:1; }}
   .state-list .sl-top40{{ font-weight:400; font-size:12px; color:#9aa5ad; white-space:nowrap; }}
   /* Company website links (keep the name's color; underline on hover) */
   .co-link{{ color:inherit; text-decoration:none; }}

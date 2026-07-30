@@ -34,10 +34,11 @@
   .yn-col .cust{ display:block; }
   td.yn .yn-logo{ display:block; margin:0 auto; height:30px; width:74px; object-fit:contain; }
   td.yn .yn-crane{ display:block; margin:0 auto; height:31px; width:auto; }  /* cropped icon; ~as tall as NARPM */
-  /* Podium rank badges: no stars, '#' prefix in regular weight, tighter box */
-  .rank-badge{ height:104px; }
-  .rank-badge .rb-num{ display:inline-flex; align-items:baseline; }
-  .rank-badge .rb-hash{ font-family:var(--display); font-size:24px; font-weight:400; opacity:.7; margin:0 1px 0 0; line-height:1; }
+  /* Podium rank badges: keep 'RANK', add '#' prefix, drop stars; center content in the shield body */
+  .rank-badge{ height:116px; padding-bottom:40px; }   /* padding centers content in the shield body, off the point */
+  .rank-badge .rb-label{ font-size:14px; font-weight:800; letter-spacing:.09em; opacity:.85; line-height:1; margin-bottom:5px; display:block; text-align:center; }
+  .rank-badge .rb-num{ position:relative; display:inline-block; }   /* digit centers; '#' hangs to its left */
+  .rank-badge .rb-hash{ position:absolute; right:100%; top:50%; transform:translateY(-46%); margin-right:3px; font-size:26px; font-weight:400; opacity:.7; }
   .state-list .sl-top40{ font-weight:400; font-size:12px; color:#9aa5ad; white-space:nowrap; }
   /* Company website links (keep the name's color; underline on hover) */
   .co-link{ color:inherit; text-decoration:none; }
@@ -107,19 +108,19 @@
       <h2 class="h-lead reveal">The three largest, right now.</h2>
       <div class="podium reveal mt-md">
         <div class="pod second">
-          <div class="rank-badge  pod-badge"><span class="rb-num"><span class="rb-hash">#</span>2</span></div>
+          <div class="rank-badge  pod-badge"><span class="rb-label">RANK</span><span class="rb-num"><span class="rb-hash">#</span><span class="rb-digit">2</span></span></div>
           <div class="pod-doors">8,107<small> doors</small></div>
           <div class="pod-co"><a class="co-link" href="https://www.onqpm.com" target="_blank" rel="noopener">On Q Property Management</a></div>
           <div class="pod-loc">Gilbert, AZ</div>
         </div>
         <div class="pod first">
-          <div class="rank-badge gold pod-badge"><span class="rb-num"><span class="rb-hash">#</span>1</span></div>
+          <div class="rank-badge gold pod-badge"><span class="rb-label">RANK</span><span class="rb-num"><span class="rb-hash">#</span><span class="rb-digit">1</span></span></div>
           <div class="pod-doors">24,100<small> doors</small></div>
           <div class="pod-co"><a class="co-link" href="https://www.darwinhomes.com/" target="_blank" rel="noopener">Darwin Homes</a></div>
           <div class="pod-loc">Austin, TX</div>
         </div>
         <div class="pod third">
-          <div class="rank-badge  pod-badge"><span class="rb-num"><span class="rb-hash">#</span>3</span></div>
+          <div class="rank-badge  pod-badge"><span class="rb-label">RANK</span><span class="rb-num"><span class="rb-hash">#</span><span class="rb-digit">3</span></span></div>
           <div class="pod-doors">7,400<small> doors</small></div>
           <div class="pod-co"><a class="co-link" href="https://www.jwbrealestatecapital.com" target="_blank" rel="noopener">JWB</a></div>
           <div class="pod-loc">Jacksonville, FL</div>
@@ -181,7 +182,7 @@
           </tbody>
         </table>
       </div>
-      <p class="rank-note">Showing the top 40 of 196 companies submitted so far. Something look off, or want to be added? Submissions are open through the end of the month.</p>
+      <p class="rank-note">Showing the top 40 of 197 companies submitted so far. Something look off, or want to be added? Submissions are open through the end of the month.</p>
     </div>
   </section>
 
@@ -191,18 +192,18 @@
       <span class="kicker reveal">By the Numbers</span>
       <h2 class="h-lead reveal">What the data says.</h2>
       <div class="stats stats-color g4 reveal mt-md" aria-label="At a glance">
-        <div class="stat"><div class="v">196</div><div class="k">Companies ranked so far</div></div>
-        <div class="stat"><div class="v">245,300+</div><div class="k">Doors under management</div></div>
+        <div class="stat"><div class="v">197</div><div class="k">Companies ranked so far</div></div>
+        <div class="stat"><div class="v">245,400+</div><div class="k">Doors under management</div></div>
         <div class="stat"><div class="v">29</div><div class="k">U.S. states on the list (plus Canada)</div></div>
-        <div class="stat"><div class="v">729</div><div class="k">Median doors per company</div></div>
+        <div class="stat"><div class="v">720</div><div class="k">Median doors per company</div></div>
       </div>
       <div class="split mt-lg" style="align-items:start;">
         <div class="card reveal">
           <h3 style="margin-bottom:6px;">Accounting software</h3>
-          <p style="color:var(--muted);font-size:14.5px;margin-bottom:18px;">What the largest operators run their books on. Based on the 196 companies that reported.</p>
+          <p style="color:var(--muted);font-size:14.5px;margin-bottom:18px;">What the largest operators run their books on. Based on the 197 companies that reported.</p>
           <div class="databars in">
         <div class="databar "><div class="db-top"><span class="db-label">AppFolio</span><span class="db-val">122 &middot; 62%</span></div><div class="db-track"><span class="db-fill" style="--w:100%"></span></div></div>
-        <div class="databar c3"><div class="db-top"><span class="db-label">Rentvine</span><span class="db-val">29 &middot; 15%</span></div><div class="db-track"><span class="db-fill" style="--w:24%"></span></div></div>
+        <div class="databar c3"><div class="db-top"><span class="db-label">Rentvine</span><span class="db-val">30 &middot; 15%</span></div><div class="db-track"><span class="db-fill" style="--w:25%"></span></div></div>
         <div class="databar c4"><div class="db-top"><span class="db-label">Buildium</span><span class="db-val">21 &middot; 11%</span></div><div class="db-track"><span class="db-fill" style="--w:17%"></span></div></div>
         <div class="databar c2"><div class="db-top"><span class="db-label">Propertyware</span><span class="db-val">9 &middot; 5%</span></div><div class="db-track"><span class="db-fill" style="--w:7%"></span></div></div>
         <div class="databar "><div class="db-top"><span class="db-label">Rent Manager</span><span class="db-val">7 &middot; 4%</span></div><div class="db-track"><span class="db-fill" style="--w:6%"></span></div></div>
@@ -212,12 +213,12 @@
         </div>
         <div class="card reveal">
           <h3 style="margin-bottom:6px;">How they're organized</h3>
-          <p style="color:var(--muted);font-size:14.5px;margin-bottom:18px;">Structure across the 193 companies that reported.</p>
+          <p style="color:var(--muted);font-size:14.5px;margin-bottom:18px;">Structure across the 194 companies that reported.</p>
           <div class="databars in">
-        <div class="databar "><div class="db-top"><span class="db-label">Departmental</span><span class="db-val">79 &middot; 41%</span></div><div class="db-track"><span class="db-fill" style="--w:100%"></span></div></div>
-        <div class="databar c2"><div class="db-top"><span class="db-label">Pod-Departmental Hybrid</span><span class="db-val">67 &middot; 35%</span></div><div class="db-track"><span class="db-fill" style="--w:85%"></span></div></div>
+        <div class="databar "><div class="db-top"><span class="db-label">Departmental</span><span class="db-val">80 &middot; 41%</span></div><div class="db-track"><span class="db-fill" style="--w:100%"></span></div></div>
+        <div class="databar c2"><div class="db-top"><span class="db-label">Pod-Departmental Hybrid</span><span class="db-val">67 &middot; 35%</span></div><div class="db-track"><span class="db-fill" style="--w:84%"></span></div></div>
         <div class="databar c4"><div class="db-top"><span class="db-label">Portfolio</span><span class="db-val">27 &middot; 14%</span></div><div class="db-track"><span class="db-fill" style="--w:34%"></span></div></div>
-        <div class="databar c3"><div class="db-top"><span class="db-label">Pods (Squads)</span><span class="db-val">17 &middot; 9%</span></div><div class="db-track"><span class="db-fill" style="--w:22%"></span></div></div>
+        <div class="databar c3"><div class="db-top"><span class="db-label">Pods (Squads)</span><span class="db-val">17 &middot; 9%</span></div><div class="db-track"><span class="db-fill" style="--w:21%"></span></div></div>
         <div class="databar "><div class="db-top"><span class="db-label">Hybrib</span><span class="db-val">1 &middot; 1%</span></div><div class="db-track"><span class="db-fill" style="--w:1%"></span></div></div>
         <div class="databar c2"><div class="db-top"><span class="db-label">Not Sure …</span><span class="db-val">1 &middot; 1%</span></div><div class="db-track"><span class="db-fill" style="--w:1%"></span></div></div>
         <div class="databar c4"><div class="db-top"><span class="db-label">Other</span><span class="db-val">1 &middot; 1%</span></div><div class="db-track"><span class="db-fill" style="--w:1%"></span></div></div>
@@ -225,12 +226,12 @@
         </div>
       </div>
       <div class="fact-grid mt-lg stagger">
-        <div class="fact"><div class="f-num">79%</div><h3>Are NARPM members</h3><p>155 of 196 companies belong to the National Association of Residential Property Managers.</p></div>
+        <div class="fact"><div class="f-num">79%</div><h3>Are NARPM members</h3><p>156 of 197 companies belong to the National Association of Residential Property Managers.</p></div>
         <div class="fact"><div class="f-num">24,100</div><h3>Largest single portfolio</h3><p>Darwin Homes in Austin, TX tops the list.</p></div>
         <div class="fact"><div class="f-num">35</div><h3>Widest footprint</h3><p>TurboTenant &quot;Autopilot&quot; operates across the most metro markets of anyone on the list.</p></div>
         <div class="fact"><div class="f-num">122</div><h3>Run AppFolio</h3><p>Roughly 62% of the list uses it, more than every other platform combined.</p></div>
-        <div class="fact"><div class="f-num">98</div><h3>Operate in multiple markets</h3><p>The rest run deep in a single metro rather than spreading across regions.</p></div>
-        <div class="fact"><div class="f-num">1,251</div><h3>Average portfolio</h3><p>The typical company on the list manages this many third-party doors.</p></div>
+        <div class="fact"><div class="f-num">99</div><h3>Operate in multiple markets</h3><p>The rest run deep in a single metro rather than spreading across regions.</p></div>
+        <div class="fact"><div class="f-num">1,246</div><h3>Average portfolio</h3><p>The typical company on the list manages this many third-party doors.</p></div>
       </div>
     </div>
   </section>
@@ -394,6 +395,16 @@
           </ul>
         </div>
         <div class="state-card">
+          <h3>Idaho <span class="st-count">5 ranked</span></h3>
+          <ul class="state-list">
+            <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://commercialnw.com" target="_blank" rel="noopener">Commercial Northwest</a> <span class="sl-top40">(#25 on the top 40)</span></span><span class="sl-doors">2,000</span></li>
+            <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.boiseproperty.management" target="_blank" rel="noopener">First Rate Property Management</a></span><span class="sl-doors">1,100</span></li>
+            <li><span class="sl-rank">3</span><span class="sl-co"><a class="co-link" href="https://www.investidahomgmt.com" target="_blank" rel="noopener">Invest Idaho Management</a></span><span class="sl-doors">431</span></li>
+            <li><span class="sl-rank">4</span><span class="sl-co">Freedom Path Property Management</span><span class="sl-doors">140</span></li>
+            <li><span class="sl-rank">5</span><span class="sl-co"><a class="co-link" href="https://blackpinepm.com" target="_blank" rel="noopener">Black Pine Property Management</a></span><span class="sl-doors">100</span></li>
+          </ul>
+        </div>
+        <div class="state-card">
           <h3>Wisconsin <span class="st-count">5 ranked</span></h3>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.rentwithtitan.com" target="_blank" rel="noopener">Titan Property Management LLC</a> <span class="sl-top40">(#28 on the top 40)</span></span><span class="sl-doors">1,950</span></li>
@@ -429,15 +440,6 @@
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.blueskypm.com" target="_blank" rel="noopener">BlueSky Property Management</a> <span class="sl-top40">(#38 on the top 40)</span></span><span class="sl-doors">1,556</span></li>
             <li><span class="sl-rank">3</span><span class="sl-co">Braden Property Management</span><span class="sl-doors">888</span></li>
             <li><span class="sl-rank">4</span><span class="sl-co"><a class="co-link" href="https://jmaxpropertymanagement.com" target="_blank" rel="noopener">JMAX Property Management</a></span><span class="sl-doors">518</span></li>
-          </ul>
-        </div>
-        <div class="state-card">
-          <h3>Idaho <span class="st-count">4 ranked</span></h3>
-          <ul class="state-list">
-            <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://commercialnw.com" target="_blank" rel="noopener">Commercial Northwest</a> <span class="sl-top40">(#25 on the top 40)</span></span><span class="sl-doors">2,000</span></li>
-            <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.boiseproperty.management" target="_blank" rel="noopener">First Rate Property Management</a></span><span class="sl-doors">1,100</span></li>
-            <li><span class="sl-rank">3</span><span class="sl-co"><a class="co-link" href="https://www.investidahomgmt.com" target="_blank" rel="noopener">Invest Idaho Management</a></span><span class="sl-doors">431</span></li>
-            <li><span class="sl-rank">4</span><span class="sl-co"><a class="co-link" href="https://blackpinepm.com" target="_blank" rel="noopener">Black Pine Property Management</a></span><span class="sl-doors">100</span></li>
           </ul>
         </div>
         <div class="state-card">

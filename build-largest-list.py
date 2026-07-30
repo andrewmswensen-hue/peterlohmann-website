@@ -351,7 +351,7 @@ FOOT_LINKS = """        <a href="index.html">About</a>
 # podium (top 3)
 def pod(r, cls, badge_cls, num_txt):
     return f"""        <div class="pod {cls}">
-          <div class="rank-badge {badge_cls} pod-badge"><span class="rb-num"><span class="rb-hash">#</span>{num_txt}</span></div>
+          <div class="rank-badge {badge_cls} pod-badge"><span class="rb-label">RANK</span><span class="rb-num"><span class="rb-hash">#</span><span class="rb-digit">{num_txt}</span></span></div>
           <div class="pod-doors">{comma(r['doors'])}<small> doors</small></div>
           <div class="pod-co">{linked_name(r)}</div>
           <div class="pod-loc">{esc(r['loc'])}</div>
@@ -472,10 +472,11 @@ page = f"""<!--
   .yn-col .cust{{ display:block; }}
   td.yn .yn-logo{{ display:block; margin:0 auto; height:30px; width:74px; object-fit:contain; }}
   td.yn .yn-crane{{ display:block; margin:0 auto; height:31px; width:auto; }}  /* cropped icon; ~as tall as NARPM */
-  /* Podium rank badges: no stars, '#' prefix in regular weight, tighter box */
-  .rank-badge{{ height:104px; }}
-  .rank-badge .rb-num{{ display:inline-flex; align-items:baseline; }}
-  .rank-badge .rb-hash{{ font-family:var(--display); font-size:24px; font-weight:400; opacity:.7; margin:0 1px 0 0; line-height:1; }}
+  /* Podium rank badges: keep 'RANK', add '#' prefix, drop stars; center content in the shield body */
+  .rank-badge{{ height:116px; padding-bottom:40px; }}   /* padding centers content in the shield body, off the point */
+  .rank-badge .rb-label{{ font-size:14px; font-weight:800; letter-spacing:.09em; opacity:.85; line-height:1; margin-bottom:5px; display:block; text-align:center; }}
+  .rank-badge .rb-num{{ position:relative; display:inline-block; }}   /* digit centers; '#' hangs to its left */
+  .rank-badge .rb-hash{{ position:absolute; right:100%; top:50%; transform:translateY(-46%); margin-right:3px; font-size:26px; font-weight:400; opacity:.7; }}
   .state-list .sl-top40{{ font-weight:400; font-size:12px; color:#9aa5ad; white-space:nowrap; }}
   /* Company website links (keep the name's color; underline on hover) */
   .co-link{{ color:inherit; text-decoration:none; }}

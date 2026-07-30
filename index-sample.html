@@ -80,9 +80,9 @@
   .hero-photo{ padding-top:8px; }
   .hero-portrait::before{ border-radius:0; background:#fff; border:1.5px solid var(--ink); box-shadow:none; }
   .hp-clip{ border-radius:0; }
-  .hp-clip img{ position:static; width:100%; height:100%; object-fit:cover; object-position:center 8%; filter:grayscale(.2) contrast(1.02); }
+  .hp-clip img{ position:absolute; left:50%; bottom:0; transform:translateX(-50%); width:122%; max-width:none; height:auto; filter:grayscale(.2) contrast(1.02); }
   .hp-pop{ display:none; }
-  .hero-portrait::after{ content:"fig.1 \2014 the operator"; position:absolute; left:0; bottom:-22px; font-family:var(--mono); font-size:11px; color:#5f7078; }
+  .hero-portrait::after{ content:"fig.1 \00B7 the operator"; position:absolute; left:0; bottom:-22px; font-family:var(--mono); font-size:11px; color:#5f7078; }
   .hero-badge{ display:none; }
 
   /* Running header + hero spec row (added in markup) */
@@ -124,7 +124,7 @@
   <header class="hero" aria-labelledby="hero-title">
     <div class="wrap hero-grid">
       <div class="hero-text">
-        <div class="op-hdr reveal"><span>Peter Lohmann &mdash; Field Notes</span><span>Columbus, OH &middot; Property Management</span></div>
+        <div class="op-hdr reveal"><span>Peter Lohmann &middot; Field Notes</span><span>Columbus, OH &middot; Property Management</span></div>
         <div class="ticks reveal" aria-hidden="true"><i></i><i></i><i></i></div>
         <p class="eyebrow reveal">Property Management, Operator to Operator</p>
         <h1 id="hero-title" class="reveal">Peter Lohmann</h1>

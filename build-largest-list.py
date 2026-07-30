@@ -224,7 +224,7 @@ def norm_soft(s):
 
 def norm_org(s):
     s = (s or "").strip().lower()
-    if 'hybrid' in s: return 'Pod-Departmental Hybrid'
+    if 'hybr' in s: return 'Pod-Departmental Hybrid'   # also catches typos like 'hybrib'
     if 'pod' in s or 'squad' in s: return 'Pods (Squads)'
     if 'depar' in s: return 'Departmental'
     if 'potfolio' in s or 'portfolio' in s: return 'Portfolio'
@@ -473,7 +473,7 @@ page = f"""<!--
   td.yn .yn-logo{{ display:block; margin:0 auto; height:30px; width:74px; object-fit:contain; }}
   td.yn .yn-crane{{ display:block; margin:0 auto; height:31px; width:auto; }}  /* cropped icon; ~as tall as NARPM */
   /* Podium rank badges: keep 'RANK', add '#' prefix, drop stars; center content in the shield body */
-  .rank-badge{{ height:116px; padding-bottom:40px; }}   /* padding centers content in the shield body, off the point */
+  .rank-badge{{ height:116px; padding-top:12px; padding-bottom:34px; }}   /* top space for RANK; centers content in the shield body */
   .rank-badge .rb-label{{ font-size:14px; font-weight:800; letter-spacing:.09em; opacity:.85; line-height:1; margin-bottom:5px; display:block; text-align:center; }}
   .rank-badge .rb-num{{ position:relative; display:inline-block; }}   /* digit centers; '#' hangs to its left */
   .rank-badge .rb-hash{{ position:absolute; right:100%; top:50%; transform:translateY(-46%); margin-right:3px; font-size:26px; font-weight:400; opacity:.7; }}

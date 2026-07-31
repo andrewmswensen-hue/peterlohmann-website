@@ -260,6 +260,7 @@ for d in raw:
         'narpm': (d.get('Is your company a member of NARPM?') or '').strip().lower().startswith('y'),
         'crane': crane,
         'boom': lname in BOOM_CUSTOMERS or lraw in BOOM_CUSTOMERS,
+        'exec': (d.get('Name + Title of Highest-Ranking Corporate Officer?') or '').strip(),
         'doors_2025': d.get('__doors_2025'),
         'org': norm_org(d.get('How is your PM Company Organized?', '')),
         'markets': num(d.get('How many markets (metro areas) does your company operate in?', '')),
@@ -371,6 +372,10 @@ podium = "\n".join([
 
 # ranking table rows (cap the displayed list at the top 40)
 LIST_CAP = 40
+# Small person glyph marking the highest-ranking executive (reused in the row + the caption key).
+PERSON_SVG = ('<svg class="pico" viewBox="0 0 16 16" aria-hidden="true">'
+              '<circle cx="8" cy="5" r="2.6" fill="none" stroke="currentColor" stroke-width="1.3"/>'
+              '<path d="M3.2 13c0-2.6 2.1-4.2 4.8-4.2s4.8 1.6 4.8 4.2" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>')
 trows = []
 for i, r in enumerate(valid[:LIST_CAP], 1):
     top = ' class="top1"' if i == 1 else ''
@@ -391,10 +396,11 @@ for i, r in enumerate(valid[:LIST_CAP], 1):
             change_txt = f'<span class="chg-down">-{comma(abs(delta))}</span>'
         else:
             change_txt = '<span class="chg-flat">0</span>'
+    exec_line = f'<div class="r-exec">{PERSON_SVG}<span>{esc(r["exec"])}</span></div>' if r.get("exec") else ''
     trows.append(
         f'          <tr{top}>'
         f'<td class="r-rank">{i}</td>'
-        f'<td><div class="r-co">{linked_name(r)}</div><div class="r-loc">{esc(r["loc"])}</div></td>'
+        f'<td><div class="r-co">{linked_name(r)}</div><div class="r-loc">{esc(r["loc"])}</div>{exec_line}</td>'
         f'<td class="num r-doors">{comma(r["doors"])}</td>'
         f'<td class="chg">{change_txt}</td>'
         f'<td class="hide-sm">{soft_txt}</td>'
@@ -488,6 +494,11 @@ page = f"""<!--
   /* Company website links (keep the name's color; underline on hover) */
   .co-link{{ color:inherit; text-decoration:none; }}
   .co-link:hover{{ text-decoration:underline; text-decoration-color:var(--primary); text-underline-offset:2px; }}
+  /* Highest-ranking executive: quiet third line under the location, with a small person icon */
+  .rank-table .r-exec{{ display:flex; align-items:center; gap:5px; margin-top:2px; color:#8493a0; font-size:12.5px; line-height:1.25; }}
+  .rank-table .r-exec .pico{{ width:13px; height:13px; flex:none; color:#a4b0ba; }}
+  .exec-key{{ display:inline-flex; align-items:center; gap:5px; white-space:nowrap; color:var(--muted); }}
+  .exec-key .pico{{ width:14px; height:14px; flex:none; color:var(--primary-dark); }}
   /* Change from 2025 column */
   .rank-wrap{{ max-width:1200px; }}
   .rank-table th.chg-col{{ text-align:center; line-height:1.18; white-space:nowrap; }}
@@ -555,7 +566,7 @@ page = f"""<!--
     <div class="wrap rank-wrap">
       <span class="kicker reveal">The Ranking</span>
       <h2 class="h-lead reveal">The full list.</h2>
-      <p class="sub reveal" style="margin-bottom:22px;">By third-party doors under management. Self-reported. SFR and small multifamily (under 100 units).</p>
+      <p class="sub reveal" style="margin-bottom:22px;">By third-party doors under management. Self-reported. SFR and small multifamily (under 100 units). <span class="exec-key">{PERSON_SVG} = highest-ranking executive</span></p>
       <div class="table-scroll reveal">
         <table class="rank-table">
           <thead><tr><th class="num">#</th><th>Company</th><th class="num doors-col">Doors</th><th class="chg-col">Change<br>from 2025</th><th class="hide-sm">Software</th><th class="hide-sm">Structure</th><th class="yn-col"><img src="images/narpm-logo.webp" alt="NARPM" class="hdr-logo" /><span class="cust">member</span></th><th class="yn-col"><img src="images/crane-full-logo.webp" alt="Crane" class="hdr-logo" /><span class="cust">member</span></th><th class="yn-col boom-col"><img src="images/boom-logo.webp" alt="Boom" class="hdr-logo" /><span class="cust">Customer</span></th></tr></thead>

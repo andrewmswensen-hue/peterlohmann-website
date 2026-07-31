@@ -68,10 +68,14 @@ anywhere (Squarespace embed, GitHub Pages, Netlify, etc.).
   the Crane question, so Crane is treated as a company attribute pulled from ALL years: a company
   shows Crane = Yes if ANY of its submissions (matched by company name) ever answered Yes. NARPM and
   everything else stay 2026-only.
-  COMPANY WEBSITES: data/company-websites.csv (company_name, website_url) holds verified URLs; the
-  generator hyperlinks each company name (podium, table, state lists) to its site when present.
-  Match is by the raw submission name (case-insensitive). Peter plans to add a website field to the
-  JotForm; until then, add new companies' URLs to this CSV. Only add verified URLs (never guess-link).
+  COMPANY WEBSITES: data/company-websites.csv (company_name, website_url, source); the generator
+  hyperlinks each company name (podium, table, state lists) to its site. Match is by submission name
+  (case-insensitive). REAL-TIME auto-discovery: on every build, discover_and_cache_websites() derives
+  the site from each new company's company-domain email (skips gmail/yahoo/etc.), verifies it's LIVE
+  and not parked (concurrent HTTP), links it, and appends it to the CSV (source "email-auto") so it's
+  not re-checked. Verified-only, so no dead/parked links go live; the ~few generic-email companies
+  still need manual/agent research (add to the CSV, source anything else). Manual/corrected rows in
+  the CSV always win over auto-discovery. The daily Action commits the CSV cache too.
   LOCATION COPY-EDIT (rule): clean_location() in build-largest-list.py normalizes every HQ location to
   "City, ST" automatically — uppercases state abbreviations (Cary, nc -> Cary, NC), converts full state
   names (Houston, Texas -> Houston, TX), tidies case, handles Canada (City, PR, Canada) and DC, and

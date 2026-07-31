@@ -38,10 +38,10 @@ jobs:
         run: |
           git config user.name  "PM List Bot"
           git config user.email "actions@users.noreply.github.com"
-          git add largest-pm-companies.html
+          git add largest-pm-companies.html data/company-websites.csv
           if git diff --cached --quiet; then
             echo "No changes today — nothing to commit."
           else
-            git commit -m "Auto-refresh Largest PM list from JotForm"
+            git commit -m "Auto-refresh Largest PM list from JotForm (+ any newly discovered websites)"
             git push
           fi

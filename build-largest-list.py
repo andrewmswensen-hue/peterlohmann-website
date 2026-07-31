@@ -9,7 +9,7 @@ WHEN MORE SUBMISSIONS COME IN:
 
 No external libraries needed (standard library only).
 """
-import csv, re, collections, html, os, json, urllib.request
+import csv, re, collections, html, os, json, urllib.request, ssl, concurrent.futures
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CSV  = os.path.join(HERE, "data", "largest-pm-2026.csv")
@@ -20,6 +20,16 @@ PRIOR_YEAR = "2025"        # used for the "Change from 2025" column
 NAME_Q  = "Company Name"
 DOORS_Q = "Total 3rd party rental doors under management:"
 CRANE_Q = "Are you (or is someone on your team) a Crane member?"
+
+# Company website is derived from the submitter's email domain (unless it's a generic mailbox).
+GENERIC_EMAIL = {"gmail.com","yahoo.com","outlook.com","hotmail.com","aol.com","icloud.com","comcast.net",
+                 "me.com","live.com","msn.com","protonmail.com","att.net","verizon.net","sbcglobal.net","ymail.com"}
+def email_domain(email):
+    email = (email or "").strip().lower()
+    if "@" not in email:
+        return ""
+    dom = email.rsplit("@", 1)[-1].strip().strip(".")
+    return "" if (not dom or dom in GENERIC_EMAIL) else dom
 
 # ---- manual data corrections ----
 # Applied on top of the live submissions so they survive the daily auto-refresh.
@@ -261,6 +271,7 @@ for d in raw:
         'crane': crane,
         'boom': lname in BOOM_CUSTOMERS or lraw in BOOM_CUSTOMERS,
         'exec': (d.get('Name + Title of Highest-Ranking Corporate Officer?') or '').strip(),
+        'email_domain': email_domain(d.get('Your Email', '')),
         'doors_2025': d.get('__doors_2025'),
         'org': norm_org(d.get('How is your PM Company Organized?', '')),
         'markets': num(d.get('How many markets (metro areas) does your company operate in?', '')),
@@ -311,28 +322,85 @@ for st, c in by_state.most_common():
 def esc(s): return html.escape(s, quote=True)
 def comma(x): return f"{x:,}"
 
-def load_websites():
-    """Verified company websites: data/company-websites.csv (company_name, website_url).
-    Keeps URLs on file so they persist and hyperlink automatically as the list refreshes."""
-    p = os.path.join(HERE, "data", "company-websites.csv")
-    m = {}
-    if os.path.exists(p):
-        with open(p, newline="") as f:
-            for row in csv.DictReader(f):
-                nm = (row.get("company_name") or "").strip().lower()
-                url = (row.get("website_url") or "").strip()
-                if nm and url:
-                    m[nm] = url
-    return m
-WEBSITES = load_websites()
+WEBSITES_CSV = os.path.join(HERE, "data", "company-websites.csv")
+
+def load_website_rows():
+    """Company websites on file: data/company-websites.csv (company_name, website_url, source)."""
+    rows = []
+    if os.path.exists(WEBSITES_CSV):
+        with open(WEBSITES_CSV, newline="") as f:
+            rd = csv.reader(f); next(rd, None)
+            for row in rd:
+                if len(row) >= 2 and row[0].strip() and row[1].strip():
+                    rows.append([row[0].strip(), row[1].strip(), (row[2].strip() if len(row) > 2 else "")])
+    return rows
+WEBSITE_ROWS = load_website_rows()
+WEBSITES = {}
+for _nm, _url, _src in WEBSITE_ROWS:
+    WEBSITES.setdefault(_nm.lower(), _url)
 
 def linked_name(r):
-    """Company name, hyperlinked to its verified website when we have one on file."""
+    """Company name, hyperlinked to its website when we have one on file (or auto-discovered)."""
     url = WEBSITES.get((r.get("raw_name") or r["name"]).lower()) or WEBSITES.get(r["name"].lower())
     nm = esc(r["name"])
     if url:
         return f'<a class="co-link" href="{esc(url)}" target="_blank" rel="noopener">{nm}</a>'
     return nm
+
+# ---- real-time website discovery (from the submitter's company-domain email) ----
+_SSL = ssl.create_default_context(); _SSL.check_hostname = False; _SSL.verify_mode = ssl.CERT_NONE
+def _verify_site(domain):
+    """Return the live final URL if the domain serves a real (non-parked) site, else None."""
+    for cand in (f"https://www.{domain}", f"https://{domain}"):
+        try:
+            req = urllib.request.Request(cand, headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/537.36"})
+            r = urllib.request.urlopen(req, timeout=8, context=_SSL)
+            if r.getcode() >= 400:
+                continue
+            head = r.read(20000).decode("utf-8", "ignore").lower()
+            if any(k in head for k in ("domain is for sale", "buy this domain", "is parked", "this domain may be for sale", "godaddy.com/domainsearch")):
+                continue
+            return r.geturl().rstrip("/")
+        except Exception:
+            continue
+    return None
+
+def discover_and_cache_websites(companies):
+    """For companies not already on file, derive the website from the submitter's
+    company-domain email, verify it's live, hyperlink it, and cache it to the CSV so it
+    isn't re-checked next build. Verified sites only -> no dead/parked links go live."""
+    todo, seen = [], set()
+    for r in companies:
+        k, rk = r["name"].lower(), (r.get("raw_name") or "").lower()
+        if k in WEBSITES or rk in WEBSITES or k in seen:
+            continue
+        dom = r.get("email_domain")
+        if dom:
+            todo.append((r["name"], dom)); seen.add(k)
+    if not todo:
+        return
+    capped = todo[:80]  # bound build time; the rest get picked up on later builds
+    with concurrent.futures.ThreadPoolExecutor(max_workers=24) as ex:
+        results = list(ex.map(lambda t: (t[0], _verify_site(t[1])), capped))
+    found = {nm: url for nm, url in results if url}
+    if not found:
+        print(f"Website discovery: checked {len(capped)} new companies, none verified live.")
+        return
+    for nm, url in found.items():
+        WEBSITES.setdefault(nm.lower(), url)
+        WEBSITE_ROWS.append([nm, url, "email-auto"])
+    out, kseen = [], set()
+    for nm, url, src in WEBSITE_ROWS:          # dedupe by name (existing/manual entries win), sorted
+        kk = nm.lower()
+        if kk in kseen:
+            continue
+        kseen.add(kk); out.append([nm, url, src])
+    out.sort(key=lambda x: x[0].lower())
+    with open(WEBSITES_CSV, "w", newline="") as f:
+        w = csv.writer(f); w.writerow(["company_name", "website_url", "source"]); w.writerows(out)
+    print(f"Website discovery: linked + cached {len(found)} new website(s) (of {len(capped)} checked).")
+
+discover_and_cache_websites(valid)   # real-time: auto-find + link websites for new companies
 
 # ---- build fragments ----
 NAV_LINKS = """      <a href="index.html">About</a>

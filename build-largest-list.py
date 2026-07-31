@@ -43,6 +43,13 @@ CRANE_MEMBERS_FORCE = {                          # confirmed Crane members (matc
     "darwin homes",
     "grace property management & real estate",
     "gc realty & development",
+    "evernest",
+}
+# 2025 door counts for companies whose name changed year-over-year (so "Change from 2025"
+# matches despite the different name). Keyed by the 2026 company name, lowercased.
+PRIOR_YEAR_DOORS = {
+    "renosy by renters warehouse": 11827,   # was "Renters Warehouse" in 2025
+    "jwb": 5300,                            # was "JWB PROPERTY MANAGEMENT" in 2025
 }
 BOOM_CUSTOMERS = {                               # Boom customers (matched by raw or display name)
     "on q property management",
@@ -111,7 +118,7 @@ def fetch_jotform(key):
             continue
         nm = (r.get(NAME_Q) or "").strip().lower()
         r[CRANE_Q] = "Yes" if crane_by_name.get(nm) else "No"   # all-year Crane lookup
-        r["__doors_2025"] = doors_2025.get(nm)                  # None if no 2025 submission
+        r["__doors_2025"] = PRIOR_YEAR_DOORS.get(nm, doors_2025.get(nm))   # override handles name changes
         kept.append(r)
     crane_yes = sum(1 for r in kept if r[CRANE_Q] == "Yes")
     both = sum(1 for r in kept if r.get("__doors_2025"))

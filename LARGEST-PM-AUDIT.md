@@ -14,6 +14,8 @@ JotForm every day; everything below is a **human override** layered on top (all 
 | Galaxy Strategy Inc. (Stockton, CA) | Opt-out request. NOTE: name we were given was "Galaxy PM Ink" — confirm this is the same company |
 | Rosenbaum Realty Group (Gilbert, AZ) | Opt-out request (Daniel@rosenbaumrealtygroup.com) |
 | Windermere Signature Properties (1,500) | Duplicate of "Windermere Signature Property Management" (1,558, the real one) |
+| MoveZen, Inc | Duplicate of "MoveZen Property Management" (the real one) |
+| Crofton Perdue Assoc. Inc. (Pittsford, NY) | Removed at request; also deleted from JotForm |
 
 ## 2. Name corrections (NAME_FIXES) — display name differs from what was submitted
 | Submitted | Shown as | Why |
@@ -51,7 +53,8 @@ On Q, JWB, Good Life, Stratton Vantage, PMI Midwest, Tiner Properties.
   `data/company-websites.csv`. Verified-only, so no dead/parked links.
 - **Manually researched/corrected** (source `verified-search` / `user-provided` in the CSV) — worth a spot-check:
   West USA → westusa.com/property-management.html · 360 Management → 360managementservices.com ·
-  Neighborhood PM → neighborhoodpm.com · Choice Properties → irentforyoucharlotte.com · Darwin Homes → darwinhomes.com.
+  Neighborhood PM → neighborhoodpm.com · Choice Properties → irentforyoucharlotte.com · Darwin Homes → darwinhomes.com ·
+  Bridgestream Property Management → bridgestreampropertymanagement.com (was submitted as "Michael Mefferd"; now correctly named in the form).
 - ~6% with generic emails (gmail, etc.) have no auto-link; can be researched on request.
 - **WJL HomeServices** (wjlhomeservices.com) has an expired SSL cert — decide keep/unlink before launch.
 

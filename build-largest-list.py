@@ -73,6 +73,7 @@ EXCLUDE_COMPANIES = {                            # scratched from the list (not 
     "the storage mall management group",
     "galaxy strategy inc.",                      # opt-out (CA) — still in JotForm
     "rosenbaum realty group",                    # opt-out (AZ) — still in JotForm
+    "windermere signature properties",           # duplicate of "Windermere Signature Property Management"
 }
 
 def _jotform_key():

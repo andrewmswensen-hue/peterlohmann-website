@@ -69,8 +69,10 @@ BOOM_CUSTOMERS = {                               # Boom customers (matched by ra
     "pmi midwest",
     "tiner properties, inc.",
 }
-EXCLUDE_COMPANIES = {                            # scratched from the list (e.g. not residential PM)
+EXCLUDE_COMPANIES = {                            # scratched from the list (not residential PM, or opt-out requests still in the form)
     "the storage mall management group",
+    "galaxy strategy inc.",                      # opt-out (CA) — still in JotForm
+    "rosenbaum realty group",                    # opt-out (AZ) — still in JotForm
 }
 
 def _jotform_key():

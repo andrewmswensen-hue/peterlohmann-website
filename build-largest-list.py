@@ -320,7 +320,7 @@ multi = sum(1 for r in valid if 1 < r['markets'] < 500)
 by_state = collections.Counter(r['state'] for r in valid)
 state_lists = []
 for st, c in by_state.most_common():
-    if st in STATE_NAME and c >= 3:   # any state with 3+ companies; show its top 10 (no upper cap)
+    if st in STATE_NAME and c >= 1:   # every US state with at least one company; show its top 10
         rows = sorted([r for r in valid if r['state'] == st], key=lambda x: -x['doors'])[:10]
         state_lists.append((st, rows))
 
@@ -695,7 +695,7 @@ page = f"""<!--
     <div class="wrap">
       <span class="kicker reveal">Top 10 by State</span>
       <h2 class="h-lead reveal">Where there's enough data, a state ranking.</h2>
-      <p class="sub reveal" style="margin-bottom:22px;">A sample of state-level top 10s. As more companies submit, these fill out and new states get added, the goal is a top 10 for every state (but we'll start with at least 3).</p>
+      <p class="sub reveal" style="margin-bottom:22px;">State-level top 10s. Every state with at least one submission is listed, and the smaller ones fill out as more companies add themselves. The goal is a full top 10 for all 50.</p>
       <div class="state-grid reveal">
 {state_cards}
       </div>

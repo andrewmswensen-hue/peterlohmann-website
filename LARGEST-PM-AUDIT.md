@@ -62,7 +62,7 @@ On Q, JWB, Good Life, Stratton Vantage, PMI Midwest, Tiner Properties.
 - Presented-by-Boom hero + sticky corner badge; "Boom Customer" column.
 - "Change from 2025" column; NARPM/Crane/Boom shown as logos; highest-ranking-exec third line (person icon + caption key).
 - Company names hyperlink to their websites.
-- Top-10-by-State now shows every state with 3+ companies (was silently capped/dropping states like UT, PA).
+- Top-10-by-State shows every US state with at least one submission (44 currently), even 1-2 company states.
 - Year filter: 2026 submissions only (SUBMISSION_YEAR). Daily auto-refresh via GitHub Action.
 
 ---

@@ -618,3 +618,84 @@ footer.site .disc{ margin-top:20px; font-size:12.5px; color:var(--muted-2); line
   .btn:hover{ transform:none; }
   a.card:hover,.post:hover{ transform:none; }
 }
+
+/* =============================================================================
+   LARGEST-PM + PER-STATE PAGES (shared so the state pages match the main list)
+   Enhancement rules on top of the base .rank-table above. Some are duplicated in
+   build-largest-list.py's in-page <style> for the main page; identical + harmless.
+   ========================================================================== */
+.co-link{ color:inherit; text-decoration:none; }
+.co-link:hover{ text-decoration:underline; text-decoration-color:var(--primary); text-underline-offset:2px; }
+.rank-wrap{ max-width:1320px; }
+.exec-key{ display:inline-flex; align-items:center; gap:5px; white-space:nowrap; color:var(--muted); }
+.exec-key .pico{ width:14px; height:14px; flex:none; color:var(--primary-dark); }
+.r-sub{ display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin-top:3px; color:var(--muted); font-size:13px; line-height:1.3; }
+.r-sub .r-loc{ color:var(--muted); }
+.r-sub .r-dot{ color:#c2ccd4; }
+.r-sub .r-exec{ display:inline-flex; align-items:center; gap:5px; color:#8493a0; font-size:12.5px; }
+.r-sub .r-exec .pico{ width:13px; height:13px; flex:none; color:#a4b0ba; }
+.r-nat{ display:inline-block; margin-left:8px; font-family:var(--display); font-weight:800; font-size:11px; color:#9aa5ad; vertical-align:middle; white-space:nowrap; }
+.rank-table th.chg-col{ text-align:center; line-height:1.18; white-space:nowrap; }
+.rank-table td.chg{ text-align:center; white-space:nowrap; font-weight:700; font-variant-numeric:tabular-nums; }
+.chg-up{ color:#2f9e6b; } .chg-down{ color:#c0492f; } .chg-flat{ color:#9aa5ad; } .chg-na{ color:#9aa5ad; font-weight:400; }
+.rank-table th.hide-sm, .rank-table td.hide-sm{ padding-left:10px; padding-right:10px; }
+.rank-table td.r-rank{ width:28px; padding-right:2px; }
+.rank-table thead th:first-child{ padding-right:2px; }
+.rank-table td.r-cell{ padding-left:6px; }
+.rank-table thead th:nth-child(2){ padding-left:6px; }
+.rank-table .r-co{ font-size:18px; line-height:1.2; }
+.rank-table tbody td + td, .rank-table thead th + th{ border-left:1px solid var(--line); }
+.db-n{ opacity:.6; font-weight:600; }
+.grow-list{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:6px 30px; }
+.grow-list li{ display:flex; align-items:baseline; flex-wrap:wrap; gap:10px; padding:9px 0; border-bottom:1px solid var(--line); }
+.grow-list .gl-rank{ font-family:var(--display); font-weight:900; color:var(--primary-dark); min-width:20px; font-size:14px; }
+.grow-list .gl-co{ font-weight:700; color:var(--navy); flex:1; min-width:0; }
+.grow-list .gl-pct{ font-weight:800; color:#2f9e6b; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.grow-list .gl-detail{ flex-basis:100%; margin-left:30px; color:var(--muted); font-size:12.5px; font-variant-numeric:tabular-nums; }
+.back-link{ display:inline-flex; align-items:center; gap:6px; color:var(--primary); font-weight:600; font-size:14.5px; margin-bottom:14px; }
+/* Mobile: swap the horizontal-scroll table for stacked full-width cards */
+.rank-cards{ display:none; }
+.pmcard{ border:1px solid var(--line); border-radius:14px; background:#fff; box-shadow:var(--shadow); padding:16px; }
+.pmcard.top1{ border-color:#e4cf93; box-shadow:0 0 0 2px #f4e9c8 inset, var(--shadow); }
+.pmc-head{ display:flex; align-items:flex-start; gap:12px; }
+.pmc-rank{ font-family:var(--display); font-weight:900; font-size:20px; color:var(--primary-dark); min-width:24px; line-height:1.15; }
+.pmcard.top1 .pmc-rank{ color:#bea060; }
+.pmc-id{ flex:1; min-width:0; }
+.pmc-name{ font-weight:700; color:var(--navy); font-size:17px; line-height:1.22; }
+.pmc-doors{ text-align:right; line-height:1.05; flex:none; }
+.pmc-dn{ font-family:var(--display); font-weight:900; font-size:20px; color:var(--navy); font-variant-numeric:tabular-nums; display:block; }
+.pmc-dl{ font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }
+.pmc-meta{ margin-top:12px; border-top:1px solid var(--line); padding-top:10px; display:flex; flex-direction:column; gap:7px; }
+.pmc-mrow{ display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:14px; }
+.pmc-k{ color:var(--muted); }
+.pmc-v{ color:var(--navy); font-weight:600; text-align:right; }
+.pmc-tags{ display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; }
+.pmc-tag{ display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; padding:4px 10px; border-radius:999px; }
+.pmc-tag.on{ background:var(--wash); color:var(--primary-dark); }
+.pmc-tag.off{ background:#f0f3f6; color:#9aa5ad; border:1px solid #e2e8ee; }
+.pmc-tick{ width:12px; height:12px; }
+@media (max-width:760px){
+  .table-scroll{ display:none; }
+  .rank-cards{ display:grid; gap:14px; }
+  .grow-list{ grid-template-columns:1fr; }
+}
+
+.state-more{ display:inline-block; margin-top:12px; color:var(--primary); font-weight:600; font-size:13.5px; }
+.state-more:hover{ text-decoration:underline; }
+
+/* Footer social icons */
+.foot-social{ display:flex; gap:15px; align-items:center; margin:20px 0 0; }
+.foot-social a{ color:var(--muted); display:inline-flex; transition:color .15s ease; }
+.foot-social a:hover{ color:var(--primary); text-decoration:none; }
+.foot-social svg{ width:20px; height:20px; display:block; }
+/* Inline social row (used mid-page, e.g. contact) */
+.social-row{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin:10px 0 0; }
+.social-row a{ display:inline-flex; align-items:center; gap:8px; padding:9px 15px; border:1px solid var(--line);
+  border-radius:999px; color:var(--navy); font-weight:600; font-size:14.5px; background:#fff; transition:border-color .15s, color .15s; }
+.social-row a:hover{ border-color:var(--primary); color:var(--primary); text-decoration:none; }
+.social-row svg{ width:18px; height:18px; }
+/* Crane inclusion callout on product cards */
+.crane-callout{ display:inline-flex; align-items:center; gap:7px; margin:2px 0 12px; padding:5px 12px;
+  border-radius:999px; background:#f6efdd; color:#8a6d2f; font-weight:700; font-size:12.5px; text-decoration:none; border:1px solid #ecdfbc; }
+.crane-callout:hover{ background:#f1e6c9; text-decoration:none; }
+.crane-callout svg{ width:14px; height:14px; }

@@ -17,6 +17,8 @@ OUT  = os.path.join(HERE, "largest-pm-companies.html")
 JOTFORM_FORM_ID = "240037996931060"
 SUBMISSION_YEAR = "2026"   # only include submissions from this year (newest data, top of the JotForm sheet)
 PRIOR_YEAR = "2025"        # used for the "Change from 2025" column
+# Absolute site origin, for per-state page canonical URLs + JSON-LD. CHANGE TO https://www.peterlohmann.com AT LAUNCH.
+SITE_URL = "https://andrewmswensen-hue.github.io/peterlohmann-website"
 NAME_Q  = "Company Name"
 DOORS_Q = "Total 3rd party rental doors under management:"
 CRANE_Q = "Are you (or is someone on your team) a Crane member?"
@@ -454,7 +456,16 @@ FOOT_LINKS = """        <a href="index.html">About</a>
         <a href="products.html">Products</a>
         <a href="featured.html">Featured</a>
         <a href="contact.html">Contact</a>
-        <a href="https://www.linkedin.com/in/pslohmann/" target="_blank" rel="noopener">LinkedIn</a>"""
+        <a href="https://www.linkedin.com/in/pslohmann/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="financial-interest-disclosure.html">Disclosures</a>"""
+
+FOOT_SOCIAL = """    <div class="foot-social" aria-label="Peter Lohmann on social media">
+      <a href="https://www.youtube.com/@peterlohmann" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
+      <a href="https://www.linkedin.com/in/pslohmann/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.3a1.7 1.7 0 1 1 0-3.5 1.7 1.7 0 0 1 0 3.5zM19 19h-3v-4.4c0-1 0-2.4-1.5-2.4S13 13.4 13 14.5V19h-3v-9h2.9v1.2h.04a3.2 3.2 0 0 1 2.9-1.6c3.1 0 3.7 2 3.7 4.7z"/></svg></a>
+      <a href="https://x.com/pslohmann" target="_blank" rel="noopener" aria-label="X (formerly Twitter)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-6.9l-5.4-7-6.2 7H1.7l8.1-9.3L.9 2h7.1l4.9 6.5zM17.7 20h1.9L7.1 4H5.1z"/></svg></a>
+      <a href="https://www.facebook.com/lohmann" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7v-3.5h3.1V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.24 2.7.24v3H15.8c-1.5 0-2 .93-2 1.9v2.2h3.4l-.54 3.5h-2.9v8.4A12 12 0 0 0 24 12z"/></svg></a>
+      <a href="https://www.instagram.com/peterlohmann_media/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.56.2.96.48 1.38.9.42.42.7.82.9 1.38.17.4.37 1 .42 2.2.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.05 1.2-.25 1.8-.42 2.2a3.7 3.7 0 0 1-.9 1.38 3.7 3.7 0 0 1-1.38.9c-.4.17-1 .37-2.2.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.05-1.8-.25-2.2-.42a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.17-.4-.37-1-.42-2.2-.06-1.3-.07-1.7-.07-4.9s0-3.6.07-4.9c.05-1.2.25-1.8.42-2.2.2-.56.48-.96.9-1.38.42-.42.82-.7 1.38-.9.4-.17 1-.37 2.2-.42C8.4 2.2 8.8 2.2 12 2.2zm0 3.14A6.66 6.66 0 1 0 18.66 12 6.66 6.66 0 0 0 12 5.34zm0 10.98A4.32 4.32 0 1 1 16.32 12 4.32 4.32 0 0 1 12 16.32zm6.9-11.24a1.56 1.56 0 1 1-1.56-1.56 1.56 1.56 0 0 1 1.56 1.56z"/></svg></a>
+    </div>"""
 
 # podium (top 3)
 def pod(r, cls, badge_cls, num_txt):
@@ -498,54 +509,58 @@ def change_cell(r):
     if delta < 0:
         return f'<span class="chg-down">-{comma(abs(delta))}</span>'
     return '<span class="chg-flat">0</span>'
-trows = []
-for i, r in enumerate(valid[:LIST_CAP], 1):
-    top = ' class="top1"' if i == 1 else ''
-    NO = '<span class="chip-no">No</span>'
-    chip = '<img src="images/narpm-logo.webp" alt="NARPM member" class="yn-logo" />' if r['narpm'] else NO
-    crane_chip = '<img src="images/crane-icon.webp" alt="Crane member" class="yn-crane" />' if r['crane'] else NO
-    boom_chip = '<img src="images/boom-logo.webp" alt="Boom customer" class="yn-logo" />' if r['boom'] else NO
-    soft_txt = esc(r["soft"]) if r["soft"] != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
-    org_txt  = esc(r["org"])  if r["org"]  != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
-    change_txt = change_cell(r)
-    trows.append(
-        f'          <tr{top}>'
-        f'<td class="r-rank">{i}</td>'
-        f'<td class="r-cell"><div class="r-co">{linked_name(r)}</div>{id_subline(r)}</td>'
-        f'<td class="num r-doors">{comma(r["doors"])}</td>'
-        f'<td class="chg">{change_txt}</td>'
-        f'<td class="hide-sm">{soft_txt}</td>'
-        f'<td class="hide-sm">{org_txt}</td>'
-        f'<td class="yn">{chip}</td>'
-        f'<td class="yn">{crane_chip}</td>'
-        f'<td class="yn">{boom_chip}</td>'
-        f'</tr>')
-table_rows = "\n".join(trows)
-shown = min(LIST_CAP, n)
-
-# ---- mobile cards: one stacked, full-width card per company (replaces the scroll table on phones) ----
 def yn_badge(on, label):
     return (f'<span class="pmc-tag on"><svg viewBox="0 0 16 16" class="pmc-tick" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>{label}</span>'
             if on else f'<span class="pmc-tag off">{label}</span>')
-mcards = []
-for i, r in enumerate(valid[:LIST_CAP], 1):
-    soft_m = esc(r["soft"]) if r["soft"] != "Unknown" else 'n/a'
-    org_m  = esc(r["org"])  if r["org"]  != "Unknown" else 'n/a'
-    mcards.append(
-        f'        <div class="pmcard{" top1" if i==1 else ""}">\n'
-        f'          <div class="pmc-head">\n'
-        f'            <span class="pmc-rank">{i}</span>\n'
-        f'            <div class="pmc-id"><div class="pmc-name">{linked_name(r)}</div>{id_subline(r)}</div>\n'
-        f'            <div class="pmc-doors"><span class="pmc-dn">{comma(r["doors"])}</span><span class="pmc-dl">doors</span></div>\n'
-        f'          </div>\n'
-        f'          <div class="pmc-meta">\n'
-        f'            <div class="pmc-mrow"><span class="pmc-k">Change from 2025</span><span class="pmc-v chg">{change_cell(r)}</span></div>\n'
-        f'            <div class="pmc-mrow"><span class="pmc-k">Software</span><span class="pmc-v">{soft_m}</span></div>\n'
-        f'            <div class="pmc-mrow"><span class="pmc-k">Structure</span><span class="pmc-v">{org_m}</span></div>\n'
-        f'          </div>\n'
-        f'          <div class="pmc-tags">{yn_badge(r["narpm"],"NARPM")}{yn_badge(r["crane"],"Crane")}{yn_badge(r["boom"],"Boom customer")}</div>\n'
-        f'        </div>')
-mobile_cards = "\n".join(mcards)
+NO_CHIP = '<span class="chip-no">No</span>'
+def render_rows(subset):
+    """(desktop table rows, mobile cards) for a list of companies, ranked 1..N in the given order.
+    Shows a subtle national-rank note when a row's national position differs from its rank here
+    (i.e. on the per-state pages). Reused by the main top-40 table and every state page."""
+    tr, mc = [], []
+    for i, r in enumerate(subset, 1):
+        natrank = overall_rank.get(r['name'])
+        natnote = f'<span class="r-nat">#{natrank} nationally</span>' if (natrank and natrank != i) else ''
+        top1 = (natrank == 1)
+        topcls = ' class="top1"' if top1 else ''
+        cardtop = ' top1' if top1 else ''
+        chip = '<img src="images/narpm-logo.webp" alt="NARPM member" class="yn-logo" />' if r['narpm'] else NO_CHIP
+        crane_chip = '<img src="images/crane-icon.webp" alt="Crane member" class="yn-crane" />' if r['crane'] else NO_CHIP
+        boom_chip = '<img src="images/boom-logo.webp" alt="Boom customer" class="yn-logo" />' if r['boom'] else NO_CHIP
+        soft_txt = esc(r["soft"]) if r["soft"] != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
+        org_txt  = esc(r["org"])  if r["org"]  != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
+        soft_m = esc(r["soft"]) if r["soft"] != "Unknown" else 'n/a'
+        org_m  = esc(r["org"])  if r["org"]  != "Unknown" else 'n/a'
+        tr.append(
+            f'          <tr{topcls}>'
+            f'<td class="r-rank">{i}</td>'
+            f'<td class="r-cell"><div class="r-co">{linked_name(r)}{natnote}</div>{id_subline(r)}</td>'
+            f'<td class="num r-doors">{comma(r["doors"])}</td>'
+            f'<td class="chg">{change_cell(r)}</td>'
+            f'<td class="hide-sm">{soft_txt}</td>'
+            f'<td class="hide-sm">{org_txt}</td>'
+            f'<td class="yn">{chip}</td>'
+            f'<td class="yn">{crane_chip}</td>'
+            f'<td class="yn">{boom_chip}</td>'
+            f'</tr>')
+        mc.append(
+            f'        <div class="pmcard{cardtop}">\n'
+            f'          <div class="pmc-head">\n'
+            f'            <span class="pmc-rank">{i}</span>\n'
+            f'            <div class="pmc-id"><div class="pmc-name">{linked_name(r)}{natnote}</div>{id_subline(r)}</div>\n'
+            f'            <div class="pmc-doors"><span class="pmc-dn">{comma(r["doors"])}</span><span class="pmc-dl">doors</span></div>\n'
+            f'          </div>\n'
+            f'          <div class="pmc-meta">\n'
+            f'            <div class="pmc-mrow"><span class="pmc-k">Change from 2025</span><span class="pmc-v chg">{change_cell(r)}</span></div>\n'
+            f'            <div class="pmc-mrow"><span class="pmc-k">Software</span><span class="pmc-v">{soft_m}</span></div>\n'
+            f'            <div class="pmc-mrow"><span class="pmc-k">Structure</span><span class="pmc-v">{org_m}</span></div>\n'
+            f'          </div>\n'
+            f'          <div class="pmc-tags">{yn_badge(r["narpm"],"NARPM")}{yn_badge(r["crane"],"Crane")}{yn_badge(r["boom"],"Boom customer")}</div>\n'
+            f'        </div>')
+    return "\n".join(tr), "\n".join(mc)
+
+table_rows, mobile_cards = render_rows(valid[:LIST_CAP])
+shown = min(LIST_CAP, n)
 
 # data bars
 def bars(counts, klass_cycle, denom):
@@ -598,16 +613,26 @@ def top40_note(r):
     rk = overall_rank.get(r['name'])
     return f' <span class="sl-top40">(#{rk} on the top 40)</span>' if rk and rk <= LIST_CAP else ''
 
+def state_slug(st):
+    return STATE_NAME[st].lower().replace(' ', '-')
+def state_page_filename(st):
+    return f"pm-{state_slug(st)}.html"
+
 scards = []
 for st, rows in state_lists:
     items = "\n".join(
         f'            <li><span class="sl-rank">{i}</span><span class="sl-co">{linked_name(r)}{top40_note(r)}</span>'
         f'<span class="sl-doors">{comma(r["doors"])}</span></li>'
         for i, r in enumerate(rows, 1))
+    total_in_state = by_state[st]
+    more = (f'          <a class="state-more" href="{state_page_filename(st)}">All {total_in_state} in {esc(STATE_NAME[st])} &rarr;</a>\n'
+            if total_in_state > len(rows) else
+            f'          <a class="state-more" href="{state_page_filename(st)}">Open the {esc(STATE_NAME[st])} page &rarr;</a>\n')
     scards.append(
         f'        <div class="state-card">\n'
-        f'          <h3>{esc(STATE_NAME[st])} <span class="st-count">{len(rows)} ranked</span></h3>\n'
+        f'          <h3><a class="co-link" href="{state_page_filename(st)}">{esc(STATE_NAME[st])}</a> <span class="st-count">{len(rows)} ranked</span></h3>\n'
         f'          <ul class="state-list">\n{items}\n          </ul>\n'
+        f'{more}'
         f'        </div>')
 state_cards = "\n".join(scards)
 
@@ -632,7 +657,7 @@ page = f"""<!--
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
-<link rel="stylesheet" href="styles.css?v=11" />
+<link rel="stylesheet" href="styles.css?v=12" />
 <style>
   /* Boom sponsor presentation (scoped to this page) */
   .presented-by{{ display:inline-flex; align-items:center; gap:12px; margin:-2px 0 14px;
@@ -915,6 +940,7 @@ page = f"""<!--
 {FOOT_LINKS}
       </nav>
     </div>
+{FOOT_SOCIAL}
     <p class="disc">The content of this website is for informational purposes only and does not constitute professional advice. I may have consulting agreements with, or financial interests in, companies mentioned on this website. Additionally, some of the links across this site may be affiliate links, meaning I may earn a commission if you make a purchase through those links. Always perform your own due diligence before making any financial or business decisions.</p>
   </div>
 </footer>
@@ -923,7 +949,7 @@ page = f"""<!--
   <span>Presented by</span><img src="images/boom-logo.webp" alt="Boom" />
 </a>
 
-<script src="site.js?v=11"></script>
+<script src="site.js?v=12"></script>
 <script>
 (function(){{
   var hero = document.querySelector('.page-hero'),
@@ -943,6 +969,133 @@ with open(OUT, "w") as f:
     f.write(page)
 
 print(f"Wrote {OUT}")
+
+# ============================ PER-STATE PAGES ============================
+# One real, crawlable/indexable HTML page per US state (SEO + AI-citation foundation;
+# the interactive map/modal, Phase 2, will link + progressively enhance these).
+THEAD = ('<thead><tr><th class="num">#</th><th>Company</th><th class="num doors-col">Doors</th>'
+         '<th class="chg-col">Change<br>from 2025</th><th class="hide-sm">Software</th><th class="hide-sm">Structure</th>'
+         '<th class="yn-col"><img src="images/narpm-logo.webp" alt="NARPM" class="hdr-logo" /><span class="cust">member</span></th>'
+         '<th class="yn-col"><img src="images/crane-full-logo.webp" alt="Crane" class="hdr-logo" /><span class="cust">member</span></th>'
+         '<th class="yn-col boom-col"><img src="images/boom-logo.webp" alt="Boom" class="hdr-logo" /><span class="cust">Customer</span></th></tr></thead>')
+
+# all companies per US state, highest doors first (state pages show everyone, not just the top 10)
+state_all = {}
+for _st in by_state:
+    if _st in STATE_NAME:
+        state_all[_st] = sorted([r for r in valid if r['state'] == _st], key=lambda x: -x['doors'])
+
+def render_state_page(st, rows):
+    name = STATE_NAME[st]
+    url = f"{SITE_URL}/{state_page_filename(st)}"
+    st_rows, st_cards = render_rows(rows)
+    cnt = len(rows)
+    tot = sum(r['doors'] for r in rows)
+    med = sorted(r['doors'] for r in rows)[cnt//2] if cnt else 0
+    jsonld = json.dumps({
+        "@context": "https://schema.org", "@type": "ItemList",
+        "name": f"Largest Property Management Companies in {name} (2026)",
+        "url": url, "numberOfItems": cnt,
+        "itemListElement": [
+            {"@type": "ListItem", "position": i,
+             "item": {"@type": "Organization", "name": r["name"],
+                      "address": {"@type": "PostalAddress", "addressLocality": r["loc"]}}}
+            for i, r in enumerate(rows, 1)],
+    })
+    plural = "company" if cnt == 1 else "companies"
+    lead = (f"The largest residential property management companies in {name}, ranked by third-party "
+            f"doors under management. {cnt} {plural} listed so far"
+            + (f", managing {comma(tot)} doors combined." if cnt > 1 else "."))
+    quick = ('' if cnt < 2 else
+        '      <div class="stats stats-color g3 reveal mt-md" aria-label="At a glance">\n'
+        f'        <div class="stat"><div class="v">{cnt}</div><div class="k">Companies in {esc(name)}</div></div>\n'
+        f'        <div class="stat"><div class="v">{comma(round(tot, -2))}+</div><div class="k">Doors under management</div></div>\n'
+        f'        <div class="stat"><div class="v">{comma(med)}</div><div class="k">Median doors</div></div>\n'
+        '      </div>\n')
+    return f"""<!-- GENERATED per-state page. Do not hand-edit; produced by build-largest-list.py. -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The {cnt} Largest Property Management Companies in {esc(name)} (2026) &middot; Peter Lohmann</title>
+<meta name="description" content="The largest residential property management companies in {esc(name)} for 2026, ranked by third-party doors under management, with software, structure, and NARPM, Crane, and Boom status." />
+<link rel="canonical" href="{url}" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="apple-touch-icon" href="favicon.png" />
+<link rel="stylesheet" href="styles.css?v=12" />
+<script type="application/ld+json">{jsonld}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="top" aria-label="Primary">
+  <div class="bar">
+    <a class="brand" href="index.html">Peter <span>Lohmann</span></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="navlinks">Menu</button>
+    <div class="links" id="navlinks">
+{NAV_LINKS}
+    </div>
+    <a class="btn btn-navy btn-sm cta" href="contact.html">Contact</a>
+  </div>
+</nav>
+<main id="main">
+  <header class="page-hero">
+    <div class="wrap">
+      <a class="back-link" href="largest-pm-companies.html">&larr; All states &amp; the national list</a>
+      <span class="kicker">Largest PM Companies &middot; {esc(name)}</span>
+      <h1>The Largest Property Management Companies in {esc(name)}</h1>
+      <p class="lead">{esc(lead)}</p>
+    </div>
+  </header>
+  <section class="band tight">
+    <div class="wrap rank-wrap">
+{quick}      <p class="sub reveal" style="margin:22px 0;">By third-party doors under management. Self-reported. SFR and small multifamily (under 100 units). <span class="exec-key">{PERSON_SVG} = highest-ranking executive</span></p>
+      <div class="table-scroll reveal">
+        <table class="rank-table">
+          {THEAD}
+          <tbody>
+{st_rows}
+          </tbody>
+        </table>
+      </div>
+      <div class="rank-cards reveal" aria-label="Company ranking (mobile)">
+{st_cards}
+      </div>
+      <p class="rank-note">{esc(name)}'s ranking updates automatically as companies submit. <a href="https://www.peterlohmann.com/largest-pm-companies" target="_blank" rel="noopener">Add your company &rarr;</a></p>
+    </div>
+  </section>
+  <section class="band tight wash">
+    <div class="wrap center">
+      <h2 class="h-lead">See the rest of the country.</h2>
+      <p class="sub" style="margin:8px auto 18px;">This is the {esc(name)} cut of the national ranking of the largest residential PM companies.</p>
+      <a class="btn btn-primary" href="largest-pm-companies.html">The national list &amp; every state</a>
+    </div>
+  </section>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="brand" style="font-weight:700;color:var(--navy);">Peter <span style="color:var(--primary);">Lohmann</span></div>
+      <nav class="foot-links" aria-label="Footer">
+{FOOT_LINKS}
+      </nav>
+    </div>
+{FOOT_SOCIAL}
+    <p class="disc">The content of this website is for informational purposes only and does not constitute professional advice. I may have consulting agreements with, or financial interests in, companies mentioned on this website. Additionally, some of the links across this site may be affiliate links, meaning I may earn a commission if you make a purchase through those links. Always perform your own due diligence before making any financial or business decisions.</p>
+  </div>
+</footer>
+<script src="site.js?v=12"></script>
+</body>
+</html>
+"""
+
+_sp = 0
+for _st, _rows in state_all.items():
+    with open(os.path.join(HERE, state_page_filename(_st)), "w") as f:
+        f.write(render_state_page(_st, _rows))
+    _sp += 1
+print(f"Wrote {_sp} per-state pages.")
 print(f"companies={n}  total_doors={total_doors}  median={median}  states={len(us_states)} canada={has_canada}")
 print(f"software={soft_counts}")
 print(f"org={org_counts}")

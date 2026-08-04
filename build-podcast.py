@@ -13,7 +13,7 @@ import urllib.request, json, re, html as htmlmod, datetime, os, difflib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "podcast.html")
-ASSET_V = "15"   # keep in sync with the site's ?v= cache version
+ASSET_V = "16"   # keep in sync with the site's ?v= cache version
 
 YT_PLAYLIST = "PLQihvuykg8UaJqy5CnF2Fok8MDdoNuZ66"
 ITUNES_ID = "1554806227"
@@ -225,9 +225,9 @@ def build():
       <h1>Honest, operator-to-operator conversations.</h1>
       <p class="lead">100+ episodes across six seasons. Interviews with fellow business owners and executives about growth, hiring, systems, and the realities of leadership. No fluff, just smart people talking shop.</p>
       <div class="listen-row mt-md">
-        <a class="listen-btn" href="{APPLE_SHOW}" target="_blank" rel="noopener">{APPLE_SVG} Apple Podcasts</a>
-        <a class="listen-btn" href="{SPOTIFY_SHOW}" target="_blank" rel="noopener">{SPOTIFY_SVG} Spotify</a>
-        <a class="listen-btn" href="{YT_CHANNEL}" target="_blank" rel="noopener">{YT_SVG} YouTube</a>
+        <a class="listen-btn apple" href="{APPLE_SHOW}" target="_blank" rel="noopener">{APPLE_SVG} Apple Podcasts</a>
+        <a class="listen-btn spotify" href="{SPOTIFY_SHOW}" target="_blank" rel="noopener">{SPOTIFY_SVG} Spotify</a>
+        <a class="listen-btn youtube" href="{YT_CHANNEL}" target="_blank" rel="noopener">{YT_SVG} YouTube</a>
       </div>
     </div>
   </header>
@@ -289,9 +289,9 @@ def build():
       <h2 class="h-lead">Catch it wherever you listen.</h2>
       <p class="sub" style="margin:8px auto 0;">Tune in, turn up the property know-how, and have a blast while you're at it.</p>
       <div class="listen-row mt-md" style="justify-content:center;">
-        <a class="listen-btn" href="{APPLE_SHOW}" target="_blank" rel="noopener">{APPLE_SVG} Apple Podcasts</a>
-        <a class="listen-btn" href="{SPOTIFY_SHOW}" target="_blank" rel="noopener">{SPOTIFY_SVG} Spotify</a>
-        <a class="listen-btn" href="{YT_CHANNEL}" target="_blank" rel="noopener">{YT_SVG} YouTube</a>
+        <a class="listen-btn apple" href="{APPLE_SHOW}" target="_blank" rel="noopener">{APPLE_SVG} Apple Podcasts</a>
+        <a class="listen-btn spotify" href="{SPOTIFY_SHOW}" target="_blank" rel="noopener">{SPOTIFY_SVG} Spotify</a>
+        <a class="listen-btn youtube" href="{YT_CHANNEL}" target="_blank" rel="noopener">{YT_SVG} YouTube</a>
       </div>
     </div>
   </section>

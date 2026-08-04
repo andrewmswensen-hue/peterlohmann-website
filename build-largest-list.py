@@ -671,16 +671,21 @@ for st, (rr, cc) in STATE_GRID.items():
 map_tiles_html = "\n".join(tiles)
 
 # compact per-state payload for the click-to-open modal (the per-state PAGES remain the SEO source)
+def _weburl(x):
+    return WEBSITES.get((x.get("raw_name") or x["name"]).lower()) or WEBSITES.get(x["name"].lower()) or ""
+def _top40(x):
+    rk = overall_rank.get(x['name'])
+    return rk if (rk and rk <= LIST_CAP) else 0   # only note a rank if they're in the top 40
 _modal = {}
 for st, rows in state_lists:
     _modal[st] = {
         "n": STATE_NAME.get(st, st),
         "c": by_state.get(st, 0),
         "d": state_doors.get(st, 0),
-        "u": state_page_filename(st),
-        "co": [{"k": overall_rank.get(x['name']), "n": x['name'], "d": x['doors'],
-                "cr": 1 if x['crane'] else 0, "bo": 1 if x['boom'] else 0, "na": 1 if x['narpm'] else 0}
-               for x in rows],
+        "p": state_page_filename(st),            # link to the full state page
+        "co": [{"t": _top40(x), "n": x['name'], "u": _weburl(x), "loc": x['loc'], "ex": x.get('exec', ''),
+                "d": x['doors'], "cr": 1 if x['crane'] else 0, "bo": 1 if x['boom'] else 0,
+                "na": 1 if x['narpm'] else 0} for x in rows],
     }
 state_modal_json = json.dumps(_modal, separators=(',', ':'))
 
@@ -705,7 +710,7 @@ page = f"""<!--
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
-<link rel="stylesheet" href="styles.css?v=15" />
+<link rel="stylesheet" href="styles.css?v=16" />
 <style>
   /* Boom sponsor presentation (scoped to this page) */
   .presented-by{{ display:inline-flex; align-items:center; gap:12px; margin:-2px 0 14px;
@@ -1019,7 +1024,7 @@ page = f"""<!--
   <span>Presented by</span><img src="images/boom-logo.webp" alt="Boom" />
 </a>
 
-<script src="site.js?v=15"></script>
+<script src="site.js?v=16"></script>
 <script>
 (function(){{
   var hero = document.querySelector('.page-hero'),
@@ -1040,19 +1045,29 @@ page = f"""<!--
       closeBtn = document.getElementById('smClose'), lastFocus = null;
   function esc(s){{ return String(s).replace(/[&<>"]/g, function(c){{ return {{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}}[c]; }}); }}
   function fmt(x){{ return Number(x).toLocaleString('en-US'); }}
-  function tagz(c){{ var t=''; if(c.na) t+='<span class="sm-tag">NARPM</span>'; if(c.cr) t+='<span class="sm-tag crane">Crane</span>'; if(c.bo) t+='<span class="sm-tag boom">Boom</span>'; return t; }}
+  var CK = '<span class="sm-ck" role="img" aria-label="yes">&#10003;</span>', DASH = '<span class="sm-no" aria-hidden="true">&middot;</span>';
   function render(st){{
     var s = data[st]; if (!s) return;
     var rows = s.co.map(function(c,i){{
-      return '<li><span class="sm-rank">'+(i+1)+'</span>'
-        +'<span class="sm-co">'+esc(c.n)+' <span class="sm-nat">#'+c.k+' nationally</span></span>'
-        +'<span class="sm-doors">'+fmt(c.d)+'</span>'
-        +'<span class="sm-tags">'+tagz(c)+'</span></li>';
+      var nm = c.u ? '<a class="co-link" href="'+c.u+'" target="_blank" rel="noopener">'+esc(c.n)+'</a>' : esc(c.n);
+      var t40 = c.t ? ' <span class="sm-t40">#'+c.t+' top 40</span>' : '';
+      var parts = [];
+      if (c.loc) parts.push('<span class="sm-loc">'+esc(c.loc)+'</span>');
+      if (c.ex) parts.push('<span class="sm-ex">'+esc(c.ex)+'</span>');
+      var sub = parts.length ? '<div class="sm-sub">'+parts.join('<span class="sm-dot">&middot;</span>')+'</div>' : '';
+      return '<tr><td class="sm-rk">'+(i+1)+'</td>'
+        +'<td class="sm-cell"><div class="sm-name">'+nm+t40+'</div>'+sub+'</td>'
+        +'<td class="sm-dn">'+fmt(c.d)+'</td>'
+        +'<td class="sm-yn">'+(c.na?CK:DASH)+'</td>'
+        +'<td class="sm-yn">'+(c.cr?CK:DASH)+'</td>'
+        +'<td class="sm-yn">'+(c.bo?CK:DASH)+'</td></tr>';
     }}).join('');
     body.innerHTML = '<div class="sm-head"><h3 id="smTitle">The Largest PM Companies in '+esc(s.n)+'</h3>'
       +'<p class="sm-stat">'+s.c+' companies &middot; '+fmt(s.d)+' doors under management</p></div>'
-      +'<ol class="sm-list">'+rows+'</ol>'
-      +'<a class="btn btn-primary sm-full" href="'+s.u+'">View the full '+esc(s.n)+' page &rarr;</a>';
+      +'<div class="sm-scroll"><table class="sm-table"><thead><tr><th aria-label="Rank"></th><th>Company</th>'
+      +'<th class="sm-dn">Doors</th><th class="sm-yn">NARPM</th><th class="sm-yn">Crane</th><th class="sm-yn">Boom</th></tr></thead>'
+      +'<tbody>'+rows+'</tbody></table></div>'
+      +'<a class="btn btn-primary sm-full" href="'+s.p+'">View the full '+esc(s.n)+' page &rarr;</a>';
   }}
   function openM(st){{ lastFocus=document.activeElement; render(st); modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; closeBtn.focus(); }}
   function closeM(){{ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; if(lastFocus) lastFocus.focus(); }}
@@ -1127,7 +1142,7 @@ def render_state_page(st, rows):
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
-<link rel="stylesheet" href="styles.css?v=15" />
+<link rel="stylesheet" href="styles.css?v=16" />
 <script type="application/ld+json">{jsonld}</script>
 </head>
 <body>
@@ -1188,7 +1203,7 @@ def render_state_page(st, rows):
     <p class="disc">The content of this website is for informational purposes only and does not constitute professional advice. I may have consulting agreements with, or financial interests in, companies mentioned on this website. Additionally, some of the links across this site may be affiliate links, meaning I may earn a commission if you make a purchase through those links. Always perform your own due diligence before making any financial or business decisions.</p>
   </div>
 </footer>
-<script src="site.js?v=15"></script>
+<script src="site.js?v=16"></script>
 </body>
 </html>
 """

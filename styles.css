@@ -533,6 +533,11 @@ a.post-card:hover{ text-decoration:none; transform:translateY(-4px); box-shadow:
    border-radius:12px; padding:12px 20px; font-weight:600; color:var(--navy); box-shadow:var(--shadow);
    transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
 .listen-btn:hover{ text-decoration:none; border-color:#c7d6e2; transform:translateY(-2px); box-shadow:var(--shadow-lg); }
+/* brand-color hover/press on the platform listen buttons (Apple=black, Spotify=green, YouTube=red) */
+.listen-btn.apple, .listen-btn.spotify, .listen-btn.youtube{ transition:transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease, border-color .15s ease; }
+.listen-btn.apple:hover, .listen-btn.apple:focus-visible, .listen-btn.apple:active{ background:#111; border-color:#111; color:#fff; }
+.listen-btn.spotify:hover, .listen-btn.spotify:focus-visible, .listen-btn.spotify:active{ background:#1DB954; border-color:#1DB954; color:#fff; }
+.listen-btn.youtube:hover, .listen-btn.youtube:focus-visible, .listen-btn.youtube:active{ background:#FF0000; border-color:#FF0000; color:#fff; }
 
 /* ---------- PODCAST: recent episode cards (click-to-play facade) ---------- */
 .ep-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
@@ -645,6 +650,14 @@ footer.site .disc{ margin-top:20px; font-size:12.5px; color:var(--muted-2); line
 .rank-table thead th:nth-child(2){ padding-left:6px; }
 .rank-table .r-co{ font-size:18px; line-height:1.2; }
 .rank-table tbody td + td, .rank-table thead th + th{ border-left:1px solid var(--line); }
+/* NARPM / Crane / Boom columns — sized + centered (also needed on the per-state pages) */
+.rank-table th.yn-col{ width:96px; text-align:center; line-height:1.18; vertical-align:bottom; padding-left:10px; padding-right:10px; }
+.rank-table td.yn{ text-align:center; padding-left:10px; padding-right:10px; }
+.yn-col .hdr-logo{ display:block; margin:0 auto 5px; height:24px; width:72px; object-fit:contain; }
+.yn-col .cust{ display:block; }
+td.yn .yn-logo{ display:block; margin:0 auto; height:30px; width:74px; object-fit:contain; }
+td.yn .yn-crane{ display:block; margin:0 auto; height:31px; width:auto; }
+td.yn .chip-no{ display:inline-block; }
 .db-n{ opacity:.6; font-weight:600; }
 .grow-list{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:6px 30px; }
 .grow-list li{ display:flex; align-items:baseline; flex-wrap:wrap; gap:10px; padding:9px 0; border-bottom:1px solid var(--line); }
@@ -726,8 +739,7 @@ footer.site .disc{ margin-top:20px; font-size:12.5px; color:var(--muted-2); line
   color:var(--navy); background:#fff; line-height:1; }
 .show-btn:hover{ text-decoration:none; border-color:var(--primary); color:var(--primary); }
 .show-btn .pf-ic{ width:24px; height:24px; }
-.show-btn.youtube{ background:#FF0000; border-color:#FF0000; color:#fff; }
-.show-btn.youtube:hover{ background:#d90000; border-color:#d90000; color:#fff; }
+/* show-card YouTube button matches Apple/Spotify (neutral, no red) */
 @media (max-width:680px){ .show-grid{ grid-template-columns:1fr; } }
 
 /* Inline social icon row (hero foot, blog author strip) */
@@ -764,21 +776,27 @@ a.tile:focus-visible{ z-index:2; }
 .smodal{ position:fixed; inset:0; z-index:1000; display:none; align-items:center; justify-content:center; padding:20px;
   background:rgba(12,20,27,.82); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); }
 .smodal.open{ display:flex; }
-.smodal-card{ position:relative; background:#fff; border-radius:20px; padding:30px 28px 26px; max-width:520px; width:100%;
+.smodal-card{ position:relative; background:#fff; border-radius:20px; padding:30px 28px 26px; max-width:640px; width:100%;
   max-height:86vh; overflow-y:auto; box-shadow:0 30px 80px rgba(0,0,0,.4); }
 .smodal-close{ position:absolute; top:12px; right:14px; width:36px; height:36px; border:0; border-radius:50%; cursor:pointer;
   background:#f0f3f6; color:var(--navy); font-size:22px; line-height:1; }
 .smodal-close:hover{ background:#e2e8ee; }
 .sm-head h3{ font-size:23px; margin:0 0 4px; padding-right:30px; }
-.sm-stat{ color:var(--muted); font-size:14px; font-weight:600; margin:0 0 14px; font-variant-numeric:tabular-nums; }
-.sm-list{ list-style:none; margin:0 0 20px; padding:0; }
-.sm-list li{ display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid var(--line); font-size:14.5px; }
-.sm-rank{ font-family:var(--display); font-weight:900; color:var(--primary-dark); min-width:20px; }
-.sm-co{ flex:1; min-width:0; font-weight:700; color:var(--navy); }
-.sm-nat{ font-family:var(--display); font-weight:800; font-size:10.5px; color:#9aa5ad; }
-.sm-doors{ font-family:var(--display); font-weight:900; color:var(--navy); font-variant-numeric:tabular-nums; white-space:nowrap; }
-.sm-tags{ display:flex; gap:4px; }
-.sm-tag{ font-size:9.5px; font-weight:800; letter-spacing:.03em; text-transform:uppercase; padding:2px 6px; border-radius:5px; background:var(--wash); color:var(--primary-dark); white-space:nowrap; }
-.sm-tag.crane{ background:#f4e9c8; color:#8a6d2f; }
-.sm-tag.boom{ background:#fbe1d3; color:#c0492f; }
+.sm-stat{ color:var(--muted); font-size:14px; font-weight:600; margin:0 0 16px; font-variant-numeric:tabular-nums; }
+.sm-scroll{ overflow-x:auto; margin-bottom:20px; }
+.sm-table{ width:100%; border-collapse:collapse; font-size:14px; }
+.sm-table thead th{ text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted);
+  font-weight:700; padding:0 8px 8px; border-bottom:2px solid var(--line); white-space:nowrap; }
+.sm-table td{ padding:9px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+.sm-table tbody tr:last-child td{ border-bottom:0; }
+.sm-table th.sm-dn, .sm-table td.sm-dn{ text-align:right; }
+.sm-table td.sm-dn{ font-family:var(--display); font-weight:900; color:var(--navy); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.sm-table th.sm-yn, .sm-table td.sm-yn{ text-align:center; width:52px; }
+.sm-rk{ font-family:var(--display); font-weight:900; color:var(--primary-dark); width:22px; }
+.sm-name{ font-weight:700; color:var(--navy); line-height:1.2; }
+.sm-t40{ font-family:var(--display); font-weight:800; font-size:10.5px; color:#9aa5ad; white-space:nowrap; }
+.sm-sub{ display:flex; flex-wrap:wrap; gap:5px; margin-top:2px; color:var(--muted); font-size:12px; }
+.sm-sub .sm-dot{ color:#c2ccd4; }
+.sm-ck{ color:#2f9e6b; font-weight:900; }
+.sm-no{ color:#c2ccd4; }
 .sm-full{ width:100%; justify-content:center; }

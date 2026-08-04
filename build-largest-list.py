@@ -316,6 +316,33 @@ biggest = valid[0]
 footprint = max((r for r in valid if r['markets'] < 500), key=lambda x: x['markets'])
 multi = sum(1 for r in valid if 1 < r['markets'] < 500)
 
+# --- Fastest-growing: rank by % growth vs the same company's 2025 self-report.
+# Floor the 2025 base at 300 doors so a tiny company doubling from a small base doesn't dominate.
+GROWTH_FLOOR_2025 = 300
+_growers = []
+for r in valid:
+    d25 = r.get('doors_2025')
+    if d25 and d25 >= GROWTH_FLOOR_2025 and r['doors'] > d25:
+        _growers.append((r, d25, (r['doors'] - d25) / d25))
+_growers.sort(key=lambda t: -t[2])
+fastest = _growers[:10]
+
+# --- Median door count by PM software / by org structure (groups with enough companies to be meaningful).
+def _medians_by(field, min_n=4):
+    groups = collections.defaultdict(list)
+    for r in valid:
+        if r[field] and r[field] != 'Unknown':
+            groups[r[field]].append(r['doors'])
+    out = []
+    for k, arr in groups.items():
+        if len(arr) >= min_n:
+            arr.sort()
+            out.append((k, arr[len(arr)//2], len(arr)))   # (label, median doors, company count)
+    out.sort(key=lambda t: -t[1])
+    return out
+soft_medians = _medians_by('soft')
+org_medians  = _medians_by('org')
+
 # states with 3-10 clean entries -> mini rankings
 by_state = collections.Counter(r['state'] for r in valid)
 state_lists = []
@@ -449,6 +476,28 @@ LIST_CAP = 40
 PERSON_SVG = ('<svg class="pico" viewBox="0 0 16 16" aria-hidden="true">'
               '<circle cx="8" cy="5" r="2.6" fill="none" stroke="currentColor" stroke-width="1.3"/>'
               '<path d="M3.2 13c0-2.6 2.1-4.2 4.8-4.2s4.8 1.6 4.8 4.2" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>')
+def id_subline(r):
+    # location + highest-ranking exec on ONE line (dot-separated), so the company-name line can run wider
+    loc = esc(r["loc"])
+    exec_html = f'{PERSON_SVG}<span>{esc(r["exec"])}</span>' if r.get("exec") else ''
+    if loc and exec_html:
+        return f'<div class="r-sub"><span class="r-loc">{loc}</span><span class="r-dot">&middot;</span><span class="r-exec">{exec_html}</span></div>'
+    if loc:
+        return f'<div class="r-sub"><span class="r-loc">{loc}</span></div>'
+    if exec_html:
+        return f'<div class="r-sub"><span class="r-exec">{exec_html}</span></div>'
+    return ''
+def change_cell(r):
+    # shared by the desktop table + the mobile cards
+    d25 = r.get('doors_2025')
+    if not d25:
+        return '<span class="chg-na">N/A</span>'
+    delta = r['doors'] - d25
+    if delta > 0:
+        return f'<span class="chg-up">+{comma(delta)}</span>'
+    if delta < 0:
+        return f'<span class="chg-down">-{comma(abs(delta))}</span>'
+    return '<span class="chg-flat">0</span>'
 trows = []
 for i, r in enumerate(valid[:LIST_CAP], 1):
     top = ' class="top1"' if i == 1 else ''
@@ -458,22 +507,11 @@ for i, r in enumerate(valid[:LIST_CAP], 1):
     boom_chip = '<img src="images/boom-logo.webp" alt="Boom customer" class="yn-logo" />' if r['boom'] else NO
     soft_txt = esc(r["soft"]) if r["soft"] != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
     org_txt  = esc(r["org"])  if r["org"]  != "Unknown" else '<span style="color:#9aa5ad">n/a</span>'
-    d25 = r.get('doors_2025')
-    if not d25:
-        change_txt = '<span class="chg-na">N/A</span>'
-    else:
-        delta = r['doors'] - d25
-        if delta > 0:
-            change_txt = f'<span class="chg-up">+{comma(delta)}</span>'
-        elif delta < 0:
-            change_txt = f'<span class="chg-down">-{comma(abs(delta))}</span>'
-        else:
-            change_txt = '<span class="chg-flat">0</span>'
-    exec_line = f'<div class="r-exec">{PERSON_SVG}<span>{esc(r["exec"])}</span></div>' if r.get("exec") else ''
+    change_txt = change_cell(r)
     trows.append(
         f'          <tr{top}>'
         f'<td class="r-rank">{i}</td>'
-        f'<td><div class="r-co">{linked_name(r)}</div><div class="r-loc">{esc(r["loc"])}</div>{exec_line}</td>'
+        f'<td class="r-cell"><div class="r-co">{linked_name(r)}</div>{id_subline(r)}</td>'
         f'<td class="num r-doors">{comma(r["doors"])}</td>'
         f'<td class="chg">{change_txt}</td>'
         f'<td class="hide-sm">{soft_txt}</td>'
@@ -484,6 +522,30 @@ for i, r in enumerate(valid[:LIST_CAP], 1):
         f'</tr>')
 table_rows = "\n".join(trows)
 shown = min(LIST_CAP, n)
+
+# ---- mobile cards: one stacked, full-width card per company (replaces the scroll table on phones) ----
+def yn_badge(on, label):
+    return (f'<span class="pmc-tag on"><svg viewBox="0 0 16 16" class="pmc-tick" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>{label}</span>'
+            if on else f'<span class="pmc-tag off">{label}</span>')
+mcards = []
+for i, r in enumerate(valid[:LIST_CAP], 1):
+    soft_m = esc(r["soft"]) if r["soft"] != "Unknown" else 'n/a'
+    org_m  = esc(r["org"])  if r["org"]  != "Unknown" else 'n/a'
+    mcards.append(
+        f'        <div class="pmcard{" top1" if i==1 else ""}">\n'
+        f'          <div class="pmc-head">\n'
+        f'            <span class="pmc-rank">{i}</span>\n'
+        f'            <div class="pmc-id"><div class="pmc-name">{linked_name(r)}</div>{id_subline(r)}</div>\n'
+        f'            <div class="pmc-doors"><span class="pmc-dn">{comma(r["doors"])}</span><span class="pmc-dl">doors</span></div>\n'
+        f'          </div>\n'
+        f'          <div class="pmc-meta">\n'
+        f'            <div class="pmc-mrow"><span class="pmc-k">Change from 2025</span><span class="pmc-v chg">{change_cell(r)}</span></div>\n'
+        f'            <div class="pmc-mrow"><span class="pmc-k">Software</span><span class="pmc-v">{soft_m}</span></div>\n'
+        f'            <div class="pmc-mrow"><span class="pmc-k">Structure</span><span class="pmc-v">{org_m}</span></div>\n'
+        f'          </div>\n'
+        f'          <div class="pmc-tags">{yn_badge(r["narpm"],"NARPM")}{yn_badge(r["crane"],"Crane")}{yn_badge(r["boom"],"Boom customer")}</div>\n'
+        f'        </div>')
+mobile_cards = "\n".join(mcards)
 
 # data bars
 def bars(counts, klass_cycle, denom):
@@ -500,6 +562,36 @@ def bars(counts, klass_cycle, denom):
     return "\n".join(out)
 soft_bars = bars(soft_counts, ['', 'c3', 'c4', 'c2'], soft_reported)
 org_bars  = bars(org_counts, ['', 'c2', 'c4', 'c3'], org_reported)
+
+# median-door bars (bar width scaled to the largest median in the set)
+def median_bars(items, klass_cycle):
+    if not items:
+        return '        <p style="color:var(--muted);font-size:14px;margin:0;">Not enough data yet.</p>'
+    top = items[0][1]
+    out = []
+    for idx, (label, med, cnt) in enumerate(items):
+        cls = klass_cycle[idx % len(klass_cycle)]
+        out.append(
+            f'        <div class="databar {cls}">'
+            f'<div class="db-top"><span class="db-label">{esc(label)}</span>'
+            f'<span class="db-val">{comma(med)} <span class="db-n">({cnt})</span></span></div>'
+            f'<div class="db-track"><span class="db-fill" style="--w:{round(100*med/top)}%"></span></div></div>')
+    return "\n".join(out)
+soft_median_bars = median_bars(soft_medians, ['', 'c3', 'c4', 'c2'])
+org_median_bars  = median_bars(org_medians, ['', 'c2', 'c4', 'c3'])
+
+# fastest-growing ranked list
+if fastest:
+    _gr = []
+    for i, (r, d25, pct) in enumerate(fastest, 1):
+        _gr.append(
+            f'          <li><span class="gl-rank">{i}</span>'
+            f'<span class="gl-co">{linked_name(r)}</span>'
+            f'<span class="gl-pct">+{round(100*pct)}%</span>'
+            f'<span class="gl-detail">{comma(d25)} &rarr; {comma(r["doors"])} doors</span></li>')
+    fastest_list = "\n".join(_gr)
+else:
+    fastest_list = '          <li style="color:var(--muted)">Not enough year-over-year data yet.</li>'
 
 # state cards
 def top40_note(r):
@@ -540,7 +632,7 @@ page = f"""<!--
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
-<link rel="stylesheet" href="styles.css?v=10" />
+<link rel="stylesheet" href="styles.css?v=11" />
 <style>
   /* Boom sponsor presentation (scoped to this page) */
   .presented-by{{ display:inline-flex; align-items:center; gap:12px; margin:-2px 0 14px;
@@ -567,13 +659,16 @@ page = f"""<!--
   /* Company website links (keep the name's color; underline on hover) */
   .co-link{{ color:inherit; text-decoration:none; }}
   .co-link:hover{{ text-decoration:underline; text-decoration-color:var(--primary); text-underline-offset:2px; }}
-  /* Highest-ranking executive: quiet third line under the location, with a small person icon */
-  .rank-table .r-exec{{ display:flex; align-items:center; gap:5px; margin-top:2px; color:#8493a0; font-size:12.5px; line-height:1.25; }}
-  .rank-table .r-exec .pico{{ width:13px; height:13px; flex:none; color:#a4b0ba; }}
+  /* Location + highest-ranking exec share ONE line (dot-separated), freeing width for the company name */
+  .r-sub{{ display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin-top:3px; color:var(--muted); font-size:13px; line-height:1.3; }}
+  .r-sub .r-loc{{ color:var(--muted); }}
+  .r-sub .r-dot{{ color:#c2ccd4; }}
+  .r-sub .r-exec{{ display:inline-flex; align-items:center; gap:5px; color:#8493a0; font-size:12.5px; }}
+  .r-sub .r-exec .pico{{ width:13px; height:13px; flex:none; color:#a4b0ba; }}
   .exec-key{{ display:inline-flex; align-items:center; gap:5px; white-space:nowrap; color:var(--muted); }}
   .exec-key .pico{{ width:14px; height:14px; flex:none; color:var(--primary-dark); }}
   /* Change from 2025 column */
-  .rank-wrap{{ max-width:1200px; }}
+  .rank-wrap{{ max-width:1320px; }}   /* ~10% wider table on desktop */
   .rank-table th.chg-col{{ text-align:center; line-height:1.18; white-space:nowrap; }}
   .rank-table td.chg{{ text-align:center; white-space:nowrap; font-weight:700; font-variant-numeric:tabular-nums; }}
   .chg-up{{ color:#2f9e6b; }}
@@ -593,6 +688,52 @@ page = f"""<!--
   .boom-sticky img{{ height:18px; width:auto; display:block; }}
   .boom-sticky:hover{{ box-shadow:0 8px 26px rgba(31,58,77,.22); }}
   @media (max-width:600px){{ .boom-sticky{{ right:10px; bottom:10px; padding:7px 11px; }} .boom-sticky span{{ display:none; }} }}
+
+  /* Tighten the gap to the right of the rank number */
+  .rank-table td.r-rank{{ width:28px; padding-right:2px; }}
+  .rank-table thead th:first-child{{ padding-right:2px; }}
+  .rank-table td.r-cell{{ padding-left:6px; }}
+  .rank-table thead th:nth-child(2){{ padding-left:6px; }}
+  /* Bigger company name, closer in size to the door count */
+  .rank-table .r-co{{ font-size:18px; line-height:1.2; }}
+  /* Faint vertical dividers between every column (matches the NARPM/Crane/Boom borders) */
+  .rank-table tbody td + td, .rank-table thead th + th{{ border-left:1px solid var(--line); }}
+  .db-n{{ opacity:.6; font-weight:600; }}
+
+  /* Fastest-growing list (two columns on desktop, one on mobile) */
+  .grow-list{{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:6px 30px; }}
+  .grow-list li{{ display:flex; align-items:baseline; flex-wrap:wrap; gap:10px; padding:9px 0; border-bottom:1px solid var(--line); }}
+  .grow-list .gl-rank{{ font-family:var(--display); font-weight:900; color:var(--primary-dark); min-width:20px; font-size:14px; }}
+  .grow-list .gl-co{{ font-weight:700; color:var(--navy); flex:1; min-width:0; }}
+  .grow-list .gl-pct{{ font-weight:800; color:#2f9e6b; font-variant-numeric:tabular-nums; white-space:nowrap; }}
+  .grow-list .gl-detail{{ flex-basis:100%; margin-left:30px; color:var(--muted); font-size:12.5px; font-variant-numeric:tabular-nums; }}
+
+  /* ---- Mobile: swap the horizontal-scroll table for stacked full-width cards ---- */
+  .rank-cards{{ display:none; }}
+  .pmcard{{ border:1px solid var(--line); border-radius:14px; background:#fff; box-shadow:var(--shadow); padding:16px; }}
+  .pmcard.top1{{ border-color:#e4cf93; box-shadow:0 0 0 2px #f4e9c8 inset, var(--shadow); }}
+  .pmc-head{{ display:flex; align-items:flex-start; gap:12px; }}
+  .pmc-rank{{ font-family:var(--display); font-weight:900; font-size:20px; color:var(--primary-dark); min-width:24px; line-height:1.15; }}
+  .pmcard.top1 .pmc-rank{{ color:#bea060; }}
+  .pmc-id{{ flex:1; min-width:0; }}
+  .pmc-name{{ font-weight:700; color:var(--navy); font-size:17px; line-height:1.22; }}
+  .pmc-doors{{ text-align:right; line-height:1.05; flex:none; }}
+  .pmc-dn{{ font-family:var(--display); font-weight:900; font-size:20px; color:var(--navy); font-variant-numeric:tabular-nums; display:block; }}
+  .pmc-dl{{ font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }}
+  .pmc-meta{{ margin-top:12px; border-top:1px solid var(--line); padding-top:10px; display:flex; flex-direction:column; gap:7px; }}
+  .pmc-mrow{{ display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:14px; }}
+  .pmc-k{{ color:var(--muted); }}
+  .pmc-v{{ color:var(--navy); font-weight:600; text-align:right; }}
+  .pmc-tags{{ display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; }}
+  .pmc-tag{{ display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; padding:4px 10px; border-radius:999px; }}
+  .pmc-tag.on{{ background:var(--wash); color:var(--primary-dark); }}
+  .pmc-tag.off{{ background:#f0f3f6; color:#9aa5ad; border:1px solid #e2e8ee; }}
+  .pmc-tick{{ width:12px; height:12px; }}
+  @media (max-width:760px){{
+    .table-scroll{{ display:none; }}
+    .rank-cards{{ display:grid; gap:14px; }}
+    .grow-list{{ grid-template-columns:1fr; }}
+  }}
 </style>
 </head>
 <body>
@@ -648,6 +789,9 @@ page = f"""<!--
           </tbody>
         </table>
       </div>
+      <div class="rank-cards reveal" aria-label="Company ranking (mobile)">
+{mobile_cards}
+      </div>
       <p class="rank-note">Showing the top {shown} of {n} companies submitted so far. Something look off, or want to be added? Submissions are open through the end of the month.</p>
     </div>
   </section>
@@ -678,6 +822,29 @@ page = f"""<!--
 {org_bars}
           </div>
         </div>
+      </div>
+      <div class="split mt-lg" style="align-items:start;">
+        <div class="card reveal">
+          <h3 style="margin-bottom:6px;">Median size by software</h3>
+          <p style="color:var(--muted);font-size:14.5px;margin-bottom:18px;">Typical (median) door count among companies on each platform. Count in parentheses.</p>
+          <div class="databars in">
+{soft_median_bars}
+          </div>
+        </div>
+        <div class="card reveal">
+          <h3 style="margin-bottom:6px;">Median size by structure</h3>
+          <p style="color:var(--muted);font-size:14.5px;margin-bottom:18px;">Typical (median) door count by how the company is organized. Count in parentheses.</p>
+          <div class="databars in">
+{org_median_bars}
+          </div>
+        </div>
+      </div>
+      <div class="card reveal mt-lg grow-card">
+        <h3 style="margin-bottom:6px;">Fastest-growing</h3>
+        <p style="color:var(--muted);font-size:14.5px;margin-bottom:18px;">Biggest year-over-year jump in self-reported doors, among companies that submitted in both 2025 and 2026 (2025 base of {GROWTH_FLOOR_2025}+ doors).</p>
+        <ol class="grow-list">
+{fastest_list}
+        </ol>
       </div>
       <div class="fact-grid mt-lg stagger">
         <div class="fact"><div class="f-num">{round(100*narpm_n/n)}%</div><h3>Are NARPM members</h3><p>{narpm_n} of {n} companies belong to the National Association of Residential Property Managers.</p></div>
@@ -756,7 +923,7 @@ page = f"""<!--
   <span>Presented by</span><img src="images/boom-logo.webp" alt="Boom" />
 </a>
 
-<script src="site.js?v=10"></script>
+<script src="site.js?v=11"></script>
 <script>
 (function(){{
   var hero = document.querySelector('.page-hero'),

@@ -13,7 +13,7 @@ import urllib.request, json, re, html as htmlmod, datetime, os, difflib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "podcast.html")
-ASSET_V = "13"   # keep in sync with the site's ?v= cache version
+ASSET_V = "14"   # keep in sync with the site's ?v= cache version
 
 YT_PLAYLIST = "PLQihvuykg8UaJqy5CnF2Fok8MDdoNuZ66"
 ITUNES_ID = "1554806227"
@@ -33,7 +33,7 @@ MIC_SVG = '<svg class="k-ic" viewBox="0 0 24 24" fill="none" stroke="currentColo
 SHOWS = [
     {"name": "The Crane Podcast", "itunes": "1896866062",
      "apple": "https://podcasts.apple.com/us/podcast/the-crane-property-management-podcast/id1896866062",
-     "spotify": "https://open.spotify.com/show/763FBQuzXqTqJ3mb837WbW?si=e2c101d63d0c46f0",
+     "spotify": "https://open.spotify.com/show/033pk147DqGWH1Scg1HpdK",
      "youtube": "https://www.youtube.com/@JoinCrane/videos"},
     {"name": "Lazy Leverage", "itunes": "1777098486",
      "apple": "https://podcasts.apple.com/us/podcast/lazy-leverage/id1777098486",
@@ -118,6 +118,11 @@ def itunes_artwork(itunes_id):
     except Exception:
         return ""
 
+def show_btn(kind, url):
+    ic = {"apple": APPLE_SVG, "spotify": SPOTIFY_SVG, "youtube": YT_SVG}[kind]
+    label = {"apple": "Apple", "spotify": "Spotify", "youtube": "YouTube"}[kind]
+    return f'<a class="show-btn {kind}" href="{esc(url)}" target="_blank" rel="noopener">{ic}<span>{label}</span></a>'
+
 def show_card(s):
     art = itunes_artwork(s["itunes"])
     cover = (f'<img class="show-cover" src="{esc(art)}" alt="{esc(s["name"])} cover art" loading="lazy" />'
@@ -126,10 +131,10 @@ def show_card(s):
           {cover}
           <div class="show-body">
             <h3>{esc(s['name'])}</h3>
-            <div class="ep-links">
-              {platform_btn("apple", s["apple"])}
-              {platform_btn("spotify", s["spotify"])}
-              {platform_btn("youtube", s["youtube"])}
+            <div class="show-links">
+              {show_btn("apple", s["apple"])}
+              {show_btn("spotify", s["spotify"])}
+              {show_btn("youtube", s["youtube"])}
             </div>
           </div>
         </div>"""
@@ -219,6 +224,11 @@ def build():
       <span class="kicker">The Podcast</span>
       <h1>Honest, operator-to-operator conversations.</h1>
       <p class="lead">100+ episodes across six seasons. Interviews with fellow business owners and executives about growth, hiring, systems, and the realities of leadership. No fluff, just smart people talking shop.</p>
+      <div class="listen-row mt-md">
+        <a class="listen-btn" href="{APPLE_SHOW}" target="_blank" rel="noopener">{APPLE_SVG} Apple Podcasts</a>
+        <a class="listen-btn" href="{SPOTIFY_SHOW}" target="_blank" rel="noopener">{SPOTIFY_SVG} Spotify</a>
+        <a class="listen-btn" href="{YT_CHANNEL}" target="_blank" rel="noopener">{YT_SVG} YouTube</a>
+      </div>
     </div>
   </header>
 

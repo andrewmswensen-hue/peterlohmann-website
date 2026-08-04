@@ -657,7 +657,7 @@ page = f"""<!--
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
-<link rel="stylesheet" href="styles.css?v=13" />
+<link rel="stylesheet" href="styles.css?v=14" />
 <style>
   /* Boom sponsor presentation (scoped to this page) */
   .presented-by{{ display:inline-flex; align-items:center; gap:12px; margin:-2px 0 14px;
@@ -949,7 +949,7 @@ page = f"""<!--
   <span>Presented by</span><img src="images/boom-logo.webp" alt="Boom" />
 </a>
 
-<script src="site.js?v=13"></script>
+<script src="site.js?v=14"></script>
 <script>
 (function(){{
   var hero = document.querySelector('.page-hero'),
@@ -1024,7 +1024,7 @@ def render_state_page(st, rows):
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
-<link rel="stylesheet" href="styles.css?v=13" />
+<link rel="stylesheet" href="styles.css?v=14" />
 <script type="application/ld+json">{jsonld}</script>
 </head>
 <body>
@@ -1085,7 +1085,7 @@ def render_state_page(st, rows):
     <p class="disc">The content of this website is for informational purposes only and does not constitute professional advice. I may have consulting agreements with, or financial interests in, companies mentioned on this website. Additionally, some of the links across this site may be affiliate links, meaning I may earn a commission if you make a purchase through those links. Always perform your own due diligence before making any financial or business decisions.</p>
   </div>
 </footer>
-<script src="site.js?v=13"></script>
+<script src="site.js?v=14"></script>
 </body>
 </html>
 """

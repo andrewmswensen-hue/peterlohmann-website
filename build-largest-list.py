@@ -343,6 +343,9 @@ def _medians_by(field, min_n=4):
     out.sort(key=lambda t: -t[1])
     return out
 soft_medians = _medians_by('soft')
+# Peter: pull "Custom (In-House)" out of the software chart (those shops run far larger and skew it) -> footnote
+_custom_med = next((x for x in soft_medians if x[0] == 'Custom (In-House)'), None)
+soft_medians = [x for x in soft_medians if x[0] != 'Custom (In-House)']
 org_medians  = _medians_by('org')
 
 # states with 3-10 clean entries -> mini rankings
@@ -593,6 +596,9 @@ def median_bars(items, klass_cycle):
             f'<div class="db-track"><span class="db-fill" style="--w:{round(100*med/top)}%"></span></div></div>')
     return "\n".join(out)
 soft_median_bars = median_bars(soft_medians, ['', 'c3', 'c4', 'c2'])
+custom_note = (f'<p class="chart-note">Not shown: <strong>custom / in-house</strong> software. The {_custom_med[2]} '
+               f'companies that built their own run far larger (median {comma(_custom_med[1])} doors), which would dwarf the chart.</p>'
+               if _custom_med else '')
 org_median_bars  = median_bars(org_medians, ['', 'c2', 'c4', 'c3'])
 
 # fastest-growing ranked list
@@ -629,11 +635,15 @@ for st, rows in state_lists:
             if total_in_state > len(rows) else
             f'          <a class="state-more" href="{state_page_filename(st)}">Open the {esc(STATE_NAME[st])} page &rarr;</a>\n')
     scards.append(
-        f'        <div class="state-card">\n'
-        f'          <h3><a class="co-link" href="{state_page_filename(st)}">{esc(STATE_NAME[st])}</a> <span class="st-count">{len(rows)} ranked</span></h3>\n'
+        f'        <details class="state-card">\n'
+        f'          <summary>\n'
+        f'            <span class="sc-title"><span class="sc-name">{esc(STATE_NAME[st])}</span><span class="st-count">{len(rows)} ranked</span></span>\n'
+        f'            <span class="sc-hint"><span class="sc-hint-t"></span>'
+        f'<svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>\n'
+        f'          </summary>\n'
         f'          <ul class="state-list">\n{items}\n          </ul>\n'
         f'{more}'
-        f'        </div>')
+        f'        </details>')
 state_cards = "\n".join(scards)
 
 # ---- Tile-grid US map (Phase 2 interactive state explorer) ----
@@ -710,7 +720,7 @@ page = f"""<!--
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
-<link rel="stylesheet" href="styles.css?v=16" />
+<link rel="stylesheet" href="styles.css?v=17" />
 <style>
   /* Boom sponsor presentation (scoped to this page) */
   .presented-by{{ display:inline-flex; align-items:center; gap:12px; margin:-2px 0 14px;
@@ -908,6 +918,7 @@ page = f"""<!--
           <div class="databars in">
 {soft_median_bars}
           </div>
+          {custom_note}
         </div>
         <div class="card reveal">
           <h3 style="margin-bottom:6px;">Median size by structure</h3>
@@ -1024,7 +1035,7 @@ page = f"""<!--
   <span>Presented by</span><img src="images/boom-logo.webp" alt="Boom" />
 </a>
 
-<script src="site.js?v=16"></script>
+<script src="site.js?v=17"></script>
 <script>
 (function(){{
   var hero = document.querySelector('.page-hero'),
@@ -1142,7 +1153,7 @@ def render_state_page(st, rows):
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
-<link rel="stylesheet" href="styles.css?v=16" />
+<link rel="stylesheet" href="styles.css?v=17" />
 <script type="application/ld+json">{jsonld}</script>
 </head>
 <body>
@@ -1203,7 +1214,7 @@ def render_state_page(st, rows):
     <p class="disc">The content of this website is for informational purposes only and does not constitute professional advice. I may have consulting agreements with, or financial interests in, companies mentioned on this website. Additionally, some of the links across this site may be affiliate links, meaning I may earn a commission if you make a purchase through those links. Always perform your own due diligence before making any financial or business decisions.</p>
   </div>
 </footer>
-<script src="site.js?v=16"></script>
+<script src="site.js?v=17"></script>
 </body>
 </html>
 """

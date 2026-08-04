@@ -13,7 +13,7 @@ import urllib.request, json, re, html as htmlmod, datetime, os, difflib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "podcast.html")
-ASSET_V = "16"   # keep in sync with the site's ?v= cache version
+ASSET_V = "17"   # keep in sync with the site's ?v= cache version
 
 YT_PLAYLIST = "PLQihvuykg8UaJqy5CnF2Fok8MDdoNuZ66"
 ITUNES_ID = "1554806227"

@@ -16,7 +16,7 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
-<link rel="stylesheet" href="styles.css?v=16" />
+<link rel="stylesheet" href="styles.css?v=17" />
 <style>
   /* Boom sponsor presentation (scoped to this page) */
   .presented-by{ display:inline-flex; align-items:center; gap:12px; margin:-2px 0 14px;
@@ -806,13 +806,13 @@
           <h3 style="margin-bottom:6px;">Median size by software</h3>
           <p style="color:var(--muted);font-size:14.5px;margin-bottom:18px;">Typical (median) door count among companies on each platform. Count in parentheses.</p>
           <div class="databars in">
-        <div class="databar "><div class="db-top"><span class="db-label">Custom (In-House)</span><span class="db-val">4,300 <span class="db-n">(4)</span></span></div><div class="db-track"><span class="db-fill" style="--w:100%"></span></div></div>
-        <div class="databar c3"><div class="db-top"><span class="db-label">Rent Manager</span><span class="db-val">770 <span class="db-n">(13)</span></span></div><div class="db-track"><span class="db-fill" style="--w:18%"></span></div></div>
-        <div class="databar c4"><div class="db-top"><span class="db-label">AppFolio</span><span class="db-val">700 <span class="db-n">(181)</span></span></div><div class="db-track"><span class="db-fill" style="--w:16%"></span></div></div>
-        <div class="databar c2"><div class="db-top"><span class="db-label">Propertyware</span><span class="db-val">675 <span class="db-n">(12)</span></span></div><div class="db-track"><span class="db-fill" style="--w:16%"></span></div></div>
-        <div class="databar "><div class="db-top"><span class="db-label">Buildium</span><span class="db-val">475 <span class="db-n">(36)</span></span></div><div class="db-track"><span class="db-fill" style="--w:11%"></span></div></div>
-        <div class="databar c3"><div class="db-top"><span class="db-label">Rentvine</span><span class="db-val">375 <span class="db-n">(53)</span></span></div><div class="db-track"><span class="db-fill" style="--w:9%"></span></div></div>
+        <div class="databar "><div class="db-top"><span class="db-label">Rent Manager</span><span class="db-val">770 <span class="db-n">(13)</span></span></div><div class="db-track"><span class="db-fill" style="--w:100%"></span></div></div>
+        <div class="databar c3"><div class="db-top"><span class="db-label">AppFolio</span><span class="db-val">700 <span class="db-n">(181)</span></span></div><div class="db-track"><span class="db-fill" style="--w:91%"></span></div></div>
+        <div class="databar c4"><div class="db-top"><span class="db-label">Propertyware</span><span class="db-val">675 <span class="db-n">(12)</span></span></div><div class="db-track"><span class="db-fill" style="--w:88%"></span></div></div>
+        <div class="databar c2"><div class="db-top"><span class="db-label">Buildium</span><span class="db-val">475 <span class="db-n">(36)</span></span></div><div class="db-track"><span class="db-fill" style="--w:62%"></span></div></div>
+        <div class="databar "><div class="db-top"><span class="db-label">Rentvine</span><span class="db-val">375 <span class="db-n">(53)</span></span></div><div class="db-track"><span class="db-fill" style="--w:49%"></span></div></div>
           </div>
+          <p class="chart-note">Not shown: <strong>custom / in-house</strong> software. The 4 companies that built their own run far larger (median 4,300 doors), which would dwarf the chart.</p>
         </div>
         <div class="card reveal">
           <h3 style="margin-bottom:6px;">Median size by structure</h3>
@@ -922,8 +922,11 @@
       <h3 class="reveal" style="margin:44px 0 4px;font-size:22px;">Or browse the full lists</h3>
       <p class="sub reveal" style="margin-bottom:22px;">Every state with at least one submission. The goal is a full top 10 for all 50.</p>
       <div class="state-grid reveal">
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-california.html">California</a> <span class="st-count">10 ranked</span></h3>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">California</span><span class="st-count">10 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.twobliving.com" target="_blank" rel="noopener">2B Living</a> <span class="sl-top40">(#9 on the top 40)</span></span><span class="sl-doors">5,700</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.definedmgmt.com" target="_blank" rel="noopener">Defined Property Management</a> <span class="sl-top40">(#18 on the top 40)</span></span><span class="sl-doors">3,000</span></li>
@@ -937,9 +940,12 @@
             <li><span class="sl-rank">10</span><span class="sl-co"><a class="co-link" href="https://www.windermereca.com" target="_blank" rel="noopener">Windermere Signature Property Management</a></span><span class="sl-doors">1,558</span></li>
           </ul>
           <a class="state-more" href="pm-california.html">All 28 in California &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-texas.html">Texas</a> <span class="st-count">10 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Texas</span><span class="st-count">10 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.darwinhomes.com/" target="_blank" rel="noopener">Darwin Homes</a> <span class="sl-top40">(#1 on the top 40)</span></span><span class="sl-doors">24,100</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.htownrpm.com" target="_blank" rel="noopener">Real Property Management Preferred</a> <span class="sl-top40">(#28 on the top 40)</span></span><span class="sl-doors">2,056</span></li>
@@ -953,9 +959,12 @@
             <li><span class="sl-rank">10</span><span class="sl-co"><a class="co-link" href="https://cloverleafpropertymanagement.com" target="_blank" rel="noopener">CloverLeaf Property Management</a></span><span class="sl-doors">845</span></li>
           </ul>
           <a class="state-more" href="pm-texas.html">All 23 in Texas &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-colorado.html">Colorado</a> <span class="st-count">10 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Colorado</span><span class="st-count">10 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://realatlas.com" target="_blank" rel="noopener">Atlas Real Estate</a> <span class="sl-top40">(#7 on the top 40)</span></span><span class="sl-doors">6,100</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.turbotenant.com" target="_blank" rel="noopener">TurboTenant &quot;Autopilot&quot;</a> <span class="sl-top40">(#14 on the top 40)</span></span><span class="sl-doors">4,300</span></li>
@@ -969,9 +978,12 @@
             <li><span class="sl-rank">10</span><span class="sl-co"><a class="co-link" href="https://www.callcornerstone.com" target="_blank" rel="noopener">Cornerstone Real Estate Team</a></span><span class="sl-doors">516</span></li>
           </ul>
           <a class="state-more" href="pm-colorado.html">All 20 in Colorado &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-georgia.html">Georgia</a> <span class="st-count">10 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Georgia</span><span class="st-count">10 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.brandywinehomesusa.com" target="_blank" rel="noopener">Brandywine Homes USA LLC</a> <span class="sl-top40">(#11 on the top 40)</span></span><span class="sl-doors">5,200</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.aubenrealty.com" target="_blank" rel="noopener">Auben Realty</a> <span class="sl-top40">(#16 on the top 40)</span></span><span class="sl-doors">3,204</span></li>
@@ -985,9 +997,12 @@
             <li><span class="sl-rank">10</span><span class="sl-co"><a class="co-link" href="https://www.dkrentals.net" target="_blank" rel="noopener">DKRentals.net</a></span><span class="sl-doors">530</span></li>
           </ul>
           <a class="state-more" href="pm-georgia.html">All 20 in Georgia &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-florida.html">Florida</a> <span class="st-count">10 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Florida</span><span class="st-count">10 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.jwbrealestatecapital.com" target="_blank" rel="noopener">JWB</a> <span class="sl-top40">(#5 on the top 40)</span></span><span class="sl-doors">7,400</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.rentsolutions.com" target="_blank" rel="noopener">Rent Solutions</a></span><span class="sl-doors">1,100</span></li>
@@ -1001,9 +1016,12 @@
             <li><span class="sl-rank">10</span><span class="sl-co"><a class="co-link" href="https://thelistingrem.com" target="_blank" rel="noopener">The Listing Real Estate Management</a></span><span class="sl-doors">520</span></li>
           </ul>
           <a class="state-more" href="pm-florida.html">All 17 in Florida &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-north-carolina.html">North Carolina</a> <span class="st-count">10 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">North Carolina</span><span class="st-count">10 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.blockrealty.com" target="_blank" rel="noopener">Block and Associates Realty</a> <span class="sl-top40">(#10 on the top 40)</span></span><span class="sl-doors">5,408</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.rpmtriad.com" target="_blank" rel="noopener">Real Property Management of the Triad</a></span><span class="sl-doors">1,230</span></li>
@@ -1017,9 +1035,12 @@
             <li><span class="sl-rank">10</span><span class="sl-co"><a class="co-link" href="https://www.masterkeypm.com" target="_blank" rel="noopener">MasterKey Property Management</a></span><span class="sl-doors">540</span></li>
           </ul>
           <a class="state-more" href="pm-north-carolina.html">All 15 in North Carolina &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-washington.html">Washington</a> <span class="st-count">10 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Washington</span><span class="st-count">10 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.visitlandmark.com" target="_blank" rel="noopener">Landmark Real Estate Management LLC</a> <span class="sl-top40">(#13 on the top 40)</span></span><span class="sl-doors">4,448</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://propertymanagersseattle.com" target="_blank" rel="noopener">SJA Property Management</a></span><span class="sl-doors">1,160</span></li>
@@ -1033,9 +1054,12 @@
             <li><span class="sl-rank">10</span><span class="sl-co"><a class="co-link" href="https://cascademanagement.us" target="_blank" rel="noopener">Cascade Management and Real Estate Services</a></span><span class="sl-doors">400</span></li>
           </ul>
           <a class="state-more" href="pm-washington.html">All 14 in Washington &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-ohio.html">Ohio</a> <span class="st-count">10 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Ohio</span><span class="st-count">10 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.b2brealty.com" target="_blank" rel="noopener">B2B Realty Property Management</a></span><span class="sl-doors">1,558</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.bridgestreampropertymanagement.com" target="_blank" rel="noopener">Bridgestream Property Management</a></span><span class="sl-doors">1,400</span></li>
@@ -1049,9 +1073,12 @@
             <li><span class="sl-rank">10</span><span class="sl-co">Realty Trust Services LLC</span><span class="sl-doors">325</span></li>
           </ul>
           <a class="state-more" href="pm-ohio.html">All 13 in Ohio &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-indiana.html">Indiana</a> <span class="st-count">10 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Indiana</span><span class="st-count">10 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://livegranite.com" target="_blank" rel="noopener">Granite management</a> <span class="sl-top40">(#12 on the top 40)</span></span><span class="sl-doors">4,668</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://renumgt.com" target="_blank" rel="noopener">RENU Property Management</a> <span class="sl-top40">(#17 on the top 40)</span></span><span class="sl-doors">3,000</span></li>
@@ -1065,9 +1092,12 @@
             <li><span class="sl-rank">10</span><span class="sl-co"><a class="co-link" href="https://www.truecareproperties.com" target="_blank" rel="noopener">True Care Properties</a></span><span class="sl-doors">63</span></li>
           </ul>
           <a class="state-more" href="pm-indiana.html">Open the Indiana page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-oregon.html">Oregon</a> <span class="st-count">10 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Oregon</span><span class="st-count">10 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.c-rem.com" target="_blank" rel="noopener">Centurion Real Estate Management</a> <span class="sl-top40">(#26 on the top 40)</span></span><span class="sl-doors">2,187</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://realwise.com" target="_blank" rel="noopener">RealWise Property Management</a> <span class="sl-top40">(#38 on the top 40)</span></span><span class="sl-doors">1,915</span></li>
@@ -1081,9 +1111,12 @@
             <li><span class="sl-rank">10</span><span class="sl-co"><a class="co-link" href="https://www.livingroomre.com" target="_blank" rel="noopener">Living Room Property Management</a></span><span class="sl-doors">390</span></li>
           </ul>
           <a class="state-more" href="pm-oregon.html">Open the Oregon page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-minnesota.html">Minnesota</a> <span class="st-count">9 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Minnesota</span><span class="st-count">9 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co">Renosy by Renters Warehouse <span class="sl-top40">(#3 on the top 40)</span></span><span class="sl-doors">8,500</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.kleinmanpropertymanagement.com" target="_blank" rel="noopener">Kleinman Property Management</a> <span class="sl-top40">(#6 on the top 40)</span></span><span class="sl-doors">7,111</span></li>
@@ -1096,9 +1129,12 @@
             <li><span class="sl-rank">9</span><span class="sl-co"><a class="co-link" href="https://cobaltmanagers.com" target="_blank" rel="noopener">Cobalt Property Management</a></span><span class="sl-doors">203</span></li>
           </ul>
           <a class="state-more" href="pm-minnesota.html">Open the Minnesota page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-arizona.html">Arizona</a> <span class="st-count">8 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Arizona</span><span class="st-count">8 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.onqpm.com" target="_blank" rel="noopener">On Q Property Management</a> <span class="sl-top40">(#4 on the top 40)</span></span><span class="sl-doors">8,107</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://westusa.com/property-management.html" target="_blank" rel="noopener">West USA Property Management</a> <span class="sl-top40">(#15 on the top 40)</span></span><span class="sl-doors">4,274</span></li>
@@ -1110,9 +1146,12 @@
             <li><span class="sl-rank">8</span><span class="sl-co"><a class="co-link" href="https://www.patpm.com" target="_blank" rel="noopener">Patriot Property Management</a></span><span class="sl-doors">320</span></li>
           </ul>
           <a class="state-more" href="pm-arizona.html">Open the Arizona page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-illinois.html">Illinois</a> <span class="st-count">8 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Illinois</span><span class="st-count">8 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.gcrealtyinc.com" target="_blank" rel="noopener">GC Realty &amp; Development</a></span><span class="sl-doors">1,508</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.crestcapmgmt.com" target="_blank" rel="noopener">Crest Property Management</a></span><span class="sl-doors">1,190</span></li>
@@ -1124,9 +1163,12 @@
             <li><span class="sl-rank">8</span><span class="sl-co"><a class="co-link" href="https://www.truhavenhomes.com" target="_blank" rel="noopener">TruHaven Homes</a></span><span class="sl-doors">80</span></li>
           </ul>
           <a class="state-more" href="pm-illinois.html">Open the Illinois page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-pennsylvania.html">Pennsylvania</a> <span class="st-count">7 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Pennsylvania</span><span class="st-count">7 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.564rent.com" target="_blank" rel="noopener">Harrisburg Property Management Group</a> <span class="sl-top40">(#25 on the top 40)</span></span><span class="sl-doors">2,210</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.desantispm.com" target="_blank" rel="noopener">DeSantis Property Management</a></span><span class="sl-doors">1,050</span></li>
@@ -1137,9 +1179,12 @@
             <li><span class="sl-rank">7</span><span class="sl-co">Abstract Property Management LLC</span><span class="sl-doors">122</span></li>
           </ul>
           <a class="state-more" href="pm-pennsylvania.html">Open the Pennsylvania page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-idaho.html">Idaho</a> <span class="st-count">7 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Idaho</span><span class="st-count">7 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://commercialnw.com" target="_blank" rel="noopener">Commercial Northwest</a> <span class="sl-top40">(#32 on the top 40)</span></span><span class="sl-doors">2,000</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.boiseproperty.management" target="_blank" rel="noopener">First Rate Property Management</a></span><span class="sl-doors">1,100</span></li>
@@ -1150,9 +1195,12 @@
             <li><span class="sl-rank">7</span><span class="sl-co"><a class="co-link" href="https://blackpinepm.com" target="_blank" rel="noopener">Black Pine Property Management</a></span><span class="sl-doors">100</span></li>
           </ul>
           <a class="state-more" href="pm-idaho.html">Open the Idaho page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-oklahoma.html">Oklahoma</a> <span class="st-count">7 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Oklahoma</span><span class="st-count">7 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://luxe-pm.com" target="_blank" rel="noopener">Luxe Sales &amp; Management</a></span><span class="sl-doors">1,088</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.rentersplace.com" target="_blank" rel="noopener">Renters Place</a></span><span class="sl-doors">933</span></li>
@@ -1163,9 +1211,12 @@
             <li><span class="sl-rank">7</span><span class="sl-co"><a class="co-link" href="https://www.coyotepmc.com" target="_blank" rel="noopener">Coyote Property Management</a></span><span class="sl-doors">150</span></li>
           </ul>
           <a class="state-more" href="pm-oklahoma.html">Open the Oklahoma page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-alabama.html">Alabama</a> <span class="st-count">6 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Alabama</span><span class="st-count">6 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.evernest.co" target="_blank" rel="noopener">Evernest</a> <span class="sl-top40">(#2 on the top 40)</span></span><span class="sl-doors">12,000</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.armrents.com" target="_blank" rel="noopener">America&#x27;s Rental Managers</a></span><span class="sl-doors">1,800</span></li>
@@ -1175,9 +1226,12 @@
             <li><span class="sl-rank">6</span><span class="sl-co"><a class="co-link" href="https://www.ampcapitalcitygroup.realestate" target="_blank" rel="noopener">AMP Capital City Group</a></span><span class="sl-doors">137</span></li>
           </ul>
           <a class="state-more" href="pm-alabama.html">Open the Alabama page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-tennessee.html">Tennessee</a> <span class="st-count">5 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Tennessee</span><span class="st-count">5 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.deanda.capital" target="_blank" rel="noopener">Marathon Management</a> <span class="sl-top40">(#36 on the top 40)</span></span><span class="sl-doors">1,950</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.clarksvilleproperty.management" target="_blank" rel="noopener">Copper Key Realty and Management</a></span><span class="sl-doors">1,013</span></li>
@@ -1186,9 +1240,12 @@
             <li><span class="sl-rank">5</span><span class="sl-co"><a class="co-link" href="https://arbellatn.com" target="_blank" rel="noopener">Arbella Properties INC</a></span><span class="sl-doors">420</span></li>
           </ul>
           <a class="state-more" href="pm-tennessee.html">Open the Tennessee page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-wisconsin.html">Wisconsin</a> <span class="st-count">5 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Wisconsin</span><span class="st-count">5 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.rentwithtitan.com" target="_blank" rel="noopener">Titan Property Management LLC</a> <span class="sl-top40">(#37 on the top 40)</span></span><span class="sl-doors">1,950</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://vantagepointpropertymanagement.com" target="_blank" rel="noopener">VantagePoint Property Management</a></span><span class="sl-doors">1,790</span></li>
@@ -1197,9 +1254,12 @@
             <li><span class="sl-rank">5</span><span class="sl-co"><a class="co-link" href="https://whmilwaukee.com" target="_blank" rel="noopener">Welcome Home Milwaukee</a></span><span class="sl-doors">498</span></li>
           </ul>
           <a class="state-more" href="pm-wisconsin.html">Open the Wisconsin page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-nevada.html">Nevada</a> <span class="st-count">5 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Nevada</span><span class="st-count">5 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.home365.co" target="_blank" rel="noopener">Home365</a></span><span class="sl-doors">1,200</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.goldenwestmanagement.com" target="_blank" rel="noopener">GoldenWest Management</a></span><span class="sl-doors">1,153</span></li>
@@ -1208,9 +1268,12 @@
             <li><span class="sl-rank">5</span><span class="sl-co"><a class="co-link" href="https://www.rpmbattleborn.com" target="_blank" rel="noopener">Real Property Management Battle Born</a></span><span class="sl-doors">75</span></li>
           </ul>
           <a class="state-more" href="pm-nevada.html">Open the Nevada page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-south-carolina.html">South Carolina</a> <span class="st-count">5 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">South Carolina</span><span class="st-count">5 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.propgreenville.com" target="_blank" rel="noopener">Progressive Properties of Greenville, LLC</a></span><span class="sl-doors">705</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.marchantpm.com" target="_blank" rel="noopener">Marchant Property Management</a></span><span class="sl-doors">445</span></li>
@@ -1219,9 +1282,12 @@
             <li><span class="sl-rank">5</span><span class="sl-co"><a class="co-link" href="https://www.beachrentalgroup.com" target="_blank" rel="noopener">Beach Rental Group</a></span><span class="sl-doors">225</span></li>
           </ul>
           <a class="state-more" href="pm-south-carolina.html">Open the South Carolina page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-michigan.html">Michigan</a> <span class="st-count">4 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Michigan</span><span class="st-count">4 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://grandmark.management" target="_blank" rel="noopener">Grandmark Property Management</a> <span class="sl-top40">(#8 on the top 40)</span></span><span class="sl-doors">6,023</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.rentupm.com" target="_blank" rel="noopener">United Properties of West Michigan</a></span><span class="sl-doors">951</span></li>
@@ -1229,9 +1295,12 @@
             <li><span class="sl-rank">4</span><span class="sl-co"><a class="co-link" href="https://lmpmc.com" target="_blank" rel="noopener">Lake Michigan Property Management</a></span><span class="sl-doors">220</span></li>
           </ul>
           <a class="state-more" href="pm-michigan.html">Open the Michigan page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-virginia.html">Virginia</a> <span class="st-count">4 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Virginia</span><span class="st-count">4 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.homeservicespm.com" target="_blank" rel="noopener">HomeServices Property Management</a> <span class="sl-top40">(#22 on the top 40)</span></span><span class="sl-doors">2,300</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.blueskypm.com" target="_blank" rel="noopener">BlueSky Property Management</a></span><span class="sl-doors">1,556</span></li>
@@ -1239,9 +1308,12 @@
             <li><span class="sl-rank">4</span><span class="sl-co"><a class="co-link" href="https://jmaxpropertymanagement.com" target="_blank" rel="noopener">JMAX Property Management</a></span><span class="sl-doors">518</span></li>
           </ul>
           <a class="state-more" href="pm-virginia.html">Open the Virginia page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-utah.html">Utah</a> <span class="st-count">4 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Utah</span><span class="st-count">4 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://nestwell.com" target="_blank" rel="noopener">Nestwell Property Management</a></span><span class="sl-doors">1,230</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.welchrandall.com" target="_blank" rel="noopener">Welch Randall Property Management</a></span><span class="sl-doors">580</span></li>
@@ -1249,9 +1321,12 @@
             <li><span class="sl-rank">4</span><span class="sl-co"><a class="co-link" href="https://keypropertysolutions.com" target="_blank" rel="noopener">Key Property Solutions</a></span><span class="sl-doors">145</span></li>
           </ul>
           <a class="state-more" href="pm-utah.html">Open the Utah page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-arkansas.html">Arkansas</a> <span class="st-count">4 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Arkansas</span><span class="st-count">4 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co">Clear Property Management</span><span class="sl-doors">238</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.abc-manager.com" target="_blank" rel="noopener">ABC Property Management</a></span><span class="sl-doors">205</span></li>
@@ -1259,169 +1334,232 @@
             <li><span class="sl-rank">4</span><span class="sl-co">Peak Property Management</span><span class="sl-doors">103</span></li>
           </ul>
           <a class="state-more" href="pm-arkansas.html">Open the Arkansas page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-kentucky.html">Kentucky</a> <span class="st-count">3 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Kentucky</span><span class="st-count">3 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.realiantpm.com" target="_blank" rel="noopener">Realiant</a> <span class="sl-top40">(#24 on the top 40)</span></span><span class="sl-doors">2,233</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.home-forward.com" target="_blank" rel="noopener">Home Forward</a></span><span class="sl-doors">1,250</span></li>
             <li><span class="sl-rank">3</span><span class="sl-co"><a class="co-link" href="https://www.louisvillepropertymanagement.com" target="_blank" rel="noopener">LREI Property Management LLC</a></span><span class="sl-doors">837</span></li>
           </ul>
           <a class="state-more" href="pm-kentucky.html">Open the Kentucky page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-montana.html">Montana</a> <span class="st-count">2 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Montana</span><span class="st-count">2 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://missoulapropertymanagement.com" target="_blank" rel="noopener">Missoula property Management</a> <span class="sl-top40">(#20 on the top 40)</span></span><span class="sl-doors">2,651</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.candhpropertyrentals.com" target="_blank" rel="noopener">C &amp; H Property Rentals</a></span><span class="sl-doors">262</span></li>
           </ul>
           <a class="state-more" href="pm-montana.html">Open the Montana page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-missouri.html">Missouri</a> <span class="st-count">2 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Missouri</span><span class="st-count">2 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://proxproperty.com" target="_blank" rel="noopener">Pro X Property Management</a> <span class="sl-top40">(#23 on the top 40)</span></span><span class="sl-doors">2,253</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.rentwithspirit.com" target="_blank" rel="noopener">Warrensburg Home Rentals - dba Spirit Rentals Property Management</a></span><span class="sl-doors">670</span></li>
           </ul>
           <a class="state-more" href="pm-missouri.html">Open the Missouri page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-mississippi.html">Mississippi</a> <span class="st-count">2 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Mississippi</span><span class="st-count">2 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.rentfromallstar.com" target="_blank" rel="noopener">Allstar Management</a> <span class="sl-top40">(#27 on the top 40)</span></span><span class="sl-doors">2,100</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.mscoastrentals.com" target="_blank" rel="noopener">MS Coast Rentals</a></span><span class="sl-doors">277</span></li>
           </ul>
           <a class="state-more" href="pm-mississippi.html">Open the Mississippi page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-new-york.html">New York</a> <span class="st-count">2 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">New York</span><span class="st-count">2 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://ebmg.com" target="_blank" rel="noopener">EBMG</a> <span class="sl-top40">(#31 on the top 40)</span></span><span class="sl-doors">2,000</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.urbanlandlord.net" target="_blank" rel="noopener">urbanLandlord Inc.</a></span><span class="sl-doors">101</span></li>
           </ul>
           <a class="state-more" href="pm-new-york.html">Open the New York page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-massachusetts.html">Massachusetts</a> <span class="st-count">2 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Massachusetts</span><span class="st-count">2 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.fourpointspm.net" target="_blank" rel="noopener">Four points property management</a></span><span class="sl-doors">1,456</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://capitolsquaremanagement.com" target="_blank" rel="noopener">Capitol Square Management</a></span><span class="sl-doors">150</span></li>
           </ul>
           <a class="state-more" href="pm-massachusetts.html">Open the Massachusetts page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-iowa.html">Iowa</a> <span class="st-count">2 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Iowa</span><span class="st-count">2 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://kmbmanagement.com" target="_blank" rel="noopener">KMB Property Management</a></span><span class="sl-doors">1,160</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.axisre.net" target="_blank" rel="noopener">AXIS Property Management</a></span><span class="sl-doors">234</span></li>
           </ul>
           <a class="state-more" href="pm-iowa.html">Open the Iowa page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-new-jersey.html">New Jersey</a> <span class="st-count">2 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">New Jersey</span><span class="st-count">2 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.surewaypropertymanagement.com" target="_blank" rel="noopener">Sureway Property Management LLC</a></span><span class="sl-doors">1,035</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://tpgmanagement.net" target="_blank" rel="noopener">TPG Management</a></span><span class="sl-doors">400</span></li>
           </ul>
           <a class="state-more" href="pm-new-jersey.html">Open the New Jersey page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-new-hampshire.html">New Hampshire</a> <span class="st-count">2 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">New Hampshire</span><span class="st-count">2 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.bluedoorliving.org" target="_blank" rel="noopener">Blue Door Living, LLC</a></span><span class="sl-doors">950</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.cpmanagement.com" target="_blank" rel="noopener">CPManagement LLC</a></span><span class="sl-doors">824</span></li>
           </ul>
           <a class="state-more" href="pm-new-hampshire.html">Open the New Hampshire page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-nebraska.html">Nebraska</a> <span class="st-count">2 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Nebraska</span><span class="st-count">2 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://lifestylesmanagement.com" target="_blank" rel="noopener">Nebraska Lifestyles Property Management</a></span><span class="sl-doors">850</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://402forrent.com" target="_blank" rel="noopener">402 For Rent</a></span><span class="sl-doors">248</span></li>
           </ul>
           <a class="state-more" href="pm-nebraska.html">Open the Nebraska page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-louisiana.html">Louisiana</a> <span class="st-count">2 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Louisiana</span><span class="st-count">2 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.upperllc.com" target="_blank" rel="noopener">Upper Management Realty</a></span><span class="sl-doors">820</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co">Barker &amp; Co Real Estate</span><span class="sl-doors">218</span></li>
           </ul>
           <a class="state-more" href="pm-louisiana.html">Open the Louisiana page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-maryland.html">Maryland</a> <span class="st-count">2 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Maryland</span><span class="st-count">2 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.annapolispropertyservices.com" target="_blank" rel="noopener">Annapolis Property Services</a></span><span class="sl-doors">686</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.propertymanagementcapital.com" target="_blank" rel="noopener">Real Property Management Capital</a></span><span class="sl-doors">300</span></li>
           </ul>
           <a class="state-more" href="pm-maryland.html">Open the Maryland page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-connecticut.html">Connecticut</a> <span class="st-count">2 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Connecticut</span><span class="st-count">2 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.robertcwhite.com" target="_blank" rel="noopener">Robert C. White and Company</a></span><span class="sl-doors">450</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://ironcladpm.com" target="_blank" rel="noopener">Ironclad Property Management</a></span><span class="sl-doors">220</span></li>
           </ul>
           <a class="state-more" href="pm-connecticut.html">Open the Connecticut page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-wyoming.html">Wyoming</a> <span class="st-count">2 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Wyoming</span><span class="st-count">2 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.century21bhj.com/property-management" target="_blank" rel="noopener">BHJ Property Management</a></span><span class="sl-doors">360</span></li>
             <li><span class="sl-rank">2</span><span class="sl-co"><a class="co-link" href="https://www.americanwestrealty.com" target="_blank" rel="noopener">American West Realty and Management</a></span><span class="sl-doors">285</span></li>
           </ul>
           <a class="state-more" href="pm-wyoming.html">Open the Wyoming page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-rhode-island.html">Rhode Island</a> <span class="st-count">1 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Rhode Island</span><span class="st-count">1 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.stonelinkpm.com" target="_blank" rel="noopener">Stonelink Property Management</a></span><span class="sl-doors">1,700</span></li>
           </ul>
           <a class="state-more" href="pm-rhode-island.html">Open the Rhode Island page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-washington,-d.c..html">Washington, D.C.</a> <span class="st-count">1 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Washington, D.C.</span><span class="st-count">1 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.ejfrealestate.com" target="_blank" rel="noopener">EJF Rental Services</a></span><span class="sl-doors">1,055</span></li>
           </ul>
           <a class="state-more" href="pm-washington,-d.c..html">Open the Washington, D.C. page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-alaska.html">Alaska</a> <span class="st-count">1 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Alaska</span><span class="st-count">1 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.thepropertymanagerak.com" target="_blank" rel="noopener">The Property Manager AK</a></span><span class="sl-doors">700</span></li>
           </ul>
           <a class="state-more" href="pm-alaska.html">Open the Alaska page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-kansas.html">Kansas</a> <span class="st-count">1 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Kansas</span><span class="st-count">1 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.iiandiii.com" target="_blank" rel="noopener">II &amp; III Property Management</a></span><span class="sl-doors">675</span></li>
           </ul>
           <a class="state-more" href="pm-kansas.html">Open the Kansas page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-north-dakota.html">North Dakota</a> <span class="st-count">1 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">North Dakota</span><span class="st-count">1 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://www.truhomeproperties.com" target="_blank" rel="noopener">TruHome Property Solutions</a></span><span class="sl-doors">566</span></li>
           </ul>
           <a class="state-more" href="pm-north-dakota.html">Open the North Dakota page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-delaware.html">Delaware</a> <span class="st-count">1 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Delaware</span><span class="st-count">1 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co">White Robbins Property Management</span><span class="sl-doors">262</span></li>
           </ul>
           <a class="state-more" href="pm-delaware.html">Open the Delaware page &rarr;</a>
-        </div>
-        <div class="state-card">
-          <h3><a class="co-link" href="pm-hawaii.html">Hawaii</a> <span class="st-count">1 ranked</span></h3>
+        </details>
+        <details class="state-card">
+          <summary>
+            <span class="sc-title"><span class="sc-name">Hawaii</span><span class="st-count">1 ranked</span></span>
+            <span class="sc-hint"><span class="sc-hint-t"></span><svg class="sc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </summary>
           <ul class="state-list">
             <li><span class="sl-rank">1</span><span class="sl-co"><a class="co-link" href="https://hicoastal.com" target="_blank" rel="noopener">Hawaii Coastal Property Management</a></span><span class="sl-doors">150</span></li>
           </ul>
           <a class="state-more" href="pm-hawaii.html">Open the Hawaii page &rarr;</a>
-        </div>
+        </details>
       </div>
     </div>
   </section>
@@ -1507,7 +1645,7 @@
   <span>Presented by</span><img src="images/boom-logo.webp" alt="Boom" />
 </a>
 
-<script src="site.js?v=16"></script>
+<script src="site.js?v=17"></script>
 <script>
 (function(){
   var hero = document.querySelector('.page-hero'),

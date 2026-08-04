@@ -405,11 +405,24 @@ ul.feat li::before{ content:"\2713"; position:absolute; left:0; top:0; color:var
 .fact p{ color:var(--muted); font-size:14.5px; margin:0; }
 
 /* mini state ranking lists */
-.state-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
+.state-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; align-items:start; }
 @media (max-width:760px){ .state-grid{ grid-template-columns:1fr; } }
-.state-card{ background:#fff; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:24px 26px; }
-.state-card h3{ font-size:20px; margin-bottom:14px; display:flex; align-items:center; gap:10px; }
-.state-card h3 .st-count{ font-size:12.5px; font-weight:700; color:var(--muted); background:var(--wash); padding:3px 9px; border-radius:999px; }
+/* collapsible state cards (native <details>) */
+.state-card{ background:#fff; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; }
+.state-card > summary{ list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 22px; }
+.state-card > summary::-webkit-details-marker{ display:none; }
+.state-card > summary::marker{ content:""; }
+.state-card > summary:hover{ background:var(--wash-soft); }
+.sc-title{ display:flex; align-items:center; gap:10px; }
+.sc-name{ font-family:var(--serif); font-size:21px; color:var(--navy); line-height:1; }
+.st-count{ font-size:12.5px; font-weight:700; color:var(--muted); background:var(--wash); padding:3px 9px; border-radius:999px; }
+.sc-hint{ display:inline-flex; align-items:center; gap:6px; color:var(--primary); font-size:12px; font-weight:600; white-space:nowrap; }
+.sc-hint-t::after{ content:"Click to expand"; }
+.state-card[open] .sc-hint-t::after{ content:"Click to collapse"; }
+.sc-caret{ width:16px; height:16px; transition:transform .2s ease; }
+.state-card[open] .sc-caret{ transform:rotate(180deg); }
+.state-card .state-list{ padding:0 22px; }
+.state-card .state-more{ margin:2px 22px 18px; }
 .state-list{ list-style:none; margin:0; padding:0; }
 .state-list li{ display:flex; align-items:baseline; gap:12px; padding:9px 0; border-top:1px solid var(--line); }
 .state-list li:first-child{ border-top:0; }
@@ -800,3 +813,6 @@ a.tile:focus-visible{ z-index:2; }
 .sm-ck{ color:#2f9e6b; font-weight:900; }
 .sm-no{ color:#c2ccd4; }
 .sm-full{ width:100%; justify-content:center; }
+
+.chart-note{ margin:16px 0 0; font-size:13px; color:var(--muted); line-height:1.5; border-top:1px solid var(--line); padding-top:12px; }
+.chart-note strong{ color:var(--navy); }

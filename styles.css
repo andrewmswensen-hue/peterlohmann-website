@@ -699,3 +699,35 @@ footer.site .disc{ margin-top:20px; font-size:12.5px; color:var(--muted-2); line
   border-radius:999px; background:#f6efdd; color:#8a6d2f; font-weight:700; font-size:12.5px; text-decoration:none; border:1px solid #ecdfbc; }
 .crane-callout:hover{ background:#f1e6c9; text-decoration:none; }
 .crane-callout svg{ width:14px; height:14px; }
+
+/* Podcast: brand-logo buttons, YouTube CTA, and the blue "other shows" band */
+.listen-btn, .ep-btn{ display:inline-flex; align-items:center; gap:7px; }
+.pf-ic{ width:17px; height:17px; flex:none; }
+.ep-btn .pf-ic{ width:15px; height:15px; }
+.btn-yt{ background:#FF0000; color:#fff; }
+.btn-yt:hover{ background:#d90000; color:#fff; text-decoration:none; }
+.btn-yt .pf-ic{ width:19px; height:19px; }
+.k-ic{ width:15px; height:15px; vertical-align:-2px; }
+.kicker-light{ color:#bcd6ea; }
+.shows-band{ background:linear-gradient(135deg,#2C7CB0 0%,#245f88 55%,#1F3A4D 100%); }
+.shows-band .kicker{ color:#bcd6ea; }
+.show-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; max-width:820px; margin-left:auto; margin-right:auto; }
+.show-card{ display:flex; align-items:center; gap:16px; text-align:left; background:#fff;
+  border-radius:16px; padding:16px; box-shadow:0 10px 30px rgba(15,32,45,.22); }
+.show-cover{ width:88px; height:88px; border-radius:12px; object-fit:cover; flex:none; }
+.show-cover-fb{ display:flex; align-items:center; justify-content:center; background:var(--wash); color:var(--primary); }
+.show-cover-fb svg{ width:34px; height:34px; }
+.show-body{ min-width:0; }
+.show-body h3{ font-size:19px; margin:0 0 10px; }
+.show-body .ep-links{ display:flex; flex-wrap:wrap; gap:8px; }
+@media (max-width:680px){ .show-grid{ grid-template-columns:1fr; } .show-card{ text-align:left; } }
+
+/* Inline social icon row (hero foot, blog author strip) */
+.inline-social{ display:inline-flex; gap:13px; align-items:center; vertical-align:middle; }
+.inline-social a{ color:var(--muted); display:inline-flex; }
+.inline-social a:hover{ color:var(--primary); text-decoration:none; }
+.inline-social svg{ width:19px; height:19px; }
+/* Blog per-post follow strip */
+.post-follow{ display:flex; flex-wrap:wrap; align-items:center; gap:12px 16px; margin:8px 0 0;
+  padding:18px 20px; border:1px solid var(--line); border-radius:14px; background:var(--wash-soft); }
+.post-follow .pf-label{ font-weight:700; color:var(--navy); }

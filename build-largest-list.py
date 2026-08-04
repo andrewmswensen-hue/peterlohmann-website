@@ -636,6 +636,54 @@ for st, rows in state_lists:
         f'        </div>')
 state_cards = "\n".join(scards)
 
+# ---- Tile-grid US map (Phase 2 interactive state explorer) ----
+# (row, col) for a US "box map": row 0 = north, col 0 = west. Hand-tuned to read like the US.
+STATE_GRID = {
+    'AK':(0,0),                                                                 'ME':(0,10),
+                                                                     'VT':(1,9),'NH':(1,10),
+    'WA':(2,0),'ID':(2,1),'MT':(2,2),'ND':(2,3),'MN':(2,4),'WI':(2,5),          'MI':(2,7),'NY':(2,8),'MA':(2,9),'RI':(2,10),
+    'OR':(3,0),'NV':(3,1),'WY':(3,2),'SD':(3,3),'IA':(3,4),'IL':(3,5),'IN':(3,6),'OH':(3,7),'PA':(3,8),'NJ':(3,9),'CT':(3,10),
+    'CA':(4,0),'UT':(4,1),'CO':(4,2),'NE':(4,3),'MO':(4,4),'KY':(4,5),'WV':(4,6),'VA':(4,7),'MD':(4,8),'DE':(4,9),
+               'AZ':(5,1),'NM':(5,2),'KS':(5,3),'AR':(5,4),'TN':(5,5),'NC':(5,6),'SC':(5,7),'DC':(5,8),
+                                     'OK':(6,3),'LA':(6,4),'MS':(6,5),'AL':(6,6),'GA':(6,7),
+    'HI':(7,0),                      'TX':(7,3),                                 'FL':(7,8),
+}
+state_doors = collections.defaultdict(int)
+for r in valid:
+    if r['state'] in STATE_NAME:
+        state_doors[r['state']] += r['doors']
+
+def tile_bucket(cnt):
+    return 't0' if cnt <= 0 else 't1' if cnt <= 2 else 't2' if cnt <= 5 else 't3' if cnt <= 9 else 't4'
+
+tiles = []
+for st, (rr, cc) in STATE_GRID.items():
+    cnt = by_state.get(st, 0)
+    full = STATE_NAME.get(st, st)
+    pos = f'style="grid-row:{rr+1};grid-column:{cc+1};"'
+    if cnt > 0:
+        tiles.append(f'      <a class="tile {tile_bucket(cnt)}" {pos} href="{state_page_filename(st)}" '
+                     f'data-st="{st}" aria-label="{esc(full)}: {cnt} companies"><span class="t-ab">{st}</span>'
+                     f'<span class="t-n">{cnt}</span></a>')
+    else:
+        tiles.append(f'      <span class="tile t0" {pos} aria-label="{esc(full)}: no submissions yet">'
+                     f'<span class="t-ab">{st}</span><span class="t-n">0</span></span>')
+map_tiles_html = "\n".join(tiles)
+
+# compact per-state payload for the click-to-open modal (the per-state PAGES remain the SEO source)
+_modal = {}
+for st, rows in state_lists:
+    _modal[st] = {
+        "n": STATE_NAME.get(st, st),
+        "c": by_state.get(st, 0),
+        "d": state_doors.get(st, 0),
+        "u": state_page_filename(st),
+        "co": [{"k": overall_rank.get(x['name']), "n": x['name'], "d": x['doors'],
+                "cr": 1 if x['crane'] else 0, "bo": 1 if x['boom'] else 0, "na": 1 if x['narpm'] else 0}
+               for x in rows],
+    }
+state_modal_json = json.dumps(_modal, separators=(',', ':'))
+
 ca_note = " (plus Canada)" if has_canada else ""
 
 # ---- full page ----
@@ -657,7 +705,7 @@ page = f"""<!--
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
-<link rel="stylesheet" href="styles.css?v=14" />
+<link rel="stylesheet" href="styles.css?v=15" />
 <style>
   /* Boom sponsor presentation (scoped to this page) */
   .presented-by{{ display:inline-flex; align-items:center; gap:12px; margin:-2px 0 14px;
@@ -887,12 +935,34 @@ page = f"""<!--
     <div class="wrap">
       <span class="kicker reveal">Top 10 by State</span>
       <h2 class="h-lead reveal">A ranking for every state.</h2>
-      <p class="sub reveal" style="margin-bottom:22px;">State-level top 10s. Every state with at least one submission is listed, and the smaller ones fill out as more companies add themselves. The goal is a full top 10 for all 50.</p>
+      <p class="sub reveal" style="margin-bottom:22px;">Click any state for its top 10, or open its full page. Shaded by how many companies have submitted so far, darker means more.</p>
+      <div class="tilemap-wrap reveal">
+        <div class="tilemap" role="group" aria-label="U.S. states, shaded by number of companies">
+{map_tiles_html}
+        </div>
+        <div class="tile-legend" aria-hidden="true">
+          <span>Fewer</span>
+          <i class="tile t1"></i><i class="tile t2"></i><i class="tile t3"></i><i class="tile t4"></i>
+          <span>More companies</span>
+        </div>
+      </div>
+
+      <h3 class="reveal" style="margin:44px 0 4px;font-size:22px;">Or browse the full lists</h3>
+      <p class="sub reveal" style="margin-bottom:22px;">Every state with at least one submission. The goal is a full top 10 for all 50.</p>
       <div class="state-grid reveal">
 {state_cards}
       </div>
     </div>
   </section>
+
+  <!-- STATE MODAL (populated by JS; each state also has its own crawlable page) -->
+  <div class="smodal" id="stateModal" aria-hidden="true">
+    <div class="smodal-card" role="dialog" aria-modal="true" aria-labelledby="smTitle">
+      <button class="smodal-close" id="smClose" aria-label="Close">&times;</button>
+      <div id="smBody"></div>
+    </div>
+  </div>
+  <script id="stateData" type="application/json">{state_modal_json}</script>
 
   <!-- GROW THE LIST -->
   <section class="band tight wash">
@@ -949,7 +1019,7 @@ page = f"""<!--
   <span>Presented by</span><img src="images/boom-logo.webp" alt="Boom" />
 </a>
 
-<script src="site.js?v=14"></script>
+<script src="site.js?v=15"></script>
 <script>
 (function(){{
   var hero = document.querySelector('.page-hero'),
@@ -959,6 +1029,39 @@ page = f"""<!--
   new IntersectionObserver(function(entries){{
     entries.forEach(function(e){{ badge.classList.toggle('show', !e.isIntersecting); }});
   }}, {{ threshold: 0 }}).observe(hero);
+}})();
+</script>
+<script>
+(function(){{
+  var el = document.getElementById('stateData'); if (!el) return;
+  var data; try {{ data = JSON.parse(el.textContent); }} catch(e) {{ return; }}
+  var modal = document.getElementById('stateModal'),
+      body = document.getElementById('smBody'),
+      closeBtn = document.getElementById('smClose'), lastFocus = null;
+  function esc(s){{ return String(s).replace(/[&<>"]/g, function(c){{ return {{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}}[c]; }}); }}
+  function fmt(x){{ return Number(x).toLocaleString('en-US'); }}
+  function tagz(c){{ var t=''; if(c.na) t+='<span class="sm-tag">NARPM</span>'; if(c.cr) t+='<span class="sm-tag crane">Crane</span>'; if(c.bo) t+='<span class="sm-tag boom">Boom</span>'; return t; }}
+  function render(st){{
+    var s = data[st]; if (!s) return;
+    var rows = s.co.map(function(c,i){{
+      return '<li><span class="sm-rank">'+(i+1)+'</span>'
+        +'<span class="sm-co">'+esc(c.n)+' <span class="sm-nat">#'+c.k+' nationally</span></span>'
+        +'<span class="sm-doors">'+fmt(c.d)+'</span>'
+        +'<span class="sm-tags">'+tagz(c)+'</span></li>';
+    }}).join('');
+    body.innerHTML = '<div class="sm-head"><h3 id="smTitle">The Largest PM Companies in '+esc(s.n)+'</h3>'
+      +'<p class="sm-stat">'+s.c+' companies &middot; '+fmt(s.d)+' doors under management</p></div>'
+      +'<ol class="sm-list">'+rows+'</ol>'
+      +'<a class="btn btn-primary sm-full" href="'+s.u+'">View the full '+esc(s.n)+' page &rarr;</a>';
+  }}
+  function openM(st){{ lastFocus=document.activeElement; render(st); modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; closeBtn.focus(); }}
+  function closeM(){{ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; if(lastFocus) lastFocus.focus(); }}
+  document.querySelectorAll('a.tile[data-st]').forEach(function(t){{
+    t.addEventListener('click', function(e){{ e.preventDefault(); openM(t.getAttribute('data-st')); }});
+  }});
+  closeBtn.addEventListener('click', closeM);
+  modal.addEventListener('click', function(e){{ if(e.target===modal) closeM(); }});
+  document.addEventListener('keydown', function(e){{ if(e.key==='Escape' && modal.classList.contains('open')) closeM(); }});
 }})();
 </script>
 </body>
@@ -1024,7 +1127,7 @@ def render_state_page(st, rows):
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
-<link rel="stylesheet" href="styles.css?v=14" />
+<link rel="stylesheet" href="styles.css?v=15" />
 <script type="application/ld+json">{jsonld}</script>
 </head>
 <body>
@@ -1085,7 +1188,7 @@ def render_state_page(st, rows):
     <p class="disc">The content of this website is for informational purposes only and does not constitute professional advice. I may have consulting agreements with, or financial interests in, companies mentioned on this website. Additionally, some of the links across this site may be affiliate links, meaning I may earn a commission if you make a purchase through those links. Always perform your own due diligence before making any financial or business decisions.</p>
   </div>
 </footer>
-<script src="site.js?v=14"></script>
+<script src="site.js?v=15"></script>
 </body>
 </html>
 """

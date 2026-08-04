@@ -154,7 +154,7 @@ a.card:hover .arrow{ color:var(--orange-dark); }
              display:flex; align-items:center; justify-content:center; font-weight:700; font-size:20px; margin-bottom:14px; }
 /* Large faded line-icon watermark behind each explore card (replaces the old emoji badges) */
 a.card{ position:relative; overflow:hidden; }
-.card-ic{ position:absolute; top:18px; right:18px; width:84px; height:84px;
+.card-ic{ position:absolute; bottom:18px; right:18px; width:84px; height:84px;
           color:var(--primary); opacity:.09; pointer-events:none; z-index:0; }
 a.card > h3, a.card > p, a.card > .arrow{ position:relative; z-index:1; }
 a.card:hover .card-ic{ opacity:.14; transition:opacity .16s ease; }

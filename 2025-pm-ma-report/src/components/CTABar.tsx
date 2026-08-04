@@ -38,7 +38,7 @@ const CTABar = () => {
   ];
 
   return (
-    <div className="bg-[#2D78A7] py-8 px-4 sticky top-0 z-50">
+    <div id="report-cta-bar" className="bg-[#2D78A7] py-8 px-4 sticky top-0 z-50">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-4 overflow-x-auto whitespace-nowrap">
           {navLinks.map((link, index) => (

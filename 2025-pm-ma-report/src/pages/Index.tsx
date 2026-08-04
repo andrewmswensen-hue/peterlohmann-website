@@ -8,11 +8,13 @@ import DifferentSection from "@/components/DifferentSection";
 import AuthorSection from "@/components/AuthorSection";
 import VideoSection from "@/components/VideoSection";
 import CTABar from "@/components/CTABar";
+import BackToSite from "@/components/BackToSite";
 import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-white">
+      <BackToSite />
       <SiteNav />
       <CTABar />
       <HeroSection />

@@ -37,9 +37,9 @@
   --radius-sm:12px;
   --shadow:0 1px 2px rgba(31,58,77,.05), 0 8px 24px rgba(31,58,77,.06);
   --shadow-lg:0 2px 4px rgba(31,58,77,.06), 0 18px 48px rgba(31,58,77,.12);
-  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji",sans-serif;
-  --display:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;  /* Inter, for big numbers/stats */
-  --serif:"bely-display",Georgia,"Times New Roman",serif;  /* Bely Display, for all headers */
+  --sans:"muli","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji",sans-serif;  /* Muli (body/UI), Inter = backup */
+  --display:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;  /* Inter, for big numbers/stats (Muli lacks the heavy weights) */
+  --serif:"bely-display",Georgia,"Times New Roman",serif;  /* Bely Display (headers), Georgia/Times = backup */
   --maxw:1120px;
 }
 

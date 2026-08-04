@@ -7,6 +7,9 @@ punchy headers. This is the running record of those copy edits so nothing change
 ## Type change (site-wide)
 - All headers (`h1`–`h4`) now render in **Bely Display** via Peter's Adobe Fonts kit, set in the
   shared `styles.css` (one `@import` + a `--serif` token). Applies to every page and every blog post.
+- Body / UI / labels / buttons now render in **Muli** (from the same kit), with **Inter** as the
+  backup weight. So the type system is: **Bely** (headers, Georgia/Times backup) + **Muli** (body,
+  Inter backup) + **Inter** (the big 900-weight stat/rank/door numbers, which Muli can't do).
 - **Carve-outs (deliberately NOT changed):**
   - The **Crane** wordmark on the homepage (`.crane-title`) stays in Inter, it's its own brand mark.
   - The entire **M&A report** (`/report/`, its own React app) is untouched, it doesn't use this stylesheet.

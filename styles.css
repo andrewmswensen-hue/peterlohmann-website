@@ -784,7 +784,7 @@ a.tile:focus-visible{ z-index:2; }
 .tile.t2{ background:#93bfe0; color:#123040; }
 .tile.t3{ background:#4d94c6; color:#fff; }
 .tile.t4{ background:#245f88; color:#fff; }
-.tile-legend{ display:flex; align-items:center; gap:7px; justify-content:center; margin-top:16px; font-size:12.5px; color:var(--muted); }
+.tile-legend{ display:flex; align-items:center; gap:7px; justify-content:center; margin-top:34px; font-size:12.5px; color:var(--muted); }
 .tile-legend i{ width:20px; height:20px; border-radius:5px; aspect-ratio:auto; }
 @media (max-width:560px){ .tilemap{ min-width:430px; } .tile .t-ab{ font-size:11px; } .tile .t-n{ font-size:9px; } }
 

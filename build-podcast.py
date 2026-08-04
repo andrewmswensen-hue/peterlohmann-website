@@ -13,7 +13,7 @@ import urllib.request, json, re, html as htmlmod, datetime, os, difflib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "podcast.html")
-ASSET_V = "19"   # keep in sync with the site's ?v= cache version
+ASSET_V = "20"   # keep in sync with the site's ?v= cache version
 
 YT_PLAYLIST = "PLQihvuykg8UaJqy5CnF2Fok8MDdoNuZ66"
 ITUNES_ID = "1554806227"
@@ -210,7 +210,7 @@ def build():
       <a href="podcast.html" class="active">Podcast</a>
       <a href="largest-pm-companies.html">Largest PM Companies</a>
       <a href="blog.html">Blog</a>
-      <a href="report/index.html" target="_blank" rel="noopener">M&amp;A Report</a>
+      <a href="report/index.html">M&amp;A Report</a>
       <a href="peterbot.html">PeterBot</a>
       <a href="products.html">Products</a>
     </div>
@@ -319,7 +319,7 @@ def build():
         <a href="podcast.html">Podcast</a>
         <a href="largest-pm-companies.html">Largest PM Companies</a>
         <a href="blog.html">Blog</a>
-        <a href="report/index.html" target="_blank" rel="noopener">M&amp;A Report</a>
+        <a href="report/index.html">M&amp;A Report</a>
         <a href="peterbot.html">PeterBot</a>
         <a href="products.html">Products</a>
         <a href="featured.html">Featured</a>

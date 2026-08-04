@@ -154,7 +154,7 @@ a.card:hover .arrow{ color:var(--orange-dark); }
              display:flex; align-items:center; justify-content:center; font-weight:700; font-size:20px; margin-bottom:14px; }
 /* Large faded line-icon watermark behind each explore card (replaces the old emoji badges) */
 a.card{ position:relative; overflow:hidden; }
-.card-ic{ position:absolute; top:-16px; right:-16px; width:116px; height:116px;
+.card-ic{ position:absolute; top:18px; right:18px; width:84px; height:84px;
           color:var(--primary); opacity:.09; pointer-events:none; z-index:0; }
 a.card > h3, a.card > p, a.card > .arrow{ position:relative; z-index:1; }
 a.card:hover .card-ic{ opacity:.14; transition:opacity .16s ease; }
@@ -590,6 +590,8 @@ a.post-card:hover{ text-decoration:none; transform:translateY(-4px); box-shadow:
 /* ---------- FOOTER ---------- */
 footer.site{ padding:40px 0; border-top:1px solid var(--line); color:var(--muted-2); font-size:14px; background:#fbfdff; }
 footer.site .foot-grid{ display:flex; flex-wrap:wrap; gap:18px 28px; align-items:center; justify-content:space-between; }
+/* footer wordmark matches the nav (Bely Display); !important beats the inline font-weight:700 in the markup */
+footer.site .foot-grid .brand{ font-family:var(--serif); font-weight:400 !important; font-size:21px; letter-spacing:0; }
 footer.site .foot-links{ display:flex; flex-wrap:wrap; gap:14px 20px; }
 footer.site a{ color:var(--muted); font-weight:500; }
 footer.site a:hover{ color:var(--primary); }

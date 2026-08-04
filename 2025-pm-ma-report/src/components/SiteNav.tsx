@@ -15,8 +15,12 @@ const links = [
 const SiteNav = () => (
   <div className="w-full bg-white border-b border-slate-200">
     <div className="max-w-6xl mx-auto px-4 py-2.5 flex items-center gap-5 overflow-x-auto whitespace-nowrap">
-      <a href="../index.html" className="font-bold text-[17px] tracking-tight text-[#1F3A4D] shrink-0">
-        Peter <span className="text-[#2C7CB0]">Lohmann</span>
+      <a
+        href="../index.html"
+        className="shrink-0"
+        style={{ fontFamily: '"bely-display", Georgia, "Times New Roman", serif', fontWeight: 400, fontSize: "21px", lineHeight: 1, letterSpacing: 0, color: "#1F3A4D" }}
+      >
+        Peter <span style={{ color: "#2C7CB0" }}>Lohmann</span>
       </a>
       <nav className="flex items-center gap-4 text-sm text-[#3d4d59] ml-1">
         {links.map((l) => (

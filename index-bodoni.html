@@ -37,10 +37,13 @@
   /* Swap every header to Bodoni; loosen the tight tracking the sans wanted, and dial the weight
      back so the high-contrast serif reads elegant rather than heavy. */
   h1, h2, h3, h4, .h-lead, .crane-title{ font-family:"Bodoni Moda", Georgia, "Times New Roman", serif !important;
-    letter-spacing:0; font-weight:700; }
-  .hero h1{ font-weight:700; letter-spacing:0; line-height:1.05; }
-  .biz-card h3, .card h3{ font-weight:700; }
-  /* NOTE: mockup uses Bodoni Moda @700 to match the heft of the real ltc-bodoni-175 @500. */
+    letter-spacing:0; font-weight:500; font-optical-sizing:auto; }
+  .hero h1{ font-weight:400; letter-spacing:.005em; line-height:1.06;
+    font-variation-settings:"opsz" 96; }
+  .biz-card h3, .card h3{ font-weight:500; }
+  /* NOTE: mockup = Bodoni Moda, a stand-in. It has softer contrast than the real
+     ltc-bodoni-175, so we run it LIGHT (hero 400, opsz maxed) to chase the thin,
+     high-contrast hairlines of the real display cut. Real site uses ltc-bodoni-175 @500. */
   /* eyebrows/kickers stay in the sans label style — they're labels, not headers */
 </style>
 </head>

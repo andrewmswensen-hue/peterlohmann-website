@@ -5,8 +5,11 @@
    with the Inter type family + bolder headings inspired by pmtrends.com.
    ========================================================================== */
 
-/* Inter font family (heavy weights power the bold headings). */
+/* Inter font family (workhorse: body, labels, all the big stat/rank numbers). */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+/* Bely Display (Peter's LOGO font) via his Adobe Fonts kit — powers every header site-wide.
+   One import here = it applies to every page automatically. Kit ships weight 400 only. */
+@import url('https://use.typekit.net/dik1zcl.css');
 
 /* ---------- DESIGN TOKENS ---------- */
 :root{
@@ -35,7 +38,8 @@
   --shadow:0 1px 2px rgba(31,58,77,.05), 0 8px 24px rgba(31,58,77,.06);
   --shadow-lg:0 2px 4px rgba(31,58,77,.06), 0 18px 48px rgba(31,58,77,.12);
   --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji",sans-serif;
-  --display:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --display:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;  /* Inter, for big numbers/stats */
+  --serif:"bely-display",Georgia,"Times New Roman",serif;  /* Bely Display, for all headers */
   --maxw:1120px;
 }
 
@@ -49,7 +53,7 @@ body{
 a{ color:var(--primary); text-decoration:none; }
 a:hover{ text-decoration:underline; }
 img{ max-width:100%; display:block; }
-h1,h2,h3,h4{ font-family:var(--display); line-height:1.1; letter-spacing:-.03em; color:var(--navy); margin:0; font-weight:800; }
+h1,h2,h3,h4{ font-family:var(--serif); line-height:1.15; letter-spacing:0; color:var(--navy); margin:0; font-weight:400; }
 p{ margin:0 0 1em; }
 ::selection{ background:var(--wash); }
 
@@ -160,7 +164,7 @@ a.card:hover .arrow{ color:var(--orange-dark); }
      }
 .hero .wrap{ padding-top:88px; padding-bottom:96px; }
 .hero .eyebrow{ color:var(--primary); font-weight:800; letter-spacing:.12em; text-transform:uppercase; font-size:clamp(14px,2vw,17px); margin-bottom:16px; }
-.hero h1{ font-size:clamp(44px,6.6vw,86px); font-weight:900; line-height:.98; letter-spacing:-.04em; margin-bottom:20px; }
+.hero h1{ font-size:clamp(44px,6.6vw,86px); font-weight:400; line-height:1.0; letter-spacing:0; margin-bottom:20px; }
 .hero .subtitle{ font-size:clamp(18px,2.2vw,23px); color:var(--navy); font-weight:600; margin-bottom:14px; }
 .hero .tagline{ font-size:clamp(17px,2vw,20px); color:var(--muted); max-width:46ch; margin-bottom:30px; }
 .hero .cta-row{ display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin-bottom:28px; }
@@ -226,7 +230,8 @@ a.card:hover .arrow{ color:var(--orange-dark); }
 .crane-inner{ position:relative; z-index:1; display:grid; grid-template-columns:auto 1fr; gap:48px; align-items:center; }
 .crane-logo img{ width:132px; height:auto; }
 .crane-eyebrow{ display:inline-block; color:#bea060; font-weight:800; letter-spacing:.14em; text-transform:uppercase; font-size:13px; margin-bottom:12px; }
-.crane-title{ color:#bea060; font-size:clamp(34px,5vw,52px); margin-bottom:14px; }
+.crane-title{ color:#bea060; font-size:clamp(34px,5vw,52px); margin-bottom:14px;
+  font-family:var(--display); font-weight:800; letter-spacing:-.03em; }  /* Crane stays Inter (its own wordmark), NOT the serif */
 .crane-band p{ color:#d9dbe0; font-size:clamp(17px,2vw,19px); max-width:60ch; margin:0 0 22px; }
 .btn-gold{ background:#bea060; color:#141414; }
 .btn-gold:hover{ background:#cdb173; }

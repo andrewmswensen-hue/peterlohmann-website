@@ -540,7 +540,7 @@ page = f"""<!--
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
-<link rel="stylesheet" href="styles.css?v=8" />
+<link rel="stylesheet" href="styles.css?v=9" />
 <style>
   /* Boom sponsor presentation (scoped to this page) */
   .presented-by{{ display:inline-flex; align-items:center; gap:12px; margin:-2px 0 14px;
@@ -694,7 +694,7 @@ page = f"""<!--
   <section class="band">
     <div class="wrap">
       <span class="kicker reveal">Top 10 by State</span>
-      <h2 class="h-lead reveal">Where there's enough data, a state ranking.</h2>
+      <h2 class="h-lead reveal">A ranking for every state.</h2>
       <p class="sub reveal" style="margin-bottom:22px;">State-level top 10s. Every state with at least one submission is listed, and the smaller ones fill out as more companies add themselves. The goal is a full top 10 for all 50.</p>
       <div class="state-grid reveal">
 {state_cards}
@@ -756,7 +756,7 @@ page = f"""<!--
   <span>Presented by</span><img src="images/boom-logo.webp" alt="Boom" />
 </a>
 
-<script src="site.js?v=8"></script>
+<script src="site.js?v=9"></script>
 <script>
 (function(){{
   var hero = document.querySelector('.page-hero'),

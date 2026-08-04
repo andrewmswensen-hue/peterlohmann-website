@@ -64,6 +64,7 @@ On Q, JWB, Good Life, Stratton Vantage, PMI Midwest, Tiner Properties.
 - Company names hyperlink to their websites.
 - Top-10-by-State shows every US state with at least one submission (44 currently), even 1-2 company states.
 - Year filter: 2026 submissions only (SUBMISSION_YEAR). Daily auto-refresh via GitHub Action.
+- Headers now render in **Bely Display** (site-wide serif; all the stat/rank/door numbers stay in Inter). The "Top 10 by State" header was tightened: "Where there's enough data, a state ranking." → "A ranking for every state." (see HEADER-COPY-CHANGES.md).
 
 ---
 

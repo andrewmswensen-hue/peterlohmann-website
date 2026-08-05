@@ -24,7 +24,7 @@ BLOGDIR = os.path.join(HERE, "blog")
 os.makedirs(IMGDIR, exist_ok=True)
 os.makedirs(BLOGDIR, exist_ok=True)
 LIMIT = int(os.environ.get("LIMIT", "0"))
-ASSET_V = "22"  # cache-bust version for styles.css / site.js (keep in sync with the rest of the site)
+ASSET_V = "23"  # cache-bust version for styles.css / site.js (keep in sync with the rest of the site)
 
 UA = {"User-Agent": "Mozilla/5.0"}
 
@@ -248,6 +248,17 @@ def process_body(body, slug):
             a.set("href", PAGE_MAP[pg.group(1)])           # e.g. /contact -> ../contact.html
         elif href.startswith("http") and "peterlohmann.com" not in href:
             a.set("target", "_blank"); a.set("rel", "noopener")
+
+    # 6) wrap data tables in a horizontally-scrollable container so they keep their
+    #    proportions and scroll on narrow screens instead of overflowing the page
+    for tbl in root.xpath('.//table'):
+        parent = tbl.getparent()
+        if parent is None:
+            continue
+        wrapper = lxml.html.Element('div')
+        wrapper.set('class', 'article-table')
+        parent.replace(tbl, wrapper)
+        wrapper.append(tbl)
 
     # serialize inner html of the root div
     inner = (root.text or "")

@@ -822,3 +822,21 @@ a.tile:focus-visible{ z-index:2; }
 
 .chart-note{ margin:16px 0 0; font-size:13px; color:var(--muted); line-height:1.5; border-top:1px solid var(--line); padding-top:12px; }
 .chart-note strong{ color:var(--navy); }
+
+/* =============================================================================
+   BLOG ARTICLE DATA TABLES (e.g. the past-year Largest PM lists imported from
+   Squarespace, whose original <style> is stripped). Clean, centered, and allowed
+   to break out wider than the 730px prose column.
+   ========================================================================== */
+/* scrollable wrapper: breaks out wider than the 730px prose, centered on the page,
+   and scrolls horizontally on narrow screens instead of overflowing */
+.article-table{ overflow-x:auto; -webkit-overflow-scrolling:touch; margin:30px 0;
+  width:min(1260px,94vw); margin-left:50%; transform:translateX(-50%); }
+.article-table table{ border-collapse:collapse; font-size:14px; background:#fff; margin:0; border:1px solid var(--line); border-radius:12px; }
+.article-body th, .article-body td{ border-bottom:1px solid var(--line); padding:10px 13px; text-align:left; vertical-align:top; line-height:1.45; }
+.article-body tbody td + td, .article-body thead th + th{ border-left:1px solid var(--line); }
+.article-body thead th{ background:var(--wash-soft); font-weight:700; color:var(--navy); }
+.article-body tbody tr:last-child td{ border-bottom:0; }
+.article-body tbody tr:nth-child(even){ background:#f6f9fc; }
+.article-table table a{ color:var(--primary); font-weight:600; }
+@media (max-width:560px){ .article-table table{ font-size:12.5px; } .article-body th, .article-body td{ padding:7px 8px; } }

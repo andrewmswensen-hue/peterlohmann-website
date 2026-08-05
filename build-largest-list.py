@@ -721,7 +721,7 @@ page = f"""<!--
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
-<link rel="stylesheet" href="styles.css?v=22" />
+<link rel="stylesheet" href="styles.css?v=23" />
 <style>
   /* Boom sponsor presentation (scoped to this page) */
   .presented-by{{ display:inline-flex; align-items:center; gap:12px; margin:-2px 0 14px;
@@ -1041,7 +1041,7 @@ page = f"""<!--
   <span>Presented by</span><img src="images/boom-logo.webp" alt="Boom" />
 </a>
 
-<script src="site.js?v=22"></script>
+<script src="site.js?v=23"></script>
 <script>
 (function(){{
   var hero = document.querySelector('.page-hero'),
@@ -1120,10 +1120,10 @@ CS_STYLE = """<style>
   /* Big "2026 List Coming Soon" that sticks over the blurred section as you scroll it */
   .cs-stage{ position:relative; }
   .cs-overlay{ position:absolute; inset:0; z-index:5; pointer-events:none; }
-  .cs-big{ position:sticky; top:30vh; display:block; width:100%; text-align:center; padding:0 20px;
-    font-family:var(--serif); font-weight:400; font-size:clamp(46px,9vw,128px); line-height:1.0; color:var(--navy);
+  .cs-big{ position:sticky; top:26vh; display:block; width:100%; text-align:center; padding:0 20px;
+    font-family:var(--serif); font-weight:400; font-size:clamp(46px,9vw,128px); line-height:1.08; color:var(--navy);
     text-shadow:0 0 26px #fff, 0 0 26px #fff, 0 0 60px #fff, 0 2px 40px rgba(255,255,255,.95); }
-  .cs-big small{ display:block; margin-top:16px; font-family:var(--sans); font-weight:800; letter-spacing:.16em; text-transform:uppercase;
+  .cs-big small{ display:block; margin-top:52px; font-family:var(--sans); font-weight:800; letter-spacing:.16em; text-transform:uppercase;
     font-size:clamp(13px,1.5vw,18px); color:var(--orange-dark); text-shadow:0 0 18px #fff, 0 0 18px #fff; }
 </style>"""
 CS_HERO = """  <header class="page-hero cs-hero">
@@ -1216,7 +1216,7 @@ def render_state_page(st, rows):
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
-<link rel="stylesheet" href="styles.css?v=22" />
+<link rel="stylesheet" href="styles.css?v=23" />
 <script type="application/ld+json">{jsonld}</script>
 </head>
 <body>
@@ -1277,7 +1277,7 @@ def render_state_page(st, rows):
     <p class="disc">The content of this website is for informational purposes only and does not constitute professional advice. I may have consulting agreements with, or financial interests in, companies mentioned on this website. Additionally, some of the links across this site may be affiliate links, meaning I may earn a commission if you make a purchase through those links. Always perform your own due diligence before making any financial or business decisions.</p>
   </div>
 </footer>
-<script src="site.js?v=22"></script>
+<script src="site.js?v=23"></script>
 </body>
 </html>
 """

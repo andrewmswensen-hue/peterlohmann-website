@@ -849,6 +849,10 @@ page = f"""<!--
       <a class="presented-by" href="https://www.boompay.app/" target="_blank" rel="noopener">Presented by <img src="images/boom-logo.webp" alt="Boom" /></a>
       <div class="hero-rule" aria-hidden="true"></div>
       <p class="lead">A self-reported ranking of the largest residential property management companies, plus what the data says about software, structure, and how the best operators are built. Submissions are still open, so this list keeps growing.</p>
+      <div class="hero-jump" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;">
+        <a class="btn btn-primary" href="#ranking">Top 40 List</a>
+        <a class="btn btn-ghost" href="#by-state">Top 10 by State</a>
+      </div>
     </div>
   </header>
 
@@ -864,7 +868,7 @@ page = f"""<!--
   </section>
 
   <!-- FULL RANKING -->
-  <section class="band tight">
+  <section class="band tight" id="ranking">
     <div class="wrap rank-wrap">
       <span class="kicker reveal">The Ranking</span>
       <h2 class="h-lead reveal">The full list.</h2>
@@ -947,7 +951,7 @@ page = f"""<!--
   </section>
 
   <!-- TOP 10 BY STATE -->
-  <section class="band">
+  <section class="band" id="by-state">
     <div class="wrap">
       <span class="kicker reveal">Top 10 by State</span>
       <h2 class="h-lead reveal">A ranking for every state.</h2>

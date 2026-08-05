@@ -660,11 +660,13 @@ footer.site .disc{ margin-top:20px; font-size:12.5px; color:var(--muted-2); line
 .rank-table th.chg-col{ text-align:center; line-height:1.18; white-space:nowrap; }
 .rank-table td.chg{ text-align:center; white-space:nowrap; font-weight:700; font-variant-numeric:tabular-nums; }
 .chg-up{ color:#2f9e6b; } .chg-down{ color:#c0492f; } .chg-flat{ color:#9aa5ad; } .chg-na{ color:#9aa5ad; font-weight:400; }
-.rank-table th.hide-sm, .rank-table td.hide-sm{ padding-left:10px; padding-right:10px; }
-.rank-table td.r-rank{ width:28px; padding-right:2px; }
-.rank-table thead th:first-child{ padding-right:2px; }
-.rank-table td.r-cell{ padding-left:6px; }
-.rank-table thead th:nth-child(2){ padding-left:6px; }
+/* Center #, Doors, Software, Structure (header + cells); Company stays left */
+.rank-table th.hide-sm, .rank-table td.hide-sm{ padding-left:10px; padding-right:10px; text-align:center; }
+.rank-table th.num, .rank-table td.num{ text-align:center; }
+.rank-table td.r-rank{ width:34px; padding-left:6px; padding-right:6px; text-align:center; }
+.rank-table thead th:first-child{ padding-left:6px; padding-right:6px; text-align:center; }
+.rank-table td.r-cell{ padding-left:8px; }
+.rank-table thead th:nth-child(2){ padding-left:8px; }
 .rank-table .r-co{ font-size:18px; line-height:1.2; }
 .rank-table tbody td + td, .rank-table thead th + th{ border-left:1px solid var(--line); }
 /* NARPM / Crane / Boom columns — sized + centered (also needed on the per-state pages) */

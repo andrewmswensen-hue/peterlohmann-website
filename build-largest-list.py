@@ -720,7 +720,7 @@ page = f"""<!--
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
-<link rel="stylesheet" href="styles.css?v=21" />
+<link rel="stylesheet" href="styles.css?v=22" />
 <style>
   /* Boom sponsor presentation (scoped to this page) */
   .presented-by{{ display:inline-flex; align-items:center; gap:12px; margin:-2px 0 14px;
@@ -764,7 +764,8 @@ page = f"""<!--
   .chg-flat{{ color:#9aa5ad; }}
   .chg-na{{ color:#9aa5ad; font-weight:400; }}
   /* reclaim a little room: tighten the roomy Software/Structure columns */
-  .rank-table th.hide-sm, .rank-table td.hide-sm{{ padding-left:10px; padding-right:10px; }}
+  .rank-table th.hide-sm, .rank-table td.hide-sm{{ padding-left:10px; padding-right:10px; text-align:center; }}
+  .rank-table th.num, .rank-table td.num{{ text-align:center; }}   /* center # and Doors */
   .boom-sticky{{ position:fixed; right:18px; bottom:18px; z-index:60;
     display:inline-flex; align-items:center; gap:7px; padding:8px 13px;
     background:#fff; border:1px solid var(--line); border-radius:999px;
@@ -777,11 +778,11 @@ page = f"""<!--
   .boom-sticky:hover{{ box-shadow:0 8px 26px rgba(31,58,77,.22); }}
   @media (max-width:600px){{ .boom-sticky{{ right:10px; bottom:10px; padding:7px 11px; }} .boom-sticky span{{ display:none; }} }}
 
-  /* Tighten the gap to the right of the rank number */
-  .rank-table td.r-rank{{ width:28px; padding-right:2px; }}
-  .rank-table thead th:first-child{{ padding-right:2px; }}
-  .rank-table td.r-cell{{ padding-left:6px; }}
-  .rank-table thead th:nth-child(2){{ padding-left:6px; }}
+  /* Rank column: centered (header + number aligned), snug to the company name */
+  .rank-table td.r-rank{{ width:34px; padding-left:6px; padding-right:6px; text-align:center; }}
+  .rank-table thead th:first-child{{ padding-left:6px; padding-right:6px; text-align:center; }}
+  .rank-table td.r-cell{{ padding-left:8px; }}
+  .rank-table thead th:nth-child(2){{ padding-left:8px; }}
   /* Bigger company name, closer in size to the door count */
   .rank-table .r-co{{ font-size:18px; line-height:1.2; }}
   /* Faint vertical dividers between every column (matches the NARPM/Crane/Boom borders) */
@@ -1039,7 +1040,7 @@ page = f"""<!--
   <span>Presented by</span><img src="images/boom-logo.webp" alt="Boom" />
 </a>
 
-<script src="site.js?v=21"></script>
+<script src="site.js?v=22"></script>
 <script>
 (function(){{
   var hero = document.querySelector('.page-hero'),
@@ -1157,7 +1158,7 @@ def render_state_page(st, rows):
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
-<link rel="stylesheet" href="styles.css?v=21" />
+<link rel="stylesheet" href="styles.css?v=22" />
 <script type="application/ld+json">{jsonld}</script>
 </head>
 <body>
@@ -1218,7 +1219,7 @@ def render_state_page(st, rows):
     <p class="disc">The content of this website is for informational purposes only and does not constitute professional advice. I may have consulting agreements with, or financial interests in, companies mentioned on this website. Additionally, some of the links across this site may be affiliate links, meaning I may earn a commission if you make a purchase through those links. Always perform your own due diligence before making any financial or business decisions.</p>
   </div>
 </footer>
-<script src="site.js?v=21"></script>
+<script src="site.js?v=22"></script>
 </body>
 </html>
 """

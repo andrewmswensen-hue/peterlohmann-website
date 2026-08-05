@@ -15,6 +15,11 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
 <link rel="stylesheet" href="styles.css?v=23" />
+<style>
+  /* JotForm contact embed */
+  .jf-embed{margin-top:6px;}
+  .jf-embed iframe{width:1px;min-width:100%;max-width:100%;border:0;}
+</style>
 </head>
 <body>
 
@@ -48,9 +53,32 @@
     </div>
   </header>
 
-  <section class="band">
+  <section class="band" id="contact-form">
+    <div class="wrap">
+      <div class="panel" style="max-width:760px;margin-inline:auto;">
+        <span class="tag tag-blue">Send a message</span>
+        <h2 class="h-lead" style="margin-top:14px;font-size:clamp(24px,3.2vw,32px);">Drop me a note.</h2>
+        <p class="sub" style="margin-bottom:18px;">This goes straight to my inbox. I read every message.</p>
+        <div class="jf-embed">
+          <script type="text/javascript" src="https://form.jotform.com/jsform/262165832778064"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band tight">
     <div class="wrap">
       <div class="grid g2 stagger">
+
+        <div class="panel">
+          <span class="tag tag-blue">Prefer not to fill out a form?</span>
+          <h2 class="h-lead" style="margin-top:14px;font-size:clamp(26px,3.4vw,34px);">Say hello.</h2>
+          <p class="sub">LinkedIn is where I'm most responsive, or start with PeterBot for instant answers on the industry, a product, or consulting.</p>
+          <div class="listen-row mt-sm">
+            <a class="listen-btn" href="https://www.linkedin.com/in/pslohmann/" target="_blank" rel="noopener">in Connect on LinkedIn</a>
+            <a class="listen-btn" href="peterbot.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:16px;height:16px;vertical-align:-2px;margin-right:2px;"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg> Ask PeterBot</a>
+          </div>
+        </div>
 
         <div class="panel orange">
           <span class="tag tag-warn">Sponsorship</span>
@@ -62,16 +90,6 @@
             <!-- SWAP: interest form (Jotform) -->
             Ready to go? <a href="https://form.jotform.com/252246415810047" target="_blank" rel="noopener">Let me know you're interested &rarr;</a>
           </p>
-        </div>
-
-        <div class="panel">
-          <span class="tag tag-blue">Everything else</span>
-          <h2 class="h-lead" style="margin-top:14px;font-size:clamp(26px,3.4vw,34px);">Say hello.</h2>
-          <p class="sub">Questions about the industry, a product, or consulting? The fastest way to reach me is LinkedIn, or start with PeterBot for instant answers.</p>
-          <div class="listen-row mt-sm">
-            <a class="listen-btn" href="https://www.linkedin.com/in/pslohmann/" target="_blank" rel="noopener">in Connect on LinkedIn</a>
-            <a class="listen-btn" href="peterbot.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:16px;height:16px;vertical-align:-2px;margin-right:2px;"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg> Ask PeterBot</a>
-          </div>
         </div>
 
       </div>
@@ -119,6 +137,7 @@
         <a href="featured.html">Featured</a>
         <a href="contact.html">Contact</a>
         <a href="https://www.linkedin.com/in/pslohmann/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="faq.html">FAQ</a>
         <a href="financial-interest-disclosure.html">Disclosures</a>
       </nav>
     </div>

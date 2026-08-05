@@ -1104,6 +1104,48 @@ with open(OUT, "w") as f:
 
 print(f"Wrote {OUT}")
 
+# ============================ COMING-SOON TEASER ============================
+# A blurred duplicate of the Top 40 page with a "coming soon" hero. Meant to go live at
+# launch (swapped in for the real list at largest-pm-companies.html), then swapped back
+# out when the final 2026 list is ready. Rebuilt on every refresh so its blurred content
+# stays current. The real page above is left exactly as-is.
+CS_STYLE = """<style>
+  /* Coming-soon teaser: blur the (still-recognizable) content that sits behind the hero */
+  .cs-blur{ filter:blur(9px); -webkit-filter:blur(9px); opacity:.9; pointer-events:none; user-select:none; overflow:hidden; }
+  .cs-flag{ display:inline-block; margin:2px 0 14px; padding:6px 16px; border-radius:999px; background:var(--orange); color:#fff;
+    font-weight:800; letter-spacing:.06em; text-transform:uppercase; font-size:13px; box-shadow:0 6px 18px rgba(224,112,60,.28); }
+</style>"""
+CS_HERO = """  <header class="page-hero cs-hero">
+    <div class="wrap">
+      <div class="ticks" aria-hidden="true"><i></i><i></i><i></i></div>
+      <span class="kicker">Industry Research &middot; 2026</span>
+      <h1>The 2026 Top 40 Largest Property Management Companies</h1>
+      <a class="presented-by" href="https://www.boompay.app/" target="_blank" rel="noopener">Presented by <img src="images/boom-logo.webp" alt="Boom" /></a>
+      <div class="cs-flag">List coming soon</div>
+      <p class="lead">The 2026 ranking is being compiled from this year's submissions. Check back soon for the full top 40, the data breakdowns, and the state-by-state map. In the meantime:</p>
+      <div class="hero-jump" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;">
+        <a class="btn btn-primary" href="blog/largest-property-management-companies-2025.html">Click here to see last year's final results</a>
+        <a class="btn btn-ghost" href="https://www.peterlohmann.com/largest-pm-companies" target="_blank" rel="noopener">Submit your company</a>
+      </div>
+    </div>
+  </header>"""
+cs = page
+cs = cs.replace("<title>The Largest PM Companies &middot; Peter Lohmann</title>",
+                "<title>The 2026 Largest PM Companies &middot; Coming Soon &middot; Peter Lohmann</title>", 1)
+cs = cs.replace("</head>", CS_STYLE + "\n</head>", 1)
+# swap the hero
+_h0 = cs.find('  <header class="page-hero">')
+_h1 = cs.find('</header>', _h0) + len('</header>')
+cs = cs[:_h0] + CS_HERO + cs[_h1:]
+# blur everything from just after the new hero to the end of <main>
+_after = cs.find('</header>', cs.find('cs-hero')) + len('</header>')
+_mend = cs.find('</main>')
+cs = cs[:_after] + '\n  <div class="cs-blur" aria-hidden="true">' + cs[_after:_mend] + '</div>\n' + cs[_mend:]
+CS_OUT = os.path.join(HERE, "largest-pm-companies-coming-soon.html")
+with open(CS_OUT, "w") as f:
+    f.write(cs)
+print(f"Wrote {CS_OUT}")
+
 # ============================ PER-STATE PAGES ============================
 # One real, crawlable/indexable HTML page per US state (SEO + AI-citation foundation;
 # the interactive map/modal, Phase 2, will link + progressively enhance these).

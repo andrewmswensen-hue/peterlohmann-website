@@ -11,7 +11,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>The Largest PM Companies &middot; Peter Lohmann</title>
+<title>The 2026 Largest PM Companies &middot; Coming Soon &middot; Peter Lohmann</title>
 <meta name="description" content="Peter Lohmann's 2026 ranking of the largest residential property management companies, with software share, org structure, NARPM membership, and top-10-by-state breakdowns." />
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
@@ -120,6 +120,12 @@
     .grow-list{ grid-template-columns:1fr; }
   }
 </style>
+<style>
+  /* Coming-soon teaser: blur the (still-recognizable) content that sits behind the hero */
+  .cs-blur{ filter:blur(9px); -webkit-filter:blur(9px); opacity:.9; pointer-events:none; user-select:none; overflow:hidden; }
+  .cs-flag{ display:inline-block; margin:2px 0 14px; padding:6px 16px; border-radius:999px; background:var(--orange); color:#fff;
+    font-weight:800; letter-spacing:.06em; text-transform:uppercase; font-size:13px; box-shadow:0 6px 18px rgba(224,112,60,.28); }
+</style>
 </head>
 <body>
 
@@ -145,20 +151,21 @@
 
 <main id="main">
 
-  <header class="page-hero">
+  <header class="page-hero cs-hero">
     <div class="wrap">
       <div class="ticks" aria-hidden="true"><i></i><i></i><i></i></div>
       <span class="kicker">Industry Research &middot; 2026</span>
-      <h1>The Largest Property Management Companies</h1>
+      <h1>The 2026 Top 40 Largest Property Management Companies</h1>
       <a class="presented-by" href="https://www.boompay.app/" target="_blank" rel="noopener">Presented by <img src="images/boom-logo.webp" alt="Boom" /></a>
-      <div class="hero-rule" aria-hidden="true"></div>
-      <p class="lead">A self-reported ranking of the largest residential property management companies, plus what the data says about software, structure, and how the best operators are built. Submissions are still open, so this list keeps growing.</p>
+      <div class="cs-flag">List coming soon</div>
+      <p class="lead">The 2026 ranking is being compiled from this year's submissions. Check back soon for the full top 40, the data breakdowns, and the state-by-state map. In the meantime:</p>
       <div class="hero-jump" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;">
-        <a class="btn btn-primary" href="#ranking">Top 40 List</a>
-        <a class="btn btn-ghost" href="#by-state">Top 10 by State</a>
+        <a class="btn btn-primary" href="blog/largest-property-management-companies-2025.html">Click here to see last year's final results</a>
+        <a class="btn btn-ghost" href="https://www.peterlohmann.com/largest-pm-companies" target="_blank" rel="noopener">Submit your company</a>
       </div>
     </div>
   </header>
+  <div class="cs-blur" aria-hidden="true">
 
   <!-- TOP 3 PODIUM -->
   <section class="band">
@@ -1618,6 +1625,7 @@
     </div>
   </section>
 
+</div>
 </main>
 
 <footer class="site">

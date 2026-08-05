@@ -24,6 +24,7 @@ JotForm every day; everything below is a **human override** layered on top (all 
 | PMI MIdwest | PMI Midwest | Capital-I typo |
 | Pacific Shpre Property Management | Pacific Shore Property Management | "Shpre" typo |
 | TurboTenant | TurboTenant "Autopilot" | Use their product name (per Andrew) |
+| 20 Property Management (WA) | 206 Property Management | Submitted name was missing the "6" (company flagged it). Safety-net override; the live JotForm entry now already reads "206". |
 
 ## 3. Crane members (CRANE_MEMBERS_FORCE) — flagged Crane despite the form
 Confirmed by Andrew/Peter or a prior submission: On Q, Stratton Vantage, Colorado Realty & Property

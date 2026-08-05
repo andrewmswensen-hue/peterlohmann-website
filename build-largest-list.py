@@ -42,6 +42,7 @@ NAME_FIXES = {
     "pmi midwest.": "PMI Midwest",
     "pacific shpre property management": "Pacific Shore Property Management",  # 'Shpre' typo
     "turbotenant": 'TurboTenant "Autopilot"',   # use their product name
+    "20 property management": "206 Property Management",  # WA company; submitted name missing the '6' (they flagged it). Safety net; the JotForm entry now reads "206" already.
 }
 CRANE_MEMBERS_FORCE = {                          # confirmed Crane members (matched by raw or display name)
     "on q property management",
@@ -1112,16 +1113,25 @@ print(f"Wrote {OUT}")
 CS_STYLE = """<style>
   /* Coming-soon teaser: blur the (still-recognizable) content that sits behind the hero */
   .cs-blur{ filter:blur(9px); -webkit-filter:blur(9px); opacity:.9; pointer-events:none; user-select:none; overflow:hidden; }
-  .cs-flag{ display:inline-block; margin:2px 0 14px; padding:6px 16px; border-radius:999px; background:var(--orange); color:#fff;
-    font-weight:800; letter-spacing:.06em; text-transform:uppercase; font-size:13px; box-shadow:0 6px 18px rgba(224,112,60,.28); }
+  /* "List coming soon" flag, inline next to the title */
+  .cs-flag{ display:inline-block; vertical-align:middle; margin-left:10px; padding:7px 16px; border-radius:999px; background:var(--orange); color:#fff;
+    font-family:var(--sans); font-weight:800; letter-spacing:.06em; text-transform:uppercase; font-size:14px; line-height:1;
+    box-shadow:0 6px 18px rgba(224,112,60,.28); white-space:nowrap; }
+  /* Big "2026 List Coming Soon" that sticks over the blurred section as you scroll it */
+  .cs-stage{ position:relative; }
+  .cs-overlay{ position:absolute; inset:0; z-index:5; pointer-events:none; }
+  .cs-big{ position:sticky; top:30vh; display:block; width:100%; text-align:center; padding:0 20px;
+    font-family:var(--serif); font-weight:400; font-size:clamp(46px,9vw,128px); line-height:1.0; color:var(--navy);
+    text-shadow:0 0 26px #fff, 0 0 26px #fff, 0 0 60px #fff, 0 2px 40px rgba(255,255,255,.95); }
+  .cs-big small{ display:block; margin-top:16px; font-family:var(--sans); font-weight:800; letter-spacing:.16em; text-transform:uppercase;
+    font-size:clamp(13px,1.5vw,18px); color:var(--orange-dark); text-shadow:0 0 18px #fff, 0 0 18px #fff; }
 </style>"""
 CS_HERO = """  <header class="page-hero cs-hero">
     <div class="wrap">
       <div class="ticks" aria-hidden="true"><i></i><i></i><i></i></div>
       <span class="kicker">Industry Research &middot; 2026</span>
-      <h1>The 2026 Top 40 Largest Property Management Companies</h1>
+      <h1>The 2026 Top 40 Largest Property Management Companies <span class="cs-flag">List coming soon</span></h1>
       <a class="presented-by" href="https://www.boompay.app/" target="_blank" rel="noopener">Presented by <img src="images/boom-logo.webp" alt="Boom" /></a>
-      <div class="cs-flag">List coming soon</div>
       <p class="lead">The 2026 ranking is being compiled from this year's submissions. Check back soon for the full top 40, the data breakdowns, and the state-by-state map. In the meantime:</p>
       <div class="hero-jump" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;">
         <a class="btn btn-primary" href="blog/largest-property-management-companies-2025.html">Click here to see last year's final results</a>
@@ -1137,10 +1147,16 @@ cs = cs.replace("</head>", CS_STYLE + "\n</head>", 1)
 _h0 = cs.find('  <header class="page-hero">')
 _h1 = cs.find('</header>', _h0) + len('</header>')
 cs = cs[:_h0] + CS_HERO + cs[_h1:]
-# blur everything from just after the new hero to the end of <main>
+# blur everything after the hero, with a big "2026 List Coming Soon" that sticks over it while scrolling
 _after = cs.find('</header>', cs.find('cs-hero')) + len('</header>')
 _mend = cs.find('</main>')
-cs = cs[:_after] + '\n  <div class="cs-blur" aria-hidden="true">' + cs[_after:_mend] + '</div>\n' + cs[_mend:]
+cs = (cs[:_after]
+      + '\n  <div class="cs-stage">'
+      + '\n  <div class="cs-blur" aria-hidden="true">' + cs[_after:_mend] + '</div>'
+      + '\n  <div class="cs-overlay" aria-hidden="true"><span class="cs-big">2026 List<br>Coming Soon'
+        '<small>Check back soon for the full ranking</small></span></div>'
+      + '\n  </div>\n'
+      + cs[_mend:])
 CS_OUT = os.path.join(HERE, "largest-pm-companies-coming-soon.html")
 with open(CS_OUT, "w") as f:
     f.write(cs)
